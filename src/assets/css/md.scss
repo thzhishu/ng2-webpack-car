@@ -1,0 +1,95 @@
+
+.state-btn{
+  color: #fff;
+  background: #8ccb6b;
+  padding: 0 10px;
+  cursor: pointer;
+  &.state-btn-stop{
+    background: rgb(241, 101, 87);
+  }
+}
+.edit-btn{
+  display: inline-block;
+      font-size: 0;
+      line-height: 57px;
+      vertical-align: middle;
+      color: #383838;
+      width: 34px;
+      height: 34px;
+      // margin: 11px 0;
+      background: url(assets/images/reward_ico.png) no-repeat;
+      cursor: pointer;
+      background-position: -277px -8px;
+}
+.del-btn{
+  display: inline-block;
+      font-size: 0;
+      line-height: 57px;
+      vertical-align: middle;
+      color: #383838;
+      width: 34px;
+      height: 34px;
+      // margin: 11px 0;
+      background: url(assets/images/reward_ico.png) no-repeat;
+      cursor: pointer;
+      background-position: -277px -55px;
+}
+.zs-bar{
+  .edit-btn,.del-btn{
+    margin: 11px 0;
+  }
+}
+.link-btn{
+  display: inline-block;
+  vertical-align: middle;
+  color:#5d90cb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mx-popwin { position:fixed; top:0; right:0; bottom:0; left:0; z-index:3000;}
+.mx-popwin-mask { width:100%; height:100%; background:#000; opacity:.7; }
+.mx-popwin-win { position:absolute; top:50%; left:50%; margin: -135px 0 0 -222px; width:444px; border:1px solid #d4d4d4 ; border:1px solid rgba(212, 212, 212, .81); box-shadow:1px 1px 4px rgba(0, 0, 0, .11); background:#fff;}
+.mx-popwin-head, .mx-popwin-foot { position:relative; height:40px;  border-bottom:1px solid #d4d4d4 ; border-bottom:1px solid rgba(212, 212, 212, .81); background:#fbfbfb ;  }
+.mx-popwin-foot { background:#fff; padding:8px 12px; text-align:right; border:none; border-top:1px solid #d4d4d4 ; border-top:1px solid rgba(212, 212, 212, .81); }
+.mx-popwin-title { font-size:14px; color:#383838 ; line-height: 39px; text-indent: 20px;}
+.mx-popwin-close {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 22px;
+    text-align: center;
+    line-height: 40px;
+    color: #888;
+ }
+.mx-popwin-btn { display:inline-block; cursor:pointer; text-align:center; border-radius:0px; margin-left:13px; width:62px; height:24px;  background:#9b9b9b ; color:#fff; line-height: 23px;border:1px solid  #9b9b9b}
+.mx-popwin-btn-ok {display:inline-block; cursor:pointer; text-align:center; border-radius:0px; margin-left:13px; width:62px; height:24px;   color:#fff; line-height: 23px; background:#00b496 ;border:1px solid  #00b496 }
+.mx-popwin-btn-ok:hover { background:#fff;color:#00b496  ;border:1px solid  #00b496 }
+.mx-popwin-btn:hover { background:#fff;color:#9b9b9b  ;border:1px solid  #9b9b9b }
+.mx-popwin-btn-ok[disabled]{
+  border: 1px solid #9b9b9b;
+  background: #9b9b9b;
+  color:#fff;
+}
+.mx-popwin-body{
+  padding:10px;
+  .del-msg{
+    padding: 50px;
+  }
+}
+.mx-bg-block{
+  background: #f1f1f1;
+  padding:10px;
+} 
+.mx-title{
+  margin-bottom: 10px;
+}
+.mx-inline{
+  margin-bottom: 10px;
+}
+.w100{
+  width:100px;
+}

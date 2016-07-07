@@ -1,0 +1,562 @@
+<navbar></navbar>
+<menus></menus>
+<main>
+  <div class="p-gray p-modify-store">
+    <div class="playout">
+      
+      <!-- 带搜索+添加的面包屑 -->
+      <div class="searchbar">
+        <!-- 面包屑导航 -->
+        <div class="crumbs">
+          <a href="javascript:;">首页</a> > <a ui-sref="customer-list">我的顾客</a> > <a href="javascript:;">沪B2L052</a>
+        </div>
+        <!-- 面包屑导航 end -->
+        <!--搜索-->
+        <div class="pa search">
+          <input type="text" placeholder="输入顾客手机/车牌">
+          <div class="search-btn"></div>
+        </div>
+        <!--搜索 end-->
+        <!-- 添加新生意 -->
+        <a href="" class="pa g-btn g-btn-green">+  记录新生意</a>
+        <!-- 添加新生意 end-->
+      </div>
+      <!-- 带搜索+添加的面包屑 end -->
+      
+      <!-- 顾客详情 -->
+      <div class="cd">
+        <!-- 顾客名字 -->
+        <div class="cd-name tc clearfix">
+          <div class="cd-tel">李宗元<span>15921256088</span></div>
+          <div class="fl cd-plate">沪B2L052</div>
+          <div class="fr">
+            合计消费<span>¥10,800</span>
+            <a ui-sref="customer-edit" >修改信息</a>
+          </div>
+        </div>
+        <!-- 顾客名字 end -->
+        <!-- 顾客基本信息 -->
+        <div class="cd-base">
+          <table>
+            <tr>
+              <td>车品牌</td>
+              <td>奔驰</td>
+              <td>客人手机</td>
+              <td>15921256088</td>
+            </tr>
+            <tr>
+              <td>车型</td>
+              <td>C200L</td>
+              <td>性别</td>
+              <td>男</td>
+            </tr>
+            <tr>
+              <td>车架号</td>
+              <td>123ABC</td>
+              <td>年龄</td>
+              <td>1980年 &nbsp; &nbsp; 36岁</td>
+            </tr>
+            <tr>
+              <td>购买年份</td>
+              <td>3000年</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>行驶公里数</td>
+              <td>3000</td>
+              <td>最后入店时间</td>
+              <td>2016-06-17</td>
+            </tr>
+          </table>
+        </div>
+        <!-- 顾客基本信息 end -->
+        <!-- 顾客生意记录 -->
+        <div class="cd-record-bar">
+          历史生意记录
+          <div class="cd-r-btn">
+            合计   <span>30</span>  次
+            <a href="" class="g-btn g-btn-green">+  记笔新生意</a>
+          </div>
+        </div>
+        <div class="cd-records">
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>结账日期</th>
+                  <th>施工项目</th>
+                  <th>主理技师</th>
+                  <th>使用材料</th>
+                  <th>数量</th>
+                  <th>材料费</th>
+                  <th>工时</th>
+                  <th>人工费</th>
+                  <th class="cd-border">客户满意度</th>
+                  <th class="cd-border">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cd-border" rowspan="4">2016.06.15  15:30</td>
+                  <td class="cd-border" rowspan="4">更换玻璃</td>
+                  <td class="cd-border" rowspan="4">小钟</td>
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  <td class="cd-border w174 cd-r-satisfaction" rowspan="4">
+                    <a class="c-cyan" href="">点击邀请评价</a>
+                  </td>
+                  <td class="cd-border w174 cd-r-comment" rowspan="4">
+                    我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="8" class="cd-r-total">
+                    合计：<span class="c-cyan">¥3,200 </span>元
+                  </td>
+                  <td colspan="2" class="cd-border cd-r-op">
+                    <a class="c-cyan" href="">修改</a> | <a class="c-cyan" href="">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>结账日期</th>
+                  <th>施工项目</th>
+                  <th>主理技师</th>
+                  <th>使用材料</th>
+                  <th>数量</th>
+                  <th>材料费</th>
+                  <th>工时</th>
+                  <th>人工费</th>
+                  <th class="cd-border">客户满意度</th>
+                  <th class="cd-border">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cd-border" rowspan="4">2016.06.15  15:30</td>
+                  <td class="cd-border" rowspan="4">更换玻璃</td>
+                  <td class="cd-border" rowspan="4">小钟</td>
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  <td class="cd-border w174 cd-r-satisfaction" rowspan="4">
+                    <a class="c-cyan" href="">点击邀请评价</a>
+                  </td>
+                  <td class="cd-border w174 cd-r-comment" rowspan="4">
+                    我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="8" class="cd-r-total">
+                    合计：<span class="c-cyan">¥3,200 </span>元
+                  </td>
+                  <td colspan="2" class="cd-border cd-r-op">
+                    <a class="c-cyan" href="">修改</a> | <a class="c-cyan" href="">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>结账日期</th>
+                  <th>施工项目</th>
+                  <th>主理技师</th>
+                  <th>使用材料</th>
+                  <th>数量</th>
+                  <th>材料费</th>
+                  <th>工时</th>
+                  <th>人工费</th>
+                  <th class="cd-border">客户满意度</th>
+                  <th class="cd-border">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cd-border" rowspan="4">2016.06.15  15:30</td>
+                  <td class="cd-border" rowspan="4">更换玻璃</td>
+                  <td class="cd-border" rowspan="4">小钟</td>
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  <td class="cd-border w174 cd-r-satisfaction" rowspan="4">
+                    <a class="c-cyan" href="">点击邀请评价</a>
+                  </td>
+                  <td class="cd-border w174 cd-r-comment" rowspan="4">
+                    我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="8" class="cd-r-total">
+                    合计：<span class="c-cyan">¥3,200 </span>元
+                  </td>
+                  <td colspan="2" class="cd-border cd-r-op">
+                    <a class="c-cyan" href="">修改</a> | <a class="c-cyan" href="">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>结账日期</th>
+                  <th>施工项目</th>
+                  <th>主理技师</th>
+                  <th>使用材料</th>
+                  <th>数量</th>
+                  <th>材料费</th>
+                  <th>工时</th>
+                  <th>人工费</th>
+                  <th class="cd-border">客户满意度</th>
+                  <th class="cd-border">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cd-border" rowspan="4">2016.06.15  15:30</td>
+                  <td class="cd-border" rowspan="4">更换玻璃</td>
+                  <td class="cd-border" rowspan="4">小钟</td>
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  <td class="cd-border w174 cd-r-satisfaction" rowspan="4">
+                    <a class="c-cyan" href="">点击邀请评价</a>
+                  </td>
+                  <td class="cd-border w174 cd-r-comment" rowspan="4">
+                    我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="8" class="cd-r-total">
+                    合计：<span class="c-cyan">¥3,200 </span>元
+                  </td>
+                  <td colspan="2" class="cd-border cd-r-op">
+                    <a class="c-cyan" href="">修改</a> | <a class="c-cyan" href="">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>结账日期</th>
+                  <th>施工项目</th>
+                  <th>主理技师</th>
+                  <th>使用材料</th>
+                  <th>数量</th>
+                  <th>材料费</th>
+                  <th>工时</th>
+                  <th>人工费</th>
+                  <th class="cd-border">客户满意度</th>
+                  <th class="cd-border">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cd-border" rowspan="4">2016.06.15  15:30</td>
+                  <td class="cd-border" rowspan="4">更换玻璃</td>
+                  <td class="cd-border" rowspan="4">小钟</td>
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  <td class="cd-border w174 cd-r-satisfaction" rowspan="4">
+                    <a class="c-cyan" href="">点击邀请评价</a>
+                  </td>
+                  <td class="cd-border w174 cd-r-comment" rowspan="4">
+                    我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注我是那个美丽的备注，我是那个销魂的备注
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>福耀原厂玻璃</td>
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                  <td>1</td>
+                  <td>¥1,500</td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="8" class="cd-r-total">
+                    合计：<span class="c-cyan">¥3,200 </span>元
+                  </td>
+                  <td colspan="2" class="cd-border cd-r-op">
+                    <a class="c-cyan" href="">修改</a> | <a class="c-cyan" href="">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+            
+        </div>
+        <!-- 顾客生意记录end -->
+        <!-- 列表分页 -->
+        <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
+          link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
+
+          <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
+
+
+          <ul  class="pagination pagination-md links">
+            <li class="txt-page prev-page disabled">
+              <a href="" ng-click="gotoPage(page-1)">上一页</a>
+            </li>
+            
+            <li   class="ng-scope active"><a href=""  class="ng-binding">第1页</a></li>
+            
+            <li   class="ng-scope"><a href="" class="ng-binding">2</a></li>
+            <li  class="page-ellipse disabled ng-scope"><a href="">......</a></li>
+            <li   class="ng-scope"><a href="" class="ng-binding">22</a></li>
+            <li   class="ng-scope"><a href="" class="ng-binding">23</a></li>
+            <li class="txt-page next-page">
+              <a href="" ng-click="gotoPage(page+1)"  class=" ng-scope">下一页</a>
+            
+            </li>
+          </ul>
+          <div  class="mx-paginate-jump ng-scope">
+            转到
+            <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
+            <button ng-click="jumpToPage(jumpPage-1)">GO</button>
+          </div>
+        </div>
+        <!-- 列表分页 end -->
+      </div>
+      <!-- 顾客详情 end -->
+      
+      <!-- 页脚  -->
+      <page-footer></page-footer>
+      <!-- 页脚 end -->
+    </div>
+    <!-- 删除弹出层 -->
+    <div class="fwin del-win employee-del-win" style="display:none;">
+      <div class="fwin-mask">
+        <div class="fwin-box">
+          <div class="fwin-close"></div>
+          <div class="fwin-content">
+            <div>
+              <h1>确定删除该员工？</h1>
+              <div>
+                该员工及其信息将被删除，其历史服务记录<br>
+                不会被删除 
+                
+              </div>
+            </div>
+          </div>
+          <div class="fwin-btns g-btns">
+            <div class="g-btn g-btn-green">确认删除</div>
+            <div class="g-btn g-btn-gray">取消</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 删除弹出层 end -->
+    <!-- 评价弹出层 -->
+    <div class="fwin evaluation-win" style="display:none;">
+      <div class="fwin-mask">
+        <div class="fwin-box">
+          <div class="fwin-close"></div>
+          <div class="fwin-content">
+            <h1>您有以下方式可以完成此次评价</h1>
+            <div class="ev-methods">
+              <div>
+                <div>方法一</div>
+                <div><img src="/app/images/dynamic/qr_record.png" alt=""></div>
+                <div>邀请顾客手机扫码参加</div>
+              </div>
+              <div>
+                <div>方法二</div>
+                <h2>给该顾客发送一条短信</h2>
+                <p>顾客通过短信链接自行评价</p>
+                <div class="tc g-field">
+                  顾客手机
+                  <input type="tel" class="">
+                </div>
+              </div>
+              <div>
+                <div>方法三</div>
+                <h2>自己询问顾客</h2>
+                <p>问卷将由您询问顾客后输入评价</p>
+              </div>
+            </div>
+          </div>
+          <div class="fwin-btns g-btns">
+            <div class="g-btn g-btn-green">确认删除</div>
+            <div class="g-btn g-btn-gray">取消</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 评价弹出层 end -->
+  </div>
+    
+</main>
+

@@ -1,0 +1,142 @@
+.business-add {
+  i.arrow-up {
+    background: url("../../../images/arrow-up.png") 0 0 no-repeat;
+    width: 13px;
+    height: 17px;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .title-underline {
+    border-bottom: 2px solid #38b549;
+    padding: 5px 0;
+    color: #343434;
+  }
+  .ml20 {
+    margin-left: 20px;
+  }
+  .ml70 {
+    margin-left: 70px;
+  }
+  .ml85 {
+    margin-left: 85px;
+  }
+  .header {
+    margin: 30px 60px 24px;
+    .nav-first,
+    .nav-second {
+      color: #9a9a9a;
+      font-size: 18px;
+      &.cur {
+        color: #343434;
+        border-bottom: 2px solid #38b549;
+        &:before {
+          background: #38b549;
+        }
+      }
+      &:before {
+        background: #9a9a9a;
+        color: #fff;
+        border-radius: 25px;
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        line-height: 25px;
+        text-align: center;
+        font-style: normal;
+        margin-right: 5px;
+      }
+    }
+    .nav-first {
+      &:before {
+        content: '1';
+      }
+    }
+    .nav-second {
+      &:before {
+        content: '2';
+      }
+    }
+  }
+  .border-bottom-underline {
+    border-bottom: 2px dashed #38b549;
+  }
+  .w147 {
+    width: 147px;
+  }
+  .w427{
+    width: 427px;
+  }
+  .ml120 {
+    margin-left: 120px;
+  }
+  .mr20 {
+    margin-right: 20px;
+  }
+  .fs14 {
+    font-size: 14px;
+  }
+  .h36{
+    height: 36px;
+  }
+  .g-textarea {
+    width: 343px;
+    height: 128px;
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid #b6b6b6;
+  }
+  .g-field select{
+    margin: 0;
+  }
+  .add-service{
+    color: #777;
+    float: right;
+    display: inline-block;
+    width: 24px;
+    height: 35px;
+    margin-left: 15px;
+    font-size: 0;
+    text-decoration: none;
+    line-height: 50px;
+    position: absolute;
+    &:before {
+      content: '+';
+      border: 1px solid #38b549;
+      color: #38b549;
+      border-radius: 25px;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      line-height: 18px;
+      text-align: center;
+      font-style: normal;
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+  .del-store {
+    color: #777;
+    float: right;
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+    margin-left: 15px;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 35px;
+    &:before {
+      content: 'X';
+      background: #f32c52;
+      color: #fff;
+      border-radius: 25px;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      line-height: 20px;
+      text-align: center;
+      font-style: normal;
+      margin-right: 5px;
+    }
+  }
+}

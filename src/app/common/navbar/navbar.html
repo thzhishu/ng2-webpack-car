@@ -1,0 +1,39 @@
+<!-- <nav class="navbar">
+  <div class="logo">
+    <h1><a ui-sref="home">{{ vm.name }}</a></h1>
+  </div>
+  <div class="nav-links">
+    <span><a ui-sref="about">about</a></span>
+  </div>
+</nav> -->
+<div class="topbar">
+    <a href=""></a>
+    <div class="clearfix">
+        <h1>{{vm.title}}</h1>
+        <div class="fr info">
+            <span>当前门店</span>  
+            <div class="c-drop c-drop-store">
+                <div class="legend"><a href="javascript:;">南京东路店</a><i></i></div>
+                <div class="c-drop-cont">
+                    <ul class="account-list-tip">
+                        <li ><a ui-sref="modify-store({id:1})">高科西路店</a></li>
+                        <li ><a ui-sref="modify-store({id:2})">天上人间</a></li>
+                        <li ><a ui-sref="modify-store({id:3})">远东国际</a></li>
+                        <li ><a ui-sref="modify-store({id:4})">人民广场店</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="c-drop">
+                <div class="legend"><a href="javascript:;">账户管理</a><i></i></div>
+                <div class="c-drop-cont">
+                    <ul class="account-list-tip">
+                        <li ><a ui-sref="my-account">我的账户</a></li>
+                        <li ><a ui-sref="customer-list">我的顾客</a></li>
+                        <li ><a ui-sref="employee-list">我的员工</a></li>
+                    </ul>
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>

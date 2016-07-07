@@ -1,0 +1,46 @@
+<navbar></navbar>
+<menus></menus>
+<main>
+  <div class="p-gray">
+    <div class="playout">
+      <!-- 面包屑导航 -->
+      <div class="crumbs">
+        <a href="javascript:;">首页</a> > <a ui-sref="my-account">我的账户</a>
+      </div>
+      <!-- 面包屑导航 end -->
+      <!-- 主内容标题 -->
+      <div class="c-header">我的账户</div>
+      <!-- 主内容标题 end -->
+      <!-- 主内容 -->
+      <div class="c-main s-table">
+        
+        <div class="s-tr">
+          <div class="s-td">账户版本:</div>
+          <div class="s-td">{{vm.accountBaseInfo.version}}</div>
+        </div>
+        <div class="s-tr" ng-repeat="store in vm.accountBaseInfo.stores">
+          <div class="s-td"><span ng-if="$first">门店资料：</span></div>
+          <div class="s-td">{{store.name}}<a ui-sref="modify-store({id: store.id})">修改</a></div>
+        </div>
+        <!--<div class="s-tr">
+          <div class="s-td"></div>
+          <div class="s-td">徐汇区肇嘉浜路店<a ui-sref="modify-store">修改</a></div>
+        </div>-->
+        <div class="s-tr">
+          <div class="s-td">登录账号：</div>
+          <div class="s-td">{{vm.accountBaseInfo.user.name}}</div>
+        </div>
+        <div class="s-tr">
+          <div class="s-td">登录密码：</div>
+          <div class="s-td">****** <a ui-sref="modify-pwd">修改</a></div>
+        </div>
+      </div>
+      <!-- 主内容 end -->
+      <!-- 页脚  -->
+      <page-footer></page-footer>
+      <!-- 页脚 end -->
+    </div>
+  </div>
+    
+</main>
+

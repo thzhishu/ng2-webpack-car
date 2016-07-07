@@ -1,0 +1,301 @@
+<navbar></navbar>
+<menus></menus>
+<main class="business-add">
+  <div class="p-gray p-modify-store">
+    <div class="playout">
+
+      <!-- 带搜索+添加的面包屑 -->
+      <div class="searchbar">
+        <!-- 面包屑导航 -->
+        <div class="crumbs">
+          <a href="javascript:;">首页</a>
+          >
+          <a ui-sref="business-list">我的生意</a>
+          >
+          <a ui-sref="business-add">记笔新生意</a>
+        </div>
+        <!-- 面包屑导航 end -->
+        <!--搜索-->
+        <div class="pa search">
+          <input type="text" placeholder="输入顾客手机/车牌">
+          <div class="search-btn"></div>
+        </div>
+        <!--搜索 end-->
+        <!-- 添加新生意 -->
+        <a href="" class="pa g-btn g-btn-green">+ 记录新生意</a>
+        <!-- 添加新生意 end-->
+      </div>
+      <!-- 带搜索+添加的面包屑 end -->
+      <!-- 主内容标题 -->
+      <div class="header">
+        <div class="dib nav-first" ng-class="{cur:vm.$params.step=='1'}">
+          新增顾客信息
+        </div>
+        <div class="dib nav-second ml70" ng-class="{cur:vm.$params.step=='2'}">
+          服务项目
+        </div>
+      </div>
+      <!-- 主内容标题 end -->
+      <!-- 顾客表单 -->
+      <form class="" ng-submit="vm.onSubmit()" ng-if="vm.$params.step=='1'">
+        <div class="c-form customer-form">
+          <!-- 顾客表单字段 -->
+          <div class="pr  border-bottom-underline">
+            <div class="g-field">
+              <label for="employee_name" class="g-label">
+                <span class="warning">*</span>车牌号</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_name" placeholder="必填项" class="g-w343">
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_code" class="g-label">手机号</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_code" placeholder="" class="g-w343">
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_tel" class="g-label">车架号</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_tel" placeholder="" class="g-w343">
+              </div>
+            </div>
+          </div>
+          <h5>
+            <i class="arrow-up"></i>
+            <span class="ml20">填写更多信息(选填)</span>
+          </h5>
+          <div class="pr ">
+            <div class="g-field">
+              <label for="employee_name" class="g-label">姓名</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_name" placeholder="" class="g-w343">
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_code" class="g-label">出生年月</label>
+              <div class="g-ipt">
+                <select class="g-w343" name="">
+                  <option value="option">请选择</option>
+                </select>
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_tel" class="g-label">性别</label>
+              <div class="g-ipt">
+                <select class="g-w343" name="">
+                  <option value="option">请选择</option>
+                  <option value="option">男</option>
+                  <option value="option">女</option>
+                </select>
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_name" class="g-label">车品牌</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_name" placeholder="" class="g-w343">
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_code" class="g-label">车型号</label>
+              <div class="g-ipt">
+                <input type="text" id="employee_code" placeholder="" class="g-w343">
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_tel" class="g-label">购买年份</label>
+              <div class="g-ipt">
+                <select class="g-w343" name="">
+                  <option value="option">请选择</option>
+                  <option value="option">2015</option>
+                  <option value="option">2016</option>
+                </select>
+              </div>
+            </div>
+            <div class="g-field">
+              <label for="employee_tel" class="g-label">行驶里程数</label>
+              <div class="g-ipt">
+                <input type="number" id="employee_tel" placeholder="" class="g-w343">
+              </div>
+            </div>
+          </div>
+          <!-- 顾客表单字段 end -->
+          <!-- 顾客表单按钮  -->
+          <button type="submit" class="g-btn g-btn-green ml85">下一步</div>
+          <!-- 顾客表单按钮 end -->
+
+        </form>
+        <!-- 顾客表单 end -->
+
+        <!-- 项目表单 -->
+        <form class="" ng-if="vm.$params.step==2">
+          <div class="c-form program-form">
+            <!-- 项目表单字段 -->
+            <div class="pr w427">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">
+                  施工项目</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">主理技师</label>
+                <div class="g-ipt">
+                  <select class="g-w343" name="">
+                    <option>请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <h5>
+              <i class="arrow-up"></i>
+              <span class="ml20">详细信息</span>
+            </h5>
+            <div class="pr w427 border-bottom-underline">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">使用材料</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+                <a href="#" class="add-service">添加服务</a>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">材料数量</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">材料费用</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_name" class="g-label">工时</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">人工费</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_code" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field h36">
+                <a href="javascript:void(0);" class="del-store">删除</a>
+              </div>
+            </div>
+            <div class="pr w427 border-bottom-underline">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">使用材料</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+                <a href="#" class="add-service">添加服务</a>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">材料数量</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">材料费用</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_name" class="g-label">工时</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">人工费</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_code" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field h36">
+                <a href="javascript:void(0);" class="del-store">删除</a>
+              </div>
+            </div>
+            <div class="pr w427 border-bottom-underline">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">使用材料</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+                <a href="#" class="add-service">添加服务</a>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">材料数量</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">材料费用</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_name" class="g-label">工时</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">人工费</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_code" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field h36">
+                <a href="javascript:void(0);" class="del-store">删除</a>
+              </div>
+            </div>
+            <div class="pr w427 border-bottom-underline">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">入店时间</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">备注</label>
+                <div class="g-ipt">
+                  <textarea class="g-textarea" name="name" rows="8" cols="40">
+
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="pr w427">
+              <div class="g-field">
+                <label for="employee_name" class="g-label"></label>
+                <div class="g-ipt ml120">
+                  <span class="mr20 fs14">费用合计</span>
+                  <input type="text" id="employee_name" placeholder="" class="w147">
+                </div>
+              </div>
+            </div>
+            <!-- 项目表单字段 end -->
+            <!-- 项目表单按钮  -->
+            <div class="g-btn g-btn-green ml85">提交</div>
+            <!-- 项目表单按钮 end -->
+          </div>
+        </form>
+        <!-- 项目表单 end -->
+        <!-- 页脚  -->
+        <page-footer></page-footer>
+        <!-- 页脚 end -->
+      </div>
+    </div>
+  </div>
+</main>

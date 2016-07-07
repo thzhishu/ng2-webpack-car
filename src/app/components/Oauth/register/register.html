@@ -1,0 +1,28 @@
+<div class="register">
+  <main-logo></main-logo>
+  <div class="register-block animated rubberBand" ng-class="{zoomOutRight:vm.oauth.submited==1}">
+    <h2 class="register-title">注册<a [routerLink]="['/login-min']" class="register-login-link fr">已有账户登录</a></h2>
+    <form>
+      <div class="register-input " ng-class="{error:1}">
+        <input type="text" class="inner-group" placeholder="请输入您的手机号码" ng-model="vm.oauth.phone">
+        <a class="inner-btn" ng-click="vm.onSeekPhone(vm.oauth.phone,vm.oauth.code)">发送验证码</a>
+        <div class="msg"><span class="text-error">请输入正确的手机号码</span></div>
+      </div>
+      <div class="register-input" ng-class="{error:1}">
+        <input type="text" placeholder="请输入收到的验证码" ng-model="vm.oauth.phoneCode">
+        <div class="msg"><span class="text-error">请输入正确的验证码</span></div>
+      </div>
+      <div class="register-input">
+        <input type="password" placeholder="请设置您的密码(6-16位长度)" ng-model="vm.oauth.pwd">
+        <div class="msg"><span class="text-error">请输入正确的密码</span></div>
+      </div>
+      <div class="register-input">
+        <input type="" class="w140 dib" placeholder="验证码" ng-model="vm.oauth.code"><img src="" class="dib link ml10" alt="验证码"><a class="dib link ml10" ng-click="onChangeCode()">换一张</a>
+        <div class="msg"><span class="text-error">请输入验证码</span></div>
+      </div>
+      <button type="submit" class="register-btn-submit" ng-click="vm.onRegister()">注册</button>
+    </form>
+    <i></i>
+  </div>
+  <page-footer class="white"></page-footer>
+</div>

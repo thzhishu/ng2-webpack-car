@@ -1,0 +1,24 @@
+.main-logo {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    margin-left: -105px;
+    margin-top: -40px;
+    i {
+        background: url(./white-main-logo.png) 0 0 no-repeat;
+        width: 64px;
+        height: 75px;
+        display: block;
+        z-index: 100;
+        background-size: cover;
+        float: left;
+        margin: 0 auto;
+    }
+    .title {
+        color: #fff;
+        font-size: 24px;
+        width: 120px;
+        line-height: 80px;
+        margin-left: 90px;
+    }
+}
