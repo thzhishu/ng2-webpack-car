@@ -1,28 +1,42 @@
 <div class="register">
   <main-logo></main-logo>
-  <div class="register-block animated rubberBand" ng-class="{zoomOutRight:vm.oauth.submited==1}">
-    <h2 class="register-title">注册<a [routerLink]="['/login-min']" class="register-login-link fr">已有账户登录</a></h2>
-    <form>
-      <div class="register-input " ng-class="{error:1}">
-        <input type="text" class="inner-group" placeholder="请输入您的手机号码" ng-model="vm.oauth.phone">
-        <a class="inner-btn" ng-click="vm.onSeekPhone(vm.oauth.phone,vm.oauth.code)">发送验证码</a>
-        <div class="msg"><span class="text-error">请输入正确的手机号码</span></div>
+  <form (ngSubmit)="onRegister()" [ngFormModel]="rForm">
+    <div class="register-block animated rubberBand" [ngClass]="{zoomOutRight:rForm.submitted}">
+      <h2 class="register-title">注册<a [routerLink]="['/login-min']" class="register-login-link fr">已有账户登录</a>
+      </h2>
+      <div class="register-input " [class.error]="!rForm.controls.phone?.valid && !rForm.controls.phone?.pristine">
+        <input type="text"  ngControl="phone" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" placeholder="请输入您的手机号码" [(ngModel)]="user.phone">
+        <div class="msg">
+          <span  class="text-error" *ngIf="!rForm.controls.phone?.valid && !rForm.controls.phone?.pristine">
+            <span *ngIf="rForm.controls.phone.errors.required">手机号码不能为空</span>
+            <span *ngIf="rForm.controls.phone.errors.pattern">请输入正确的手机号码</span>
+          </span>
+        </div>
       </div>
-      <div class="register-input" ng-class="{error:1}">
-        <input type="text" placeholder="请输入收到的验证码" ng-model="vm.oauth.phoneCode">
-        <div class="msg"><span class="text-error">请输入正确的验证码</span></div>
+      <div class="register-input" [class.error]="!rForm.controls.rnd?.valid && !rForm.controls.rnd?.pristine">
+        <input type="" class="w140 dib" maxlength="4"  ngControl="rnd"  required placeholder="请输入右侧图形校验码" [(ngModel)]="user.rnd">
+        <img [src]="" class="dib link ml10" alt="验证码">
+        <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
+        <div class="msg">
+          <span class="text-error" *ngIf="!rForm.controls.rnd?.valid">请输入右侧图形校验码</span>
+        </div>
       </div>
-      <div class="register-input">
-        <input type="password" placeholder="请设置您的密码(6-16位长度)" ng-model="vm.oauth.pwd">
-        <div class="msg"><span class="text-error">请输入正确的密码</span></div>
+      <div class="register-input" [class.error]="!rForm.controls.phoneCode?.valid && !rForm.controls.phoneCode?.pristine">
+        <input type="text" class="inner-group" maxlength="10"  ngControl="phoneCode"  required  placeholder="请输入短信验证码" [(ngModel)]="user.phoneCode">
+        <a class="inner-btn" [class.disabled]="seekDisabeld" (click)="onSeekPhone(user.phone,user.rnd)">{{seekBtnTitle!=null?seekBtnTitle+'s':'发送验证码'}}</a>
+        <div class="msg">
+          <span class="text-error" *ngIf="!rForm.controls.phoneCode?.valid">验证码错误</span>
+        </div>
       </div>
-      <div class="register-input">
-        <input type="" class="w140 dib" placeholder="验证码" ng-model="vm.oauth.code"><img src="" class="dib link ml10" alt="验证码"><a class="dib link ml10" ng-click="onChangeCode()">换一张</a>
-        <div class="msg"><span class="text-error">请输入验证码</span></div>
+      <div class="register-input" [class.error]="!rForm.controls.pwd?.valid && !rForm.controls.pwd?.pristine">
+        <input type="password" minlength="6" maxlength="16"  ngControl="pwd"  required  placeholder="请设置您的密码(6-16位长度)" [(ngModel)]="user.pwd">
+        <div class="msg">
+          <span class="text-error" *ngIf="!rForm.controls.pwd?.valid">请输入正确的密码</span>
+        </div>
       </div>
-      <button type="submit" class="register-btn-submit" ng-click="vm.onRegister()">注册</button>
-    </form>
-    <i></i>
-  </div>
+      <button type="submit" class="register-btn-submit">注册</button>
+      <i></i>
+    </div>
+  </form>
   <page-footer class="white"></page-footer>
 </div>

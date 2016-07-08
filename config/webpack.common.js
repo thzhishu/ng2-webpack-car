@@ -55,7 +55,6 @@ module.exports = {
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
-
     },
 
     /*
@@ -80,7 +79,8 @@ module.exports = {
 
         alias: {
             // legacy imports pre-rc releases
-            'angular2': helpers.root('node_modules/@angularclass/angular2-beta-to-rc-alias/dist/beta-17')
+            'angular2': helpers.root('node_modules/@angularclass/angular2-beta-to-rc-alias/dist/beta-17'),
+            'client': helpers.root('src/client')
         },
 
     },
@@ -179,13 +179,9 @@ module.exports = {
             },
 
             {
-                test: /\.(png|jpg|ttf|woff|svg|eot)$/,
-                loader: 'url-loader?limit=8192'
-            }, // inline base64 URLs for <=8k images, direct URLs for the rest
-            // {
-            //   test: /\.css$/,
-            //   loader: 'raw-loader!style-loader!css-loader!autoprefixer-loader?browsers=last 2 versions!sass?sourceMap'
-            // },
+                test: /\.(png|jpg|ttf|woff|svg|eot|gif)$/,
+                loader: 'url-loader?limit=10000'
+            }, // inline base64 URLs for <=10k images, direct URLs for the rest
             {
                 test: /\.(scss|sass)$/,
                 loader: 'raw-loader!autoprefixer-loader!sass-loader?sourceMap'

@@ -7,6 +7,8 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
+import { UserApi } from 'client';
+// import { UserApi } from '../../../../client';
 
 @Component({
   moduleId: module.id,
@@ -14,19 +16,20 @@ import { Md5 } from 'ts-md5/dist/md5';
   template: require('./loginMin.html'),
   styles: [require('./loginMin.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
-  providers: [HTTP_PROVIDERS],
+  providers: [HTTP_PROVIDERS,UserApi],
 })
 
 export class LoginMinComponent {
-  oauth: any;
+  user: any;
+  loginForm:any;
 
-  constructor(private router: Router,fb: FormBuilder, params: RouteSegment) {
+  constructor(private router: Router,fb: FormBuilder, params: RouteSegment,private uApi:UserApi) {
     this.loginForm = fb.group({
         'username': [''],
         'pwd': [''],
         'code': [''],
     });
-    this.oauth = {};
+    this.user = {};
   }
   ngOnInit() {
 

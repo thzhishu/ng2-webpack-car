@@ -6,20 +6,20 @@
         <h2 class="login-min-title">登录<a [routerLink]="['/register']" class="login-min-register-link fr">注册新账户</a>
         </h2>
         <div class="login-min-input" [class.error]="1">
-          <input type="text" placeholder="请输入您的手机号码" [(ngModel)]="oauth.username">
+          <input type="text" placeholder="请输入您的手机号码" [(ngModel)]="user.phone">
           <div class="msg">
             <span class="text-error">请输入正确的手机号码</span>
           </div>
         </div>
         <div class="login-min-input">
-          <input type="password" placeholder="请输入您的账户密码" [(ngModel)]="oauth.pwd">
+          <input type="password" placeholder="请输入您的账户密码" [(ngModel)]="user.pwd">
           <div class="msg">
             <span class="text-error">请输入正确的密码</span>
           </div>
         </div>
         <div class="login-min-input">
-          <input type="" class="w140 dib" placeholder="验证码" [(ngModel)]="oauth.code"><img src="" class="dib link ml10" alt="验证码">
-          <a class="dib link ml10" ng-click="onChangeCode()">换一张</a>
+          <input type="" class="w140 dib" placeholder="验证码" [(ngModel)]="user.code"><img src="" class="dib link ml10" alt="验证码">
+          <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
           <div class="msg">
             <span class="text-error">请输入验证码</span>
           </div>

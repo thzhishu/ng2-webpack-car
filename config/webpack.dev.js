@@ -144,10 +144,10 @@ module.exports = webpackMerge(commonConfig, {
             poll: 1000
         },
         proxy: {
-            '/api*': {
-                target: 'http://192.168.1.146:8080',
+            '/api/v1*': {
+                target: 'http://192.168.1.153:9999/',
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api/v1': '/api/v1'
                 }
             }
         },

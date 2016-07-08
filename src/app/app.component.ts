@@ -13,7 +13,8 @@ import * as moment from 'moment';
     template: '<router-outlet></router-outlet>',
     styles: [require('../assets/css/app.scss')],
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS]
+    providers: [ROUTER_PROVIDERS],
+    encapsulation: ViewEncapsulation.Native
 })
 
 @Routes([
