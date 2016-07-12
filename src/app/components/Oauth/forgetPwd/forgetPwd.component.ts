@@ -12,34 +12,40 @@ import { MainLogoComponent,PageFooterComponent } from 'common';
 
 @Component({
     moduleId:module.id,
-    selector: 'register',
-    template: require('./register.html'),
-    styles: [ require('./register.scss') ],
+    selector: 'forget-pwd',
+    template: require('./forgetPwd.html'),
+    styles: [ require('./forgetPwd.scss') ],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,MainLogoComponent,PageFooterComponent],
     providers: [HTTP_PROVIDERS,UserApi,CommonApi,Md5],
 })
 
-export class RegisterComponent {
-    rForm: ControlGroup;
+export class ForgetPwdComponent {
+    fpForm: ControlGroup;
+    newPwdForm: ControlGroup;
     zone:any;
     user:any = {};
     seekDisabeld:number = 0;
     seekBtnTitle:number = 0;
+    next:number = 1;
+    loading:number = 0;
+    sign:string;
     constructor(private router: Router,fb: FormBuilder, params: RouteSegment,private uApi:UserApi,private cApi:CommonApi) {
       this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
       //表单验证
-      this.rForm = fb.group({
+      this.fpForm = fb.group({
           'phone': [''],
           'rnd': [''],
           'code': [''],
+      });
+      this.newPwdForm = fb.group({
           'pwd': [''],
+          'checkPwd': [''],
       });
     }
     //初始化
     ngOnInit() {
       this.getCodeImg();
     }
-
     /**
      * 获取图片验证码
      * @return {[type]} [description]
@@ -50,6 +56,10 @@ export class RegisterComponent {
         console.dir(data);
       })
     }
+    onChangeCodeImg(){
+      this.getCodeImg();
+    }
+
     /**
      * 点击发送验证码
      * @param  {[type]} phone 手机号码
@@ -90,24 +100,40 @@ export class RegisterComponent {
      */
     getPhoneCode(phone:string = '',rnd:string = ''){
       let salt = 'thzs0708';
-      let sign = Md5.hashStr(phone+rnd+salt)||'';
-      this.uApi.userPasswordSmsPost(phone,rnd,sign).subscribe(data => {
+      this.sign = Md5.hashStr(phone+rnd+salt)||'';
+      this.uApi.userPasswordSmsPost(phone,rnd,this.sign).subscribe(data => {
         console.log('this.cApi.userPasswordSmsPost()');
         console.dir(data);
       })
     }
-
-    //注册
-    onRegister(){
-      console.log(this.rForm);
-      if(!this.rForm.valid){
-        alert('你输入的信息有误.不能完成注册');
+    //验证手机号
+    onCheckPhone(){
+      this.next = 2;
+      console.log(this.fpForm);
+      if(!this.fpForm.valid){
+        alert('你输入的信息有误.不能完成登录');
         return false;
       }
-      let params = this.rForm.value;
-      //mobile: string, password: string, code: string, captcha: string
-      this.uApi.userRegisterPost(params.phone,params.pwd,params.code,params.rnd).subscribe(data => {
-        console.log('this.cApi.userRegisterPost()');
+      let params = this.fpForm.value;
+      params.uuid = '123456';
+      //code: string, phone: string, uuid: string,
+      this.uApi.commonCodeVerifyGet(params.code,params.phone,params.uuid).subscribe(data => {
+        console.log('this.cApi.commonCodeVerifyGet()');
+        console.dir(data);
+      })
+    }
+
+    //重置密码
+    onEditPwd(){
+      console.log(this.newPwdForm);
+      if(!this.newPwdForm.valid){
+        alert('你输入的信息有误.不能完成重置密码');
+        return false;
+      }
+      let params = this.newPwdForm.value;
+      //password: string, rePassword: string, sign: string
+      this.uApi.userUpdatePwdPost(params.pwd,params.checkPwd,this.sign).subscribe(data => {
+        console.log('this.cApi.userUpdatePwdPost()');
         console.dir(data);
       })
     }

@@ -80,7 +80,9 @@ module.exports = {
         alias: {
             // legacy imports pre-rc releases
             'angular2': helpers.root('node_modules/@angularclass/angular2-beta-to-rc-alias/dist/beta-17'),
-            'client': helpers.root('src/client')
+            'client': helpers.root('src/client'),
+            'common': helpers.root('src/app/common'),
+            'components': helpers.root('src/app/components')
         },
 
     },

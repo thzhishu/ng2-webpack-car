@@ -1,38 +1,64 @@
 <div class="forgetPwd">
   <main-logo></main-logo>
-  <div class="forgetPwd-block animated rubberBand" ng-class="{flipOutY:vm.oauth.vaild==1}">
-    <h2 class="forgetPwd-title">找回密码<a ui-sref="register" class="forgetPwd-register-link fr">注册新账户</a></h2>
-    <form>
-      <div class="forgetPwd-input " ng-class="{error:1}">
-        <input type="text" class="inner-group" placeholder="请输入您的手机号码" ng-model="vm.oauth.username">
-        <a class="inner-btn">发送验证码</a>
-        <div class="msg"><span class="text-error">请输入正确的手机号码</span></div>
+  <form (ngSubmit)="onSubmit()" [ngFormModel]="fpForm">
+    <div class="forgetPwd-block animated rubberBand" [class.flipOutY]="fpForm.submitted">
+      <h2 class="forgetPwd-title">找回密码<a [routerLink]="['/register']" class="forgetPwd-register-link fr">注册新账户</a>
+      </h2>
+      <div class="forgetPwd-input " [class.error]="!fpForm.controls.phone?.valid && !fpForm.controls.phone?.pristine">
+        <input type="text"  ngControl="phone" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" placeholder="请输入您的手机号码">
+        <div class="msg">
+          <span  class="text-error" *ngIf="!fpForm.controls.phone?.valid && !fpForm.controls.phone?.pristine">
+            <span *ngIf="fpForm.controls.phone.errors.required">手机号码不能为空</span>
+            <span *ngIf="fpForm.controls.phone.errors.pattern">请输入正确的手机号码</span>
+          </span>
+        </div>
+      </div>
+      <div class="forgetPwd-input" [class.error]="!fpForm.controls.rnd?.valid && !fpForm.controls.rnd?.pristine">
+        <input type="" class="w140 dib" maxlength="4"  ngControl="rnd"  required placeholder="请输入右侧图形校验码" >
+        <img [src]="" class="dib link ml10" alt="验证码">
+        <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
+        <div class="msg">
+          <span class="text-error" *ngIf="!fpForm.controls.rnd?.valid">请输入右侧图形校验码</span>
+        </div>
+      </div>
+      <div class="forgetPwd-input" [class.error]="!fpForm.controls.code?.valid && !fpForm.controls.code?.pristine">
+        <input type="text" class="inner-group" maxlength="10"  ngControl="code"  required  placeholder="请输入短信验证码" >
+        <a class="inner-btn" [class.disabled]="seekDisabeld||!fpForm.controls.phone?.valid||!fpForm.controls.rnd?.valid" (click)="onSeekPhone(fpForm.value.phone,fpForm.value.rnd)">{{seekBtnTitle!=0?seekBtnTitle+'s':'发送验证码'}}</a>
+        <div class="msg">
+          <span class="text-error" *ngIf="!fpForm.controls.code?.valid">验证码错误</span>
+        </div>
+      </div>
+      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!fpForm.valid" (click)="onCheckPhone()">下一步</button>
+      <a [routerLink]="['/login-min']" class="forgetPwd-register-link">又想起来了</a>
+      <i></i>
+    </div>
+  </form>
+  <form (ngSubmit)="onSubmit()" [ngFormModel]="newPwdForm" *ngIf="next!=1" >
+    <div class="forgetPwd-block animated" [class.zoomOutRight]="newPwdForm.submitted" >
+      <h2 class="forgetPwd-title">设置新密码</h2>
+      <div class="forgetPwd-input">
+        <input type="password" placeholder="请设置您的密码(6-16位长度)" ngControl="pwd" minlength="6" maxlength="16" required>
+        <div class="msg">
+          <span class="text-error" *ngIf="!newPwdForm.controls.pwd?.valid && !newPwdForm.controls.pwd?.pristine">
+            <span *ngIf="newPwdForm.controls.pwd.errors.required">密码不能为空</span>
+            <span *ngIf="newPwdForm.controls.pwd.errors.pattern">请输入正确的密码</span>
+          </span>
+        </div>
       </div>
       <div class="forgetPwd-input">
-        <input type="text" placeholder="请输入收到的验证码" ng-model="vm.oauth.phoneCode">
-        <div class="msg"><span class="text-error">请输入正确的验证码</span></div>
+        <input type="password" placeholder="请确认您的密码(6-16位长度)" ngControl="checkPwd" minlength="6" maxlength="16" required>
+        <div class="msg">
+          <span class="text-error" *ngIf="!newPwdForm.controls.checkPwd?.valid && !newPwdForm.controls.checkPwd?.pristine">
+            <span *ngIf="newPwdForm.controls.checkPwd.errors.required">密码不能为空</span>
+            <span *ngIf="newPwdForm.controls.checkPwd.errors.pattern">请输入正确的密码</span>
+          </span>
+        </div>
       </div>
-      <button type="submit" class="forgetPwd-btn-submit" ng-click="vm.onCheckPhone()">下一步</button>
-      <a ui-sref="login-min" class="forgetPwd-register-link">又想起来了</a>
-    </form>
-    <i></i>
-  </div>
-  <div class="forgetPwd-block animated" ng-class="{zoomOutRight:vm.oauth.submited==1,hide:vm.oauth.next!=1}">
-    <h2 class="forgetPwd-title">设置新密码</h2>
-    <form>
-      <div class="forgetPwd-input">
-        <input type="password" placeholder="请设置您的密码(6-16位长度)" ng-model="vm.oauth.pwd">
-        <div class="msg"><span class="text-error">请输入正确的密码</span></div>
-      </div>
-      <div class="forgetPwd-input">
-        <input type="password" placeholder="请确认您的密码(6-16位长度)" ng-model="vm.oauth.pwd">
-        <div class="msg"><span class="text-error">请输入正确的密码</span></div>
-      </div>
-      <button type="submit" class="forgetPwd-btn-submit" ng-click="vm.onEditPwd()">确认提交</button>
-    </form>
-    <i></i>
-  </div>
-  <div class="sk-cube-grid loading" ng-class="{show:vm.loading}">
+      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!newPwdForm.valid" (click)="onEditPwd()">确认提交</button>
+      <i></i>
+    </div>
+  </form>
+  <div class="sk-cube-grid loading" [class.show]="loading">
     <div class="sk-cube sk-cube1"></div>
     <div class="sk-cube sk-cube2"></div>
     <div class="sk-cube sk-cube3"></div>
@@ -43,5 +69,5 @@
     <div class="sk-cube sk-cube8"></div>
     <div class="sk-cube sk-cube9"></div>
   </div>
-  <page-footer class="white"></page-footer>
+  <page-footer cls="white"></page-footer>
 </div>

@@ -49,6 +49,7 @@
             }
         }
         .login-min-input {
+          position: relative;
             input {
                 border: 1px solid #b6b6b6;
                 width: 100%;
@@ -93,12 +94,13 @@
             width: 100%;
             line-height: 35px;
             border: 1px solid transparent;
+            cursor: pointer;
             &:hover,
-            :active {
+            &:active {
                 background: #38b549;
             }
             &.disabled,
-            [disabled] {
+            &[disabled] {
                 background: #c0c0c0;
             }
         }

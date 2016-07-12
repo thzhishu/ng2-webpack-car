@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, Routes } from '@angular/router';
 
-// import { HomeComponent } from './common';
-import { LoginMinComponent,RegisterComponent } from './components';
+
+import { LoginMinComponent,RegisterComponent,ForgetPwdComponent } from 'components';
 import * as moment from 'moment';
 
 // import '../../../node_modules/spinkit/scss/spinners/9-cube-grid.scss';
@@ -20,6 +20,7 @@ import * as moment from 'moment';
 @Routes([
     { path: '/login-min', component: LoginMinComponent },
     { path: '/register', component: RegisterComponent },
+    { path: '/forget-pwd', component: ForgetPwdComponent },
 ])
 
 export class AppComponent implements OnInit {

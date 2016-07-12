@@ -36,7 +36,7 @@
         // height: 355px;
         margin-left: -219px;
         i {
-            background: url(../images/right-corner.png) 0 0 no-repeat;
+            background: url(/assets/images/right-corner.png) 0 0 no-repeat;
             position: absolute;
             right: 0;
             bottom: -41px;
@@ -113,18 +113,20 @@
                 top: 0;
                 background: #008b3d;
                 color: #fff;
+                width: 90px;
                 height: 40px;
                 border-radius: 0 5px 5px 0;
                 line-height: 40px;
                 font-size: 14px;
                 padding: 0 10px;
                 cursor: pointer;
+                text-align: center;
                 &:hover,
-                :active {
+                &:active {
                     background: #38b549;
                 }
                 &.disabled,
-                [disabled] {
+                &[disabled] {
                     background: #c0c0c0;
                 }
             }
@@ -135,12 +137,14 @@
             width: 100%;
             line-height: 35px;
             border: 1px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
             &:hover,
-            :active {
+            &:active {
                 background: #38b549;
             }
             &.disabled,
-            [disabled] {
+            &[disabled] {
                 background: #c0c0c0;
             }
         }

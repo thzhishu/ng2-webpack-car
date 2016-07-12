@@ -5,31 +5,39 @@
       <div class="">
         <h2 class="login-min-title">登录<a [routerLink]="['/register']" class="login-min-register-link fr">注册新账户</a>
         </h2>
-        <div class="login-min-input" [class.error]="1">
-          <input type="text" placeholder="请输入您的手机号码" [(ngModel)]="user.phone">
+        <div class="login-min-input" [class.error]="!loginForm.controls.phone?.valid && !loginForm.controls.phone?.pristine">
+          <input type="text" placeholder="请输入您的手机号码" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" ngControl="phone">
           <div class="msg">
-            <span class="text-error">请输入正确的手机号码</span>
+            <span class="text-error" *ngIf="!loginForm.controls.phone?.valid && !loginForm.controls.phone?.pristine">
+              <span *ngIf="loginForm.controls.phone.errors.required">手机号码不能为空</span>
+              <span *ngIf="loginForm.controls.phone.errors.pattern">请输入正确的手机号码</span>
+            </span>
           </div>
         </div>
-        <div class="login-min-input">
-          <input type="password" placeholder="请输入您的账户密码" [(ngModel)]="user.pwd">
+        <div class="login-min-input" [class.error]="!loginForm.controls.pwd?.valid && !loginForm.controls.pwd?.pristine">
+          <input type="password" placeholder="请输入您的账户密码" required ngControl="pwd">
           <div class="msg">
-            <span class="text-error">请输入正确的密码</span>
+            <span class="text-error" *ngIf="!loginForm.controls.pwd?.valid && !loginForm.controls.pwd?.pristine">
+              <span *ngIf="loginForm.controls.pwd.errors.required">账户密码不能为空</span>
+              <span *ngIf="loginForm.controls.pwd.errors.pattern">请输入正确的账户密码</span>
+            </span>
           </div>
         </div>
-        <div class="login-min-input">
-          <input type="" class="w140 dib" placeholder="验证码" [(ngModel)]="user.code"><img src="" class="dib link ml10" alt="验证码">
-          <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
+        <div class="login-min-input" [class.error]="!loginForm.controls.rnd?.valid && !loginForm.controls.rnd?.pristine">
+          <input type="" class="w140 dib" placeholder="验证码" required ngControl="rnd"><img src="" (click)="onChangeCodeImg()" class="dib link ml10" alt="验证码">
+          <a class="dib link ml10" (click)="onChangeCodeImg()">换一张</a>
           <div class="msg">
-            <span class="text-error">请输入验证码</span>
+            <span class="text-error" *ngIf="!loginForm.controls.rnd?.valid && !loginForm.controls.rnd?.pristine">
+              <span *ngIf="loginForm.controls.rnd.errors.required">验证码不能为空</span>
+              <span *ngIf="loginForm.controls.rnd.errors.pattern">请输入正确的验证码</span>
+            </span>
           </div>
-          <span>验证码输入 next ,进入 我的账户页面</span>
         </div>
-        <button type="submit" class="login-min-btn-submit" (click)="onLogin()">下一步</button>
-        <a [routerLink]="['/register']" class="login-min-register-link">忘记密码</a>
+        <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid" (click)="onLogin()">下一步</button>
+        <a [routerLink]="['/forget-pwd']" class="login-min-register-link">忘记密码</a>
       </div>
       <i></i>
     </div>
   </form>
-  <page-footer class="white"></page-footer>
+  <page-footer cls="white"></page-footer>
 </div>
