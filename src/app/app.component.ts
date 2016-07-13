@@ -11,7 +11,7 @@ import * as moment from 'moment';
 @Component({
     selector: 'car-app',
     template: '<router-outlet></router-outlet>',
-    styles: [require('../assets/css/app.scss')],
+    styles: [require('assets/css/app.scss')],
     directives: [ROUTER_DIRECTIVES],
     providers: [ROUTER_PROVIDERS],
     encapsulation: ViewEncapsulation.Native

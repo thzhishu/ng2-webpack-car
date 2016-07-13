@@ -25,6 +25,7 @@ export class RegisterComponent {
     user:any = {};
     seekDisabeld:number = 0;
     seekBtnTitle:number = 0;
+    openProtocol:number = 0;
     constructor(private router: Router,fb: FormBuilder, params: RouteSegment,private uApi:UserApi,private cApi:CommonApi) {
       this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
       //表单验证
@@ -50,6 +51,15 @@ export class RegisterComponent {
         console.dir(data);
       })
     }
+
+    onOpenProtocol(){
+      this.openProtocol = 1;
+    }
+
+    onClose(){
+      this.openProtocol = 0;
+    }
+
     /**
      * 点击发送验证码
      * @param  {[type]} phone 手机号码
