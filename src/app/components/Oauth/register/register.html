@@ -15,7 +15,7 @@
       </div>
       <div class="register-input" [class.error]="!rForm.controls.rnd?.valid && !rForm.controls.rnd?.pristine">
         <input type="" class="w140 dib" maxlength="4" ngControl="rnd" required placeholder="请输入右侧图形校验码">
-        <img [src]="" class="dib link ml10" alt="验证码">
+        <img [src]="https://www.placecage.com/90/40" class="dib link ml10" alt="验证码" (click)="onChangeCode()">
         <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
         <div class="msg">
           <span class="text-error" *ngIf="!rForm.controls.rnd?.valid">请输入右侧图形校验码</span>

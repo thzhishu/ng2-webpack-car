@@ -5,4 +5,5 @@ export * from './EmployeeApi';
 export * from './RegionApi';
 export * from './ReportApi';
 export * from './ShopApi';
+export * from './SurveyApi';
 export * from './UserApi';
