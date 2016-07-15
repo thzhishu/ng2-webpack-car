@@ -24,10 +24,9 @@ export class RegisterComponent {
   zone: any;
   user: any = {};
   seekDisabeld: number = 0;
-  seekBtnTitle: number = 0;
+  seekBtnTitle:any;
   openProtocol: number = 0;
   img: any;
-  defaultHeaders: any = {};
   sign:string;
   constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
@@ -50,8 +49,8 @@ export class RegisterComponent {
    */
   getCodeImg() {
     this.cApi.commonCaptchaPost().subscribe(data => {
-      // this.img = data.url + '?time=' + new Date().getTime();
-      // this.uApi.defaultHeaders.set('uuid',data.headers.get('uuid'));
+      this.img = 'data:image/jpeg;base64,'+ (data.text() || '');
+      this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
     });
   }
   onChangeCode() {
@@ -92,7 +91,7 @@ export class RegisterComponent {
         if (this.seekBtnTitle > 0) {
           this.seekBtnTitle--;
         } else {
-          this.seekBtnTitle = null;
+          this.seekBtnTitle = '重新发送';
           this.seekDisabeld = 0;
         }
       });
@@ -107,8 +106,8 @@ export class RegisterComponent {
   getPhoneCode(phone: string = '', rnd: string = '') {
     let salt = 'thzs0708';
     this.sign = Md5.hashStr(phone + rnd + salt).toString();
-    this.uApi.userPasswordSmsPost(phone, rnd, this.sign).subscribe(data => {
-      console.log('this.uApi.userPasswordSmsPost()');
+    this.uApi.userRegisterSmsPost(phone, rnd, this.sign).subscribe(data => {
+      console.log('this.uApi.userRegisterPost()');
       console.dir(data);
     })
   }
@@ -123,8 +122,13 @@ export class RegisterComponent {
     let params = this.rForm.value;
     //mobile: string, password: string, code: string, captcha: string
     this.uApi.userRegisterPost(params.phone, params.pwd, params.code, params.rnd).subscribe(data => {
-      console.log('this.cApi.userRegisterPost()');
+      console.log('this.uApi.userRegisterPost()');
       console.dir(data);
+      let json = data.json();
+      if(json.meta.code==200){
+        this.uApi.defaultHeaders.token = data.headers.get('token') || 'token';
+        this.router.navigate(['/login-min']);
+      }
     })
   }
 

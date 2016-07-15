@@ -48,7 +48,7 @@ export class CommonApi {
      * 通过的验证码接口 
      */
     public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<{}> {
-        const path = this.basePath + '/common/captcha';
+        const path = this.basePath + '/common/captchaBase64';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
@@ -63,7 +63,7 @@ export class CommonApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
+                    return response;
                 }
             });
     }
@@ -138,7 +138,7 @@ export class CommonApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
+                    return response;
                 }
             });
     }

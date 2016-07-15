@@ -1,6 +1,6 @@
 <div class="login-min">
   <main-logo></main-logo>
-  <form (ngSubmit)="onSubmit()" [ngFormModel]="loginForm">
+  <form (ngSubmit)="onLogin()" [ngFormModel]="loginForm">
     <div class="login-min-block animated rubberBand" [class.jump-animation-target]="loginForm.submited">
       <div class="">
         <h2 class="login-min-title">登录<a [routerLink]="['/register']" class="login-min-register-link fr">注册新账户</a>
@@ -24,7 +24,8 @@
           </div>
         </div>
         <div class="login-min-input" [class.error]="!loginForm.controls.rnd?.valid && !loginForm.controls.rnd?.pristine">
-          <input type="" class="w140 dib" placeholder="验证码" required ngControl="rnd"><img src="" (click)="onChangeCodeImg()" class="dib link ml10" alt="验证码">
+          <input type="" class="w140 dib" placeholder="验证码" required ngControl="rnd">
+          <img [src]="img" (click)="onChangeCodeImg()" class="dib link ml10" alt="验证码">
           <a class="dib link ml10" (click)="onChangeCodeImg()">换一张</a>
           <div class="msg">
             <span class="text-error" *ngIf="!loginForm.controls.rnd?.valid && !loginForm.controls.rnd?.pristine">
@@ -33,7 +34,7 @@
             </span>
           </div>
         </div>
-        <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid" (click)="onLogin()">下一步</button>
+        <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid" >下一步</button>
         <a [routerLink]="['/forget-pwd']" class="login-min-register-link">忘记密码</a>
       </div>
       <i></i>

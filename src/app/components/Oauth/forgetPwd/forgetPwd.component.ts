@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/common';
+import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -29,8 +29,10 @@ export class ForgetPwdComponent {
   next: number = 1;
   loading: number = 0;
   sign:string;
-  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+
+  constructor( private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi ) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
+
     //表单验证
     this.fpForm = fb.group({
       'phone': [''],
