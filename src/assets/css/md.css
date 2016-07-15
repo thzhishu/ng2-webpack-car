@@ -3,11 +3,7 @@
   outline: none;
 }
 body,
-html,car-app{
-  height: 100%;
-  width: 100%;
-}
-register{
+html,car-app {
   height: 100%;
   width: 100%;
 }

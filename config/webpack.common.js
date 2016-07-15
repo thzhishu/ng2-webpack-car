@@ -51,7 +51,6 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
     entry: {
-
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
@@ -82,7 +81,8 @@ module.exports = {
             'angular2': helpers.root('node_modules/@angularclass/angular2-beta-to-rc-alias/dist/beta-17'),
             'client': helpers.root('src/client'),
             'common': helpers.root('src/app/common'),
-            'components': helpers.root('src/app/components')
+            'components': helpers.root('src/app/components'),
+            'assets': helpers.root('src/assets')
         },
 
     },
