@@ -63,7 +63,7 @@ export class CommonApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response;
+                    return response.json();
                 }
             });
     }
