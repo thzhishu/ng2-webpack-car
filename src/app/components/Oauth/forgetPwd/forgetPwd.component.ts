@@ -28,7 +28,7 @@ export class ForgetPwdComponent {
   seekBtnTitle: number = 0;
   next: number = 1;
   loading: number = 0;
-  sign: string;
+  sign:string;
   constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
     //表单验证
@@ -100,7 +100,7 @@ export class ForgetPwdComponent {
    */
   getPhoneCode(phone: string = '', rnd: string = '') {
     let salt = 'thzs0708';
-    this.sign = Md5.hashStr(phone + rnd + salt) || '';
+    this.sign = Md5.hashStr(phone + rnd + salt,false).toString();
     this.uApi.userPasswordSmsPost(phone, rnd, this.sign).subscribe(data => {
       console.log('this.uApi.userPasswordSmsPost()');
       console.dir(data);

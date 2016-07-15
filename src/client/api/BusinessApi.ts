@@ -164,7 +164,7 @@ export class BusinessApi {
      * 
      * @param id 生意id
      */
-    public businessDeleteDelete (id: number, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
+    public businessDeleteDelete (id: string, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
         const path = this.basePath + '/business/delete';
 
         let queryParameters = new URLSearchParams();
@@ -199,7 +199,7 @@ export class BusinessApi {
      * @param date 时间
      * @param shopId 门店id
      */
-    public businessListGet (date: Date, shopId: string, extraHttpRequestParams?: any ) : Observable<models.BusinessListResponse> {
+    public businessListGet (date: string, shopId: string, extraHttpRequestParams?: any ) : Observable<models.BusinessListResponse> {
         const path = this.basePath + '/business/list';
 
         let queryParameters = new URLSearchParams();

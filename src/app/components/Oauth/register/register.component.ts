@@ -28,7 +28,8 @@ export class RegisterComponent {
   openProtocol: number = 0;
   img: any;
   defaultHeaders: any = {};
-  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+  sign:string;
+  constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
     //表单验证
     this.rForm = fb.group({
@@ -48,10 +49,9 @@ export class RegisterComponent {
    * @return {[type]} [description]
    */
   getCodeImg() {
-    // this.img = '/api/v1/common/captcha';
     this.cApi.commonCaptchaPost().subscribe(data => {
-      this.img = data.url + '?time=' + new Date().getTime();
-      this.uApi.defaultHeaders.set('uuid',data.headers.get('uuid'));
+      // this.img = data.url + '?time=' + new Date().getTime();
+      // this.uApi.defaultHeaders.set('uuid',data.headers.get('uuid'));
     });
   }
   onChangeCode() {
@@ -106,8 +106,8 @@ export class RegisterComponent {
    */
   getPhoneCode(phone: string = '', rnd: string = '') {
     let salt = 'thzs0708';
-    let sign = Md5.hashStr(phone + rnd + salt) || '';
-    this.uApi.userPasswordSmsPost(phone, rnd, sign).subscribe(data => {
+    this.sign = Md5.hashStr(phone + rnd + salt).toString();
+    this.uApi.userPasswordSmsPost(phone, rnd, this.sign).subscribe(data => {
       console.log('this.uApi.userPasswordSmsPost()');
       console.dir(data);
     })

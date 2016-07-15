@@ -44,7 +44,7 @@ export interface Question {
     description?: string;
 
     /**
-     * 问题分类
+     * 问题类型, radio单选题，checkbox多选题,single多行单选题,multi多行多选题,stext单行文本题,mtext多行文本题           section分节符，page分页符,name姓名,phone手机号,email邮件地址,price价格,score评分题,score_multi多行评分题           color颜色, sex性别, age出生年月, date日期, time时间, district地区, sort排序, upload上传文件                       
      */
     type?: string;
 

@@ -22,7 +22,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 export class EmployeeListComponent {
 	employeeList:any[] = [];
 	deleteEmployee: any;
-	winShow: int;
+	winShow: number;
 	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
 		console.log(params);
 		this.employeeList = [];

@@ -16,30 +16,29 @@ import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 	selector: 'employee-edit',
 	template: require('./employeeEdit.html'),
 	styles: [require('./employeeEdit.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent],
-	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, EmployeeApi ]
+	directives: [ ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent ],
+	providers: [ HTTP_PROVIDERS, UserApi, CommonApi, Md5, EmployeeApi ]
 })
 
 export class EmployeeEditComponent {
 	employee: any;
+	id:string;
 	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
-		console.log('xjj', this.params);
 		this.employee = {
 			name: '',
 			code: '',
 			mobile: ''
 		}
+		this.id = this.params.getParam('id');
 	}
 
 	ngOnInit() {
-		//console.log(params);
-		//console.log(fb);
-		// console.log(this.params);
-		if(this.params.parameters.id) {
-			this.eApi.employeeEmployeeIdGet('', this.params.parameters.id).subscribe(data=>{
+
+		if(this.id) {
+			this.eApi.employeeEmployeeIdGet('', this.id).subscribe(data => {
 				console.log(data);
 				this.employee = data.data;
-			}, err=>{
+			}, err => {
 				console.error(err);
 			});
 		}

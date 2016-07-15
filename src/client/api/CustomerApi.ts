@@ -120,7 +120,7 @@ export class CustomerApi {
      * @param vehicleYear 购买年份
      * @param vehicleMiles 行驶里程
      */
-    public customerSaveOrUpdatePost (vehicleLicence: string, id?: string, mobile?: string, vehicleFrame?: string, name?: string, birthYear?: number, gender?: number, vehicleBrand?: string, vehicleModel?: string, vehicleYear?: number, vehicleMiles?: number, extraHttpRequestParams?: any ) : Observable<models.CustomerResponse> {
+    public customerSaveOrUpdatePost (vehicleLicence: string, id?: string, mobile?: string, vehicleFrame?: string, name?: string, birthYear?: string, gender?: string, vehicleBrand?: string, vehicleModel?: string, vehicleYear?: string, vehicleMiles?: string, extraHttpRequestParams?: any ) : Observable<models.CustomerResponse> {
         const path = this.basePath + '/customer/saveOrUpdate';
 
         let queryParameters = new URLSearchParams();

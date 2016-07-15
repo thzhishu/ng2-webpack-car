@@ -21,9 +21,9 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 })
 
 export class EmployeeFormComponent {
-	employee: any;
-	formErr: any;
 	@Input() employee;
+	formErr: any;
+
 	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
 		console.log(params);
 		// this.employee = {
@@ -45,12 +45,12 @@ export class EmployeeFormComponent {
 	save() {
 		if(this.employee.name == "" && this.employee.code == "") {
 			this.formErr.required = true;
-			return false;
+			return Observable.create();
 		}
 		
 		if(this.employee.mobile != "" && this.onCheckMobile()) {
 			this.formErr.mobile = true;
-			return false;
+			return Observable.create();
 		}
 		this.formErr = {
 			required: false,

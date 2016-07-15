@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, Routes } from '@angular/router';
 
-
-//import { LoginMinComponent,RegisterComponent,ForgetPwdComponent, MyAccountComponent, ModifyStoreComponent, ModifyPwdComponent } from 'components';
 import * as components from 'components';
 import * as moment from 'moment';
 
 // import '../../../node_modules/spinkit/scss/spinners/9-cube-grid.scss';
+
 
 
 @Component({
@@ -34,8 +33,6 @@ import * as moment from 'moment';
     { path: '/customer-list', component: components.CustomerListComponent },
     { path: '/report/week/business', component: components.ReportWeekBusinessComponent },
     { path: '/report/week/satisfaction', component: components.ReportWeekSatisfactionComponent }
-
-
 ])
 
 export class AppComponent implements OnInit {
