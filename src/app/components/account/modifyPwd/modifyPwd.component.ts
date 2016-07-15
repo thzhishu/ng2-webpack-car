@@ -20,11 +20,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 })
 
 export class ModifyPwdComponent {
-	pwd: Object = {
-        oldPassword: '',
-        password: '',
-        rePassord: ''
-    };
+	pwd: any;
 
     mpwdForm: ControlGroup;
     active: Boolean;

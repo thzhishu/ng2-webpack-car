@@ -25,7 +25,7 @@
       <!-- 主内容标题 -->
       <div class="pr c-header">
         我的员工
-        <a [routerLink]="['/employee-add']" class="pa s-btn">+新员工</a>
+        <a [routerLink]="['/employee-add']" class="pa s-btn" *ngIf="employeeList.length">+新员工</a>
       </div>
       <!-- 主内容标题 end -->
       <!-- 主内容 -->
@@ -94,7 +94,7 @@
           <div class="le-img"></div>
           <div class="le-txt tc">
             当前未添加员工 
-            <a class="g-btn g-btn-green" ui-sref="employee-add">+  添加新员工</a>
+            <a class="g-btn g-btn-green" [routerLink]="['/employee-add']">+  添加新员工</a>
           </div>
         </div>
 
