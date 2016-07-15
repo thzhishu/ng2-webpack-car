@@ -20,8 +20,8 @@ export class ReportApi {
     }
 
     /**
-     * 满意度报告
-     *
+     * 满意度报告   
+     * 
      * @param startDate 开始时间，格式yyyy-MM-dd
      * @param endDate 结束时间，格式yyyy-MM-dd
      */
@@ -31,11 +31,11 @@ export class ReportApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         if (startDate !== undefined) {
-            queryParameters.set('startDate', startDate.toString());
+            queryParameters.set('startDate', startDate);
         }
 
         if (endDate !== undefined) {
-            queryParameters.set('endDate', endDate.toString());
+            queryParameters.set('endDate', endDate);
         }
 
         let requestOptions: RequestOptionsArgs = {
@@ -49,8 +49,8 @@ export class ReportApi {
     }
 
     /**
-     * 业务总结报告
-     *
+     * 业务总结报告   
+     * 
      * @param startDate 开始时间，格式yyyy-MM-dd
      * @param endDate 结束时间，格式yyyy-MM-dd
      */
@@ -60,11 +60,11 @@ export class ReportApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         if (startDate !== undefined) {
-            queryParameters.set('startDate', startDate.toString());
+            queryParameters.set('startDate', startDate);
         }
 
         if (endDate !== undefined) {
-            queryParameters.set('endDate', endDate.toString());
+            queryParameters.set('endDate', endDate);
         }
 
         let requestOptions: RequestOptionsArgs = {

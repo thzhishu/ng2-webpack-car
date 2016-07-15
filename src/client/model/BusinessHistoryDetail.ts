@@ -8,9 +8,9 @@ export interface BusinessHistoryDetail {
     
 
     /**
-     * id     
+     * id   
      */
-    id?: string;
+    id?: number;
 
     /**
      * 服务项目 
@@ -18,19 +18,19 @@ export interface BusinessHistoryDetail {
     name?: string;
 
     /**
-     * 技师id             
+     * 技师id     
      */
-    employeeId?: string;
+    employeeId?: number;
 
     /**
      * 顾客id    
      */
-    customerId?: string;
+    customerId?: number;
 
     /**
-     * 门店id     
+     * 门店id   
      */
-    shopId?: string;
+    shopId?: number;
 
     /**
      * 入店时间'yyyy-MM-dd HH:mm'                                    

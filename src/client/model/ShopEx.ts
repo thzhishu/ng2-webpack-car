@@ -5,14 +5,14 @@ export interface ShopEx {
     
 
     /**
-     * 是否需要验证码，如果1，则弹出警告框，要求发送验证码 
+     * 删除时候用到， 其他请忽略。 是否需要验证码，如果1，则弹出警告框，要求发送验证码 
      */
     askForCode?: number;
 
     /**
      * 用户uid 
      */
-    id?: string;
+    id?: number;
 
     /**
      * 门店名称
@@ -22,17 +22,17 @@ export interface ShopEx {
     /**
      * 省
      */
-    provinceId?: string;
+    provinceId?: number;
 
     /**
      * 市
      */
-    cityId?: string;
+    cityId?: number;
 
     /**
      * 区
      */
-    districtId?: string;
+    districtId?: number;
 
     /**
      * 地址

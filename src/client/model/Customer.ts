@@ -7,7 +7,7 @@ export interface Customer {
     /**
      * 顾客id
      */
-    id?: string;
+    id?: number;
 
     /**
      * 车牌号

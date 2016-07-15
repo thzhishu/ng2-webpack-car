@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class UserApi {
-    protected basePath = 'http://localhost:3000/api/v1';
+    protected basePath = 'http://car.mytianhui.com/api/v1';
     public defaultHeaders : Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
@@ -20,8 +20,8 @@ export class UserApi {
     }
 
     /**
-     * 登录之后修改密码， 通过原密码修改
-     *
+     * 登录之后修改密码， 通过原密码修改 
+     * 
      * @param oldPassword 旧密码
      * @param password 新密码
      * @param rePassword 确认密码
@@ -66,7 +66,7 @@ export class UserApi {
 
     /**
      * 用户登录
-     * 用户通过手机号，密码，验证码登录车门店系统。返回结构的lastShopId是最近选中门店id, 登录之后要选中该门店
+     * 用户通过手机号，密码，验证码登录车门店系统。返回结构的lastShopId是最近选中门店id, 登录之后要选中该门店 
      * @param mobile 登录手机号
      * @param password 登录密码
      * @param code 验证码
@@ -110,8 +110,27 @@ export class UserApi {
     }
 
     /**
-     * 我的账户
-     *
+     * 用户登录
+     * 注销登出， 删除token缓存， 数据库token设置为null 
+     */
+    public userLogoutPost (extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
+        const path = this.basePath + '/user/logout';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * 我的账户 
+     * 
      * @param token 用户的登录凭证
      */
     public userMeGet (token: string, extraHttpRequestParams?: any ) : Observable<models.MyAcountResponse> {
@@ -136,8 +155,8 @@ export class UserApi {
     }
 
     /**
-     * 发送找回密码验证码
-     *
+     * 发送找回密码验证码 
+     * 
      * @param mobile 手机号
      * @param rnd 4位随机数， 客户端生成
      * @param sign 签名, md5(phone+rnd+salt)， 其中salt&#x3D;thzs0708， 不符合签名的请求一律返回错误
@@ -182,7 +201,7 @@ export class UserApi {
 
     /**
      * 用户注册
-     *
+     * 
      * @param mobile 手机号
      * @param password 密码
      * @param code 手机验证码
@@ -234,7 +253,7 @@ export class UserApi {
 
     /**
      * 发送注册验证码， 注册验证码只能用在注册，后端放入reids，设置timeout，做单限制/单ip发送次数?
-     *
+     * 
      * @param mobile 手机号
      * @param rnd 4位随机数， 客户端生成
      * @param sign 签名, md5(phone+rnd+salt)， 其中salt&#x3D;thzs0708, 不符合签名的请求一律返回错误
@@ -279,7 +298,7 @@ export class UserApi {
 
     /**
      * 切换门店时候调用该方法， 服务端保存用户选择的门店，下次登录默认显示该门店
-     *
+     * 
      * @param shopId 手机号
      */
     public userShopCurrentPost (shopId: string, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
@@ -309,8 +328,8 @@ export class UserApi {
     }
 
     /**
-     * 不用登录系统, 通过手机验证码验明身份后修改密码。 通过凭证去修改密码， 服务端要验证凭证可靠性，和手机号关联, 5分钟timeout
-     *
+     * 不用登录系统, 通过手机验证码验明身份后修改密码。 通过凭证去修改密码， 服务端要验证凭证可靠性，和手机号关联, 5分钟timeout 
+     * 
      * @param password 密码
      * @param rePassword 确认密码
      * @param sign /common/code/verify返回的sign

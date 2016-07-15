@@ -7,7 +7,7 @@ export interface User {
     /**
      * 用户uid 
      */
-    id?: string;
+    id?: number;
 
     /**
      * 手机号 
@@ -32,5 +32,5 @@ export interface User {
     /**
      * 上次用户选择的门店，如果第一次是null
      */
-    lastShopId?: string;
+    lastShopId?: number;
 }

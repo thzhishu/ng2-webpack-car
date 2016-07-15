@@ -10,7 +10,7 @@ export interface Supply {
     /**
      * id   
      */
-    id?: string;
+    id?: number;
 
     /**
      * 材料                                                    

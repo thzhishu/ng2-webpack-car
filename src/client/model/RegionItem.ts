@@ -7,7 +7,7 @@ export interface RegionItem {
     /**
      * region Id
      */
-    id?: string;
+    id?: number;
 
     /**
      * region name

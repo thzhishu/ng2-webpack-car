@@ -7,7 +7,7 @@ export interface EmployeeRanking {
     /**
      * 技师id
      */
-    id?: string;
+    id?: number;
 
     /**
      * 技师名称

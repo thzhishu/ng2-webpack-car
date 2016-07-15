@@ -10,7 +10,7 @@ export interface EmployeeListItem {
     /**
      * 员工id
      */
-    id?: string;
+    id?: number;
 
     /**
      * 姓名

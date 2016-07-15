@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class CommonApi {
-    protected basePath = 'http://localhost:3000/api/v1';
+    protected basePath = 'http://car.mytianhui.com/api/v1';
     public defaultHeaders : Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
@@ -21,7 +21,7 @@ export class CommonApi {
 
     /**
      * 验证码，返回的是stream， 客户端直接在图片src引用api url
-     * 通过的验证码接口
+     * 通过的验证码接口 
      */
     public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<{}> {
         const path = this.basePath + '/common/captcha';
@@ -39,8 +39,8 @@ export class CommonApi {
     }
 
     /**
-     * 找回密码，检验手机验证码有效性， 客户端在点下一步时候调用, 如果服务端返回200， 则json里个修改密码的凭证sign. 客户端需要将在/user/updatePwd接口用到sign
-     *
+     * 找回密码，检验手机验证码有效性， 客户端在点下一步时候调用, 如果服务端返回200， 则json里个修改密码的凭证sign. 客户端需要将在/user/updatePwd接口用到sign 
+     * 
      * @param code 手机验证码
      * @param phone 手机号
      * @param uuid 验证码接口返回的uuid

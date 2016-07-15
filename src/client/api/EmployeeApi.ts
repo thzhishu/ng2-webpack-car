@@ -20,6 +20,66 @@ export class EmployeeApi {
     }
 
     /**
+     * 删除员工 
+     * 
+     * @param id 员工id
+     */
+    public employeeDeleteDelete (id: string, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
+        const path = this.basePath + '/employee/delete';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'id' is set
+        if (!id) {
+            throw new Error('Missing required parameter id when calling employeeDeleteDelete');
+        }
+        if (id !== undefined) {
+            queryParameters.set('id', id);
+        }
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'DELETE',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * 查询某个门店，用户凭证从http header读取 
+     * 
+     * @param token 凭证
+     * @param employeeId 员工id
+     */
+    public employeeEmployeeIdGet (token: string, employeeId: string, extraHttpRequestParams?: any ) : Observable<models.EmployeeResponse> {
+        const path = this.basePath + '/employee/{employeeId}'
+            .replace('{' + 'employeeId' + '}', String(employeeId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'token' is set
+        if (!token) {
+            throw new Error('Missing required parameter token when calling employeeEmployeeIdGet');
+        }
+        // verify required parameter 'employeeId' is set
+        if (!employeeId) {
+            throw new Error('Missing required parameter employeeId when calling employeeEmployeeIdGet');
+        }
+            headerParams.set('token', token);
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => response.json());
+    }
+
+    /**
      * 返回当前门店员工                
      * 
      */

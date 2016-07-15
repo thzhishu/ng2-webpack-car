@@ -20,6 +20,31 @@ export class ShopApi {
     }
 
     /**
+     * 批量注册门店 
+     * 
+     * @param payload product
+     */
+    public shopBatchSavePost (payload: models.MyShopResponse, extraHttpRequestParams?: any ) : Observable<models.ShopResponse> {
+        const path = this.basePath + '/shop/batchSave';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+        // verify required parameter 'payload' is set
+        if (!payload) {
+            throw new Error('Missing required parameter payload when calling shopBatchSavePost');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+        requestOptions.body = JSON.stringify(payload);
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => response.json());
+    }
+
+    /**
      * 逻辑删除门店，注意： 如果门店已经存在生意、员工、顾客， 则删除门店需要手机验证码.  
      * 客户端做法:  1. 客户端调用此方法，如果返回值askForCode&#x3D;1, 则要求用户输入验证码，客户端再次调用delete方法  2. 客户端调用此方法，如果返回值askForCode&lt;&gt;1，说明删除成功 服务端做法:  1. 如果code为空， 判断该门店是否有生意、员工、顾客      1.1 如果有, 则返回 askForCode&#x3D;1， 不删除      1.2 如果没有， 直接删除  2. 如果code不为空， 验证是否合法， 以此决定是否删除        
      * @param id 门店id

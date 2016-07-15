@@ -10,7 +10,7 @@ export interface BusinessListItem {
     /**
      * id     
      */
-    id?: string;
+    id?: number;
 
     /**
      * 时间 
@@ -18,9 +18,9 @@ export interface BusinessListItem {
     date?: Date;
 
     /**
-     * 顾客id         
+     * 顾客id    
      */
-    customerId?: string;
+    customerId?: number;
 
     /**
      * 顾客姓名 
@@ -46,4 +46,14 @@ export interface BusinessListItem {
      * 消费金额 
      */
     amount?: number;
+
+    /**
+     * 主理技师 
+     */
+    employee?: string;
+
+    /**
+     * 满意度评分 
+     */
+    score?: number;
 }

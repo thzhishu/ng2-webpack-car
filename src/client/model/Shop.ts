@@ -7,7 +7,7 @@ export interface Shop {
     /**
      * 用户uid 
      */
-    id?: string;
+    id?: number;
 
     /**
      * 门店名称
@@ -17,17 +17,17 @@ export interface Shop {
     /**
      * 省
      */
-    provinceId?: string;
+    provinceId?: number;
 
     /**
      * 市
      */
-    cityId?: string;
+    cityId?: number;
 
     /**
      * 区
      */
-    districtId?: string;
+    districtId?: number;
 
     /**
      * 地址
