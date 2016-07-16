@@ -10,7 +10,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class UserApi {
-    protected basePath = 'http://car.mytianhui.com/api/v1';
+    protected basePath = 'http://localhost:3000/api/v1';
     public defaultHeaders : Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
