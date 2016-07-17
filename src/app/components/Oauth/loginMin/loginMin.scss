@@ -14,9 +14,8 @@
         top: 35%;
         left: 50%;
         width: 438px;
-        // height: 355px;
         margin-left: -219px;
-        margin-top: -228px;
+        margin-top: -192px;
         i {
             background: url(./assets/images/right-corner.png) 0 0 no-repeat;
             position: absolute;
@@ -38,6 +37,7 @@
         .login-min-title {
             color: #008b3d;
             font-size: 22px;
+            margin: 0;
         }
         .login-min-register-link {
             color: #008b3d;
