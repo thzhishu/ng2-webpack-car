@@ -37,8 +37,8 @@ export class ModifyPwdComponent {
             'rePassword': ['']
         });
         this.active = true;
-		this.fb = fb;
-        this.router = router;
+		
+        
 	}
 
 	ngOnInit() {
