@@ -20,16 +20,12 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 })
 
 export class ModifyPwdComponent {
-	pwd: Object = {
-        oldPassword: '',
-        password: '',
-        rePassord: ''
-    };
+	pwd: any;
 
     mpwdForm: ControlGroup;
     active: Boolean;
-    fb: FormBuilder;
-    router: Router;
+    //fb: FormBuilder;
+    //router: Router;
 	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
 		this.mpwdForm = fb.group({
             'oldPassword': [''],

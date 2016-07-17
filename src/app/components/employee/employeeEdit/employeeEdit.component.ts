@@ -25,6 +25,7 @@ export class EmployeeEditComponent {
 	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
 		console.log('xjj', this.params);
 		this.employee = {
+			id: '',
 			name: '',
 			code: '',
 			mobile: ''
