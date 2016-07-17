@@ -30,7 +30,7 @@ export class ModifyPwdComponent {
     active: Boolean;
     fb: FormBuilder;
     router: Router;
-	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
 		this.mpwdForm = fb.group({
             'oldPassword': [''],
             'password': [''],

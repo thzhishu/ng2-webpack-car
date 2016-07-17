@@ -57,7 +57,11 @@ export class EmployeeFormComponent {
 			mobile: false
 		}
 		console.log(this.employee.name, this.employee.code, this.employee.mobile);
-		return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
+		if(!this.employee.id) {
+			return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
+		}
+		return this.eApi.employeeUpdatePost( this.employee.id, this.employee.name, this.employee.code, this.employee.mobile );
+		
 	}
 	onSave() {
 		console.log(this.employee)
@@ -92,7 +96,7 @@ export class EmployeeFormComponent {
 			
 	}
 	onReset() {
-
+		this.router.navigate(['/employee-list']);
 	}
 	onHideTip(type) {
 		this.formErr[type] = false;

@@ -30,7 +30,7 @@
         <!-- 门店表单按钮  -->
         <div class="g-btns">
           <div class="g-btn g-btn-green" (click)="onSave()">保存</div>
-          <div class="g-btn g-btn-green" (click)="onSaveAndNew()">保存并新建</div>
+          <div class="g-btn g-btn-green" (click)="onSaveAndNew()" *ngIf="!employee.id">保存并新建</div>
           <div class="g-btn g-btn-gray" (click)="onReset()">取消</div>
         </div>
         <!-- 门店表单按钮 end -->

@@ -22,8 +22,8 @@ import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 
 export class EmployeeEditComponent {
 	employee: any;
-	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
-		console.log(params);
+	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
+		console.log('xjj', this.params);
 		this.employee = {
 			name: '',
 			code: '',
@@ -32,9 +32,13 @@ export class EmployeeEditComponent {
 	}
 
 	ngOnInit() {
+		//console.log(params);
+		//console.log(fb);
+		// console.log(this.params);
 		if(this.params.parameters.id) {
-			this.eApi.employeeEmployeeIdGet('', this.params.parameters.id).subscrible(data=>{
+			this.eApi.employeeEmployeeIdGet('', this.params.parameters.id).subscribe(data=>{
 				console.log(data);
+				this.employee = data.data;
 			}, err=>{
 				console.error(err);
 			});
