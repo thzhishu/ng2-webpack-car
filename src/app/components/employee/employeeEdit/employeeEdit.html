@@ -23,7 +23,7 @@
       </div>
       <!-- 带搜索+添加的面包屑 end -->
       <!-- 主内容标题 -->
-      <div class="c-header">添加员工</div>
+      <div class="c-header">&nbsp;</div>
       <!-- 主内容标题 end -->
       <!-- 门店表单 -->
       <div class="c-form employee-form">
@@ -32,21 +32,21 @@
           <div class="g-field">
             <label for="employee_name" class="g-label">技师姓名</label>
             <div class="g-ipt">
-              <input type="text" id="employee_name" class="g-w343" >
+              <input type="text" id="employee_name" class="g-w343" ng-model="vm.employee.name">
               <div class="g-field-tip"><span>*</span>技师姓名与技师编号至少填一项</div>
             </div>
           </div>
           <div class="g-field">
             <label for="employee_code" class="g-label">技师编号</label>
             <div class="g-ipt">
-              <input type="text" id="employee_code" class="g-w343" >
+              <input type="text" id="employee_code" class="g-w343" ng-model="vm.employee.code">
               
             </div>
           </div>
           <div class="g-field">
             <label for="employee_tel" class="g-label">技师手机号</label>
             <div class="g-ipt">
-              <input type="text" id="employee_tel" class="g-w343" >
+              <input type="text" id="employee_tel" class="g-w343" ng-model="vm.employee.mobile">
               
             </div>
           </div>
@@ -55,8 +55,8 @@
         <!-- 门店表单字段 end -->
         <!-- 门店表单按钮  -->
         <div class="g-btns">
-          <div class="g-btn g-btn-green">保存</div>
-          <div class="g-btn g-btn-gray">取消</div>
+          <div class="g-btn g-btn-green" ng-click="vm.save()">保存</div>
+          <div class="g-btn g-btn-gray" ng-click="vm.reset()">取消</div>
         </div>
         <!-- 门店表单按钮 end -->
 

@@ -7,7 +7,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a ui-sref="my-account">我的员工</a>
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/employee-list']">我的员工</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -25,7 +25,7 @@
       <!-- 主内容标题 -->
       <div class="pr c-header">
         我的员工
-        <a ui-sref="employee-add" class="pa s-btn">+新员工</a>
+        <a [routerLink]="['/employee-add']" class="pa s-btn">+新员工</a>
       </div>
       <!-- 主内容标题 end -->
       <!-- 主内容 -->
@@ -42,117 +42,19 @@
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
+            <tbody *ngIf="employeeList.length">
+              <tr *ngFor="let employee of employeeList; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{employee.name || '—'}}</td>
+                <td>{{employee.code || '—'}}</td>
+                <td>{{employee.mobile || '—'}}</td>
+                <td>{{employee.serviceTimes ? employee.serviceTimes + '次' : '—' }}</td>
                 <td>
-                  <a ui-sref="employee-edit">编辑</a>
-                  <a href="" ng-click="vm.onDel()">删除</a>
+                  <a [routerLink]="['/employee-edit', {id: employee.id}]">编辑</a>
+                  <a href="javascript:;" (click)="onDel(employee, i)">删除</a>
                 </td>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>-</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>向景景</td>
-                <td>H-01</td>
-                <td>15921256088</td>
-                <td>6次</td>
-                <td>
-                  <a href="">编辑</a>
-                  <a href="">删除</a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
 
@@ -188,7 +90,7 @@
           <!-- 列表分页 end -->
 
         </div>
-        <div class="list-empty" style="display:none;" >
+        <div class="list-empty" *ngIf="!employeeList.length" >
           <div class="le-img"></div>
           <div class="le-txt tc">
             当前未添加员工 
@@ -203,10 +105,10 @@
       <!-- 页脚 end -->
     </div>
     <!-- 弹出层 -->
-    <div class="fwin del-win employee-del-win" ng-class="{show:vm.winShow}">
+    <div class="fwin del-win employee-del-win" [ngClass]="{show:winShow}">
       <div class="fwin-mask">
         <div class="fwin-box">
-          <div class="fwin-close" ng-click="vm.onClose()"></div>
+          <div class="fwin-close" ng-click="onClose()"></div>
           <div class="fwin-content">
             <div>
               <h1>确定删除该员工？</h1>
@@ -218,8 +120,8 @@
             </div>
           </div>
           <div class="fwin-btns g-btns">
-            <div class="g-btn g-btn-green" ng-click="vm.onClose()">确认删除</div>
-            <div class="g-btn g-btn-gray" ng-click="vm.onClose()">取消</div>
+            <div class="g-btn g-btn-green" (click)="onAgreeDel()">确认删除</div>
+            <div class="g-btn g-btn-gray" (click)="onClose()">取消</div>
           </div>
         </div>
       </div>

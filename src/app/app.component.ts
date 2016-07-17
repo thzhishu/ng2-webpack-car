@@ -24,7 +24,17 @@ import * as moment from 'moment';
     { path: '/forget-pwd', component: components.ForgetPwdComponent },
     { path: '/my-account', component: components.MyAccountComponent },
     { path: '/modify-store', component: components.ModifyStoreComponent },
-    { path: '/modify-pwd', component: components.ModifyPwdComponent }
+    { path: '/modify-pwd', component: components.ModifyPwdComponent },
+    { path: '/employee-add', component: components.EmployeeAddComponent },
+    { path: '/employee-edit', component: components.EmployeeEditComponent },
+    { path: '/employee-list', component: components.EmployeeListComponent },
+    { path: '/customer-add', component: components.CustomerAddComponent },
+    { path: '/customer-edit', component: components.CustomerEditComponent },
+    { path: '/customer-detail', component: components.CustomerDetailComponent },
+    { path: '/customer-list', component: components.CustomerListComponent },
+    { path: '/report/week/business', component: components.ReportWeekBusinessComponent },
+    { path: '/report/week/satisfaction', component: components.ReportWeekSatisfactionComponent }
+
 
 ])
 

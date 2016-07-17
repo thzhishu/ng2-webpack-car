@@ -25,101 +25,105 @@
       <!-- 主内容标题 -->
       <div class="c-header">我的顾客</div>
       <!-- 主内容标题 end -->
-      <!-- 门店表单 -->
-      <div class="c-form employee-form">
-        <!-- 门店表单字段 -->
-        <div class="pr g-fields">
-          <div class="g-field">
-            <label for="customer_plate" class="g-label g-required">车牌号</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_plate" class="g-w343" placeholder="请输入顾客车牌号" >
+      
+      <!-- 顾客表单 -->
+      <div class="business-add customer-add-form">
+        <form class="" ng-submit="vm.onSubmit()">
+          <div class="c-form customer-form">
+            <!-- 顾客表单字段 -->
+            <div class="pr  ">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">
+                  <span class="warning">*</span>车牌号</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="必填项" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">手机号</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_code" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">车架号</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_tel" placeholder="" class="g-w343">
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_brand" class="g-label">车品牌</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_brand" class="g-w343" >
+            <h5>
+              <i class="arrow-up"></i>
+              <span class="ml20">填写更多信息(选填)</span>
+            </h5>
+            <div class="pr ">
+              <div class="g-field">
+                <label for="employee_name" class="g-label">姓名</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">出生年月</label>
+                <div class="g-ipt">
+                  <select class="g-w343" name="">
+                    <option value="option">请选择</option>
+                  </select>
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">性别</label>
+                <div class="g-ipt">
+                  <select class="g-w343" name="">
+                    <option value="option">请选择</option>
+                    <option value="option">男</option>
+                    <option value="option">女</option>
+                  </select>
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_name" class="g-label">车品牌</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_code" class="g-label">车型号</label>
+                <div class="g-ipt">
+                  <input type="text" id="employee_code" placeholder="" class="g-w343">
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">购买年份</label>
+                <div class="g-ipt">
+                  <select class="g-w343" name="">
+                    <option value="option">请选择</option>
+                    <option value="option">2015</option>
+                    <option value="option">2016</option>
+                  </select>
+                </div>
+              </div>
+              <div class="g-field">
+                <label for="employee_tel" class="g-label">行驶里程数</label>
+                <div class="g-ipt">
+                  <input type="number" id="employee_tel" placeholder="" class="g-w343">
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_model" class="g-label">车型号</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_model" class="g-w343" >
+            <!-- 顾客表单字段 end -->
+            <!-- 顾客表单按钮  -->
+            <div class="g-btns">
+              <div class="g-btn g-btn-green">保存</div>
+              <div class="g-btn g-btn-green">保存并新建</div>
+              <div class="g-btn g-btn-gray">取消</div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_carframe" class="g-label">车驾号</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_carframe" class="g-w343" >
-            </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_buyyear" class="g-label">购买年份</label>
-            <div class="g-ipt">
-              <select  id="customer_buyyear" class="g-w343">
-                <option value="">请选择</option>
-                <option value="2006">2006年</option>
-                <option value="2007">2007年</option>
-                <option value="2008">2008年</option>
-              </select>
-            </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_mileage" class="g-label">行驶公里数</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_mileage" class="g-w343" >
-            </div>
-          </div>
-          
-          
-          <div class="g-field">
-            <label for="customer_name" class="g-label">姓名</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_name" class="g-w343" >
-            </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_tel" class="g-label">手机号</label>
-            <div class="g-ipt">
-              <input type="text" id="customer_tel" class="g-w343" >
-              
-            </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_birthdayyear" class="g-label">出生年份</label>
-            <div class="g-ipt">
-              <select  id="customer_birthdayyear" class="g-w343">
-                <option value="">请选择</option>
-                <option value="2006">2006年</option>
-                <option value="2007">2007年</option>
-                <option value="2008">2008年</option>
-              </select>
-            </div>
-          </div>
-          <div class="g-field">
-            <label for="customer_sex" class="g-label">性别</label>
-            <div class="g-ipt">
-              <select  id="customer_sex" class="g-w343">
-                <option value="">请选择</option>
-                <option value="2006">男性</option>
-                <option value="2007">女性</option>
-              </select>
-            </div>
-          </div>
-          
-          
-        </div>
-        <!-- 门店表单字段 end -->
-        <!-- 门店表单按钮  -->
-        <div class="g-btns">
-          <div class="g-btn g-btn-green">保存</div>
-          <div class="g-btn g-btn-green">保存并新建</div>
-          <div class="g-btn g-btn-gray">取消</div>
-        </div>
-        <!-- 门店表单按钮 end -->
+            <!-- 顾客表单按钮 end -->
 
+        </form>
       </div>
-      <!-- 门店表单 end -->
+        
+      <!-- 顾客表单 end -->
+
       <!-- 页脚  -->
       <page-footer></page-footer>
       <!-- 页脚 end -->

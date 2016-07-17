@@ -46,7 +46,7 @@
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style="display:none;">
               <tr>
                 <td>1</td>
                 <td>沪B2L052</td>
@@ -193,7 +193,7 @@
           </table>
 
           <!-- 列表分页 -->
-          <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
+          <div style="display:none;" class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
             link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
 
             <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
@@ -222,7 +222,7 @@
           <!-- 列表分页 end -->
 
         </div>
-        <div class="list-empty" style="display:none;">
+        <div class="list-empty" >
           <div class="le-img"></div>
           <div class="le-txt tc">
             <!-- 检索： 未检索到此顾客相关信息 -->

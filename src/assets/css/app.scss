@@ -2,16 +2,13 @@
   box-sizing: border-box;
   outline: none;
 }
-body,
-html,
+
 .app,
 .app>[ui-view] {
   height: 100%;
   width: 100%;
 }
-body {
-  font-family: "Microsoft YaHei", Helvetica,Arial,"Lucida Grande",sans-serif, 华文细黑, STHeiti, SimHei;
-}
+
 button{
   border: 0;
 }
@@ -445,6 +442,8 @@ html {
   padding: 0;
 }
 .c-table table {
+  border-collapse: collapse;
+  border-spacing: 0;
   width: 100%;
   color: #343434;
   font-size: 14px;
