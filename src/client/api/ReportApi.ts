@@ -57,7 +57,7 @@ export class ReportApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         if (startDate !== undefined) {
             queryParameters.set('startDate', startDate);
@@ -95,7 +95,7 @@ export class ReportApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         if (startDate !== undefined) {
             queryParameters.set('startDate', startDate);

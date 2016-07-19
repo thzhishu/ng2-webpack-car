@@ -17,7 +17,7 @@ import { Cookie } from 'services';
   template: require('./loginMin.html'),
   styles: [require('./loginMin.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5,Cookie]
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5, Cookie]
 })
 
 export class LoginMinComponent {
@@ -63,21 +63,19 @@ export class LoginMinComponent {
       return false;
     }
     let params = this.loginForm.value;
-    // mobile: string, password: string, code: string, 
+    // mobile: string, password: string, code: string,
     this.uApi.userLoginPost(params.phone, params.pwd, params.rnd).subscribe(data => {
       if (data.meta.code === 200) {
-        console.log(data.data);
-        Cookie.save('token', data.data.User.token,'7');
+        Cookie.save('token', data.data.User.token, '7');
         this.sApi.defaultHeaders.set('token', data.data.User.token);
-        this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
-          if (data.meta.code === 200) {
-            if (data.data.length > 0) {
-              this.router.navigate(['/employee-list']);
-            } else {
-              this.router.navigate(['/init-store']);
-            }
-          }
-        });
+        if (data.data.User.lastShopId === null) {
+          this.router.navigate(['/init-store']);
+        } else {
+          this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
+          this.router.navigate(['/employee-list']);
+        }
+
+        
 
       }
     });

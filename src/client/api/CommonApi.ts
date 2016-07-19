@@ -55,7 +55,7 @@ export class CommonApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
@@ -86,7 +86,7 @@ export class CommonApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
 
         // verify required parameter 'code' is not null or undefined
@@ -137,7 +137,7 @@ export class CommonApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
 
         let requestOptions: RequestOptionsArgs = {

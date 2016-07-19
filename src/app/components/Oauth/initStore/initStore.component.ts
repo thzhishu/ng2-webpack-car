@@ -3,11 +3,11 @@ import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/common';
+import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi, ShopApi } from 'client';
+import { UserApi, CommonApi, ShopApi, RegionApi } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { Cookie } from 'services';
 
@@ -17,29 +17,76 @@ import { Cookie } from 'services';
   template: require('./initStore.html'),
   styles: [require('./initStore.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5,Cookie]
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, RegionApi, Md5, Cookie]
 })
 
 export class InitStoreComponent {
-  isForm: ControlGroup;
-  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
-    // 表单验证
-    this.isForm = fb.group({
-      'name': ['']
-    });
+  shopList: any;
+  provinceList: Array<models.RegionItem>;
+  cityList: Array<models.RegionItem>;
+  countyList: Array<models.RegionItem>;
+  formGroup:any:
+
+  const YEARS_20: Array<number> = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
+  const STATION_10: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
+    this.formGroup = new ControlGroup();
   }
   // 初始化
   ngOnInit() {
-
+    this.shopList = [
+      this.formGroup
+    ];
+    this.getProvince();
   }
 
-  onResigerShop() {
+  // 获取省列表
+  getProvince() {
+    this.rApi.regionProvinceGet().subscribe(data => {
+      if (data.meta.code === 200) {
+        this.provinceList = data.data;
+      }
+    })
+  }
+
+  // 获取市列表
+  getCity(provinceId: string) {
+    this.rApi.regionProvinceIdCityGet(provinceId).subscribe(data => {
+      if (data.meta.code === 200) {
+        this.cityList = data.data;
+      }
+    })
+  }
+
+  // 获取区域列表
+  getCounty(cityId: string) {
+    this.rApi.regionCityIdCountyGet(cityId:string).subscribe(data => {
+      if (data.meta.code === 200) {
+        this.countyList = data.data;
+      }
+    })
+  }
+
+
+  onAddShop(index) {
+    this.shopList.splice(index,0,this.formGroup);
+  }
+
+  onDelhop(index) {
+    this.shopList.splice(index,1);
+  }
+
+  onChangeProvince(id) {
+    this.getCity(id);
+  }
+
+  onResigerShop(f){
     // payload: models.MyShopResponse
-    let token = Cookie.load('token');
-    console.log('token', token);
-    // this.sApi.defaultHeaders.set('token', token);
+    let data = f.value;
+    console.log(data);
     this.sApi.defaultHeaders.set('content-type', 'application/json');
-    this.sApi.shopRegisterPost(this.isForm.value).subscribe(data => {
+    this.sApi.shopRegisterPost(data).subscribe(data => {
       console.log(data);
     });
   }

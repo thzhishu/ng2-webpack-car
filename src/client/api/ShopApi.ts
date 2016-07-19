@@ -56,7 +56,7 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {
@@ -91,7 +91,7 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
@@ -135,7 +135,7 @@ export class ShopApi {
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'mobile' is not null or undefined
         if (mobile === null || mobile === undefined) {
@@ -182,7 +182,7 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'token' is not null or undefined
         if (token === null || token === undefined) {
@@ -217,7 +217,7 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
         headerParams.set('content-type', 'application/json');
         
         // verify required parameter 'payload' is not null or undefined
@@ -290,7 +290,7 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {

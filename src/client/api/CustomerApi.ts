@@ -57,7 +57,7 @@ export class CustomerApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'customerId' is not null or undefined
         if (customerId === null || customerId === undefined) {
@@ -92,7 +92,7 @@ export class CustomerApi {
         let headerParams = this.defaultHeaders;
             headerParams.set('token', token);
 
-            headerParams.set('token', Cookie.load('token'));
+            headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
             headerParams.set('shopId', shopId);
 
@@ -134,7 +134,7 @@ export class CustomerApi {
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         // verify required parameter 'vehicleLicence' is not null or undefined
         if (vehicleLicence === null || vehicleLicence === undefined) {
@@ -182,7 +182,7 @@ export class CustomerApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
 
         // verify required parameter 'phoneOrVehicleLicence' is not null or undefined
@@ -217,7 +217,7 @@ export class CustomerApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
 
         // verify required parameter 'vehicleLicence' is not null or undefined
