@@ -47,6 +47,7 @@ export class LoginMinComponent {
   getCodeImg() {
     this.cApi.commonCaptchaPost().subscribe(data => {
       if (data) {
+        console.log(data.text());
         this.img = 'data:image/jpeg;base64,' + (data.text() || '');
         this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
       }

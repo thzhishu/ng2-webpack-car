@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -58,6 +60,8 @@ export class BusinessApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
+
+        headerParams.set('token', Cookie.load('token'));
 
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
@@ -108,6 +112,10 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
+
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
             throw new Error('Required parameter businessId was null or undefined when calling businessBusinessIdGet.');
@@ -139,6 +147,10 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
+
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
             throw new Error('Required parameter businessId was null or undefined when calling businessBusinessIdUrlGet.');
@@ -169,6 +181,9 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling businessDeleteDelete.');
@@ -204,6 +219,10 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
+
         // verify required parameter 'date' is not null or undefined
         if (date === null || date === undefined) {
             throw new Error('Required parameter date was null or undefined when calling businessListGet.');
@@ -246,6 +265,10 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
+
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {
             throw new Error('Required parameter payload was null or undefined when calling businessSaveOrUpdatePost.');

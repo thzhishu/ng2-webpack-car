@@ -37,7 +37,7 @@ export class InitStoreComponent {
     // payload: models.MyShopResponse
     let token = Cookie.load('token');
     console.log('token', token);
-    this.sApi.defaultHeaders.set('token', token);
+    // this.sApi.defaultHeaders.set('token', token);
     this.sApi.defaultHeaders.set('content-type', 'application/json');
     this.sApi.shopRegisterPost(this.isForm.value).subscribe(data => {
       console.log(data);

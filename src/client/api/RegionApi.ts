@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -54,6 +56,9 @@ export class RegionApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         // verify required parameter 'cityId' is not null or undefined
         if (cityId === null || cityId === undefined) {
             throw new Error('Required parameter cityId was null or undefined when calling regionCityIdCountyGet.');
@@ -83,6 +88,9 @@ export class RegionApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -110,6 +118,9 @@ export class RegionApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         // verify required parameter 'provinceId' is not null or undefined
         if (provinceId === null || provinceId === undefined) {
             throw new Error('Required parameter provinceId was null or undefined when calling regionProvinceIdCityGet.');

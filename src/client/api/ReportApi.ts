@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -54,6 +56,9 @@ export class ReportApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         if (startDate !== undefined) {
             queryParameters.set('startDate', startDate);
         }
@@ -89,6 +94,9 @@ export class ReportApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token'));
+
         if (startDate !== undefined) {
             queryParameters.set('startDate', startDate);
         }

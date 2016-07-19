@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -56,6 +58,8 @@ export class UserApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
+
+        headerParams.set('token', Cookie.load('token'));
 
         // verify required parameter 'oldPassword' is not null or undefined
         if (oldPassword === null || oldPassword === undefined) {
@@ -357,6 +361,8 @@ export class UserApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
+
+        headerParams.set('token', Cookie.load('token'));
 
         // verify required parameter 'shopId' is not null or undefined
         if (shopId === null || shopId === undefined) {
