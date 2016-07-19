@@ -1,0 +1,40 @@
+
+<navbar></navbar>
+<menus></menus>
+<main>
+  <div class="p-gray p-modify-store">
+    <div class="playout">
+      
+      <!-- 带搜索+添加的面包屑 -->
+      <div class="searchbar">
+        <!-- 面包屑导航 -->
+        <div class="crumbs">
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/employee-list']">我的员工</a> > <a [routerLink]="['/employee-add']">添加新员工</a>
+        </div>
+        <!-- 面包屑导航 end -->
+        <!--搜索-->
+        <div class="pa search">
+          <input type="text" placeholder="输入顾客手机/车牌">
+          <div class="search-btn"></div>
+        </div>
+        <!--搜索 end-->
+        <!-- 添加新生意 -->
+        <a href="" class="pa g-btn g-btn-green">+  记录新生意</a>
+        <!-- 添加新生意 end-->
+      </div>
+      <!-- 带搜索+添加的面包屑 end -->
+      <!-- 主内容标题 -->
+      <div class="c-header">&nbsp;</div>
+      <!-- 主内容标题 end -->
+      <!-- 门店表单 -->
+      <employee-form [employee]="employee"></employee-form>
+      <!-- 门店表单 end -->
+      <!-- 页脚  -->
+      <page-footer></page-footer>
+      <!-- 页脚 end -->
+    </div>
+    
+  </div>
+    
+</main>
+
