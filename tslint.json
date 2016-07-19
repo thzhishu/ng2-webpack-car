@@ -75,12 +75,12 @@
 
     "eofline": true,
     "indent": [
-      true,
+      false,
       "spaces"
     ],
     "max-line-length": [
       true,
-      100
+      200
     ],
     "no-require-imports": false,
     "no-trailing-whitespace": true,
