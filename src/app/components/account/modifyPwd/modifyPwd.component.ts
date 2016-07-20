@@ -24,8 +24,6 @@ export class ModifyPwdComponent {
 
     mpwdForm: ControlGroup;
     active: Boolean;
-    //fb: FormBuilder;
-    //router: Router;
 	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
 		this.mpwdForm = fb.group({
             'oldPassword': [''],
@@ -33,17 +31,17 @@ export class ModifyPwdComponent {
             'rePassword': ['']
         });
         this.active = true;
-		
-        
+
+
 	}
 
 	ngOnInit() {
-		this.mpwdForm.controls.rePassword.isEq = 1;
+		// this.mpwdForm.controls.rePassword.isEq = 1;
 	}
-	
+
     onSave() {
         console.log(this.mpwdForm);
-        if(this.mpwdForm.controls.rePassword.isEq && this.mpwdForm.valid ) {
+        if(/*this.mpwdForm.controls.rePassword.isEq &&*/ this.mpwdForm.valid ) {
             let params = this.mpwdForm.value;
             this.uApi.userChangePwdPost(params.oldPassword,params.password,params.rePassword).subscribe(data => {
                 console.log('this.cApi.userChangePwdPost()');
@@ -55,7 +53,7 @@ export class ModifyPwdComponent {
             console.log(this.mpwdForm);
             return false;
         }
-        
+
     }
     onReset() {
         this.mpwdForm = this.fb.group({
@@ -63,7 +61,7 @@ export class ModifyPwdComponent {
             'password': [''],
             'rePassword': ['']
         });
-        this.mpwdForm.controls.rePassword.isEq = 1;
+        // this.mpwdForm.controls.rePassword.isEq = 1;
         console.log(this.mpwdForm);
         this.active = false;
         setTimeout(() => this.active = true, 0);
@@ -72,15 +70,15 @@ export class ModifyPwdComponent {
         this.router.navigate(['/my-account']);
     }
     onRepasswordBlur () {
-        if(!this.mpwdForm.controls.rePassword.valid) {
-            this.mpwdForm.controls.rePassword.isEq = 1;
-            return;
-        }
-        this.mpwdForm.controls.rePassword.isEq = this.mpwdForm.controls.rePassword.value == this.mpwdForm.controls.password.value ? 1 : 0;
+        // if(!this.mpwdForm.controls.rePassword.valid) {
+        //     this.mpwdForm.controls.rePassword.isEq = 1;
+        //     return;
+        // }
+        // this.mpwdForm.controls.rePassword.isEq = this.mpwdForm.controls.rePassword.value == this.mpwdForm.controls.password.value ? 1 : 0;
     }
     onRepasswordFocus () {
-        this.mpwdForm.controls.rePassword.isEq = 1;
+        // this.mpwdForm.controls.rePassword.isEq = 1;
     }
-    
-	
+
+
 }

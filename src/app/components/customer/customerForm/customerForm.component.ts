@@ -30,8 +30,9 @@ export class CustomerFormComponent {
 	vehicleYearArr: number[] = [];
 	active: Boolean = true;
 	submitting: Boolean = false;
+	customerDefault:any;
 	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
-		
+
 		const currentYear = +(new Date()).getFullYear();
 		this.birthdayYearArr = this.rangeArr(1950, currentYear).reverse();
 		this.vehicleYearArr = this.rangeArr(1990, currentYear).reverse();
@@ -48,7 +49,7 @@ export class CustomerFormComponent {
 			'vehicleYear': '',
 			'vehicleMiles': ''
 		}
-        
+
 	}
 
 	ngOnInit() {
@@ -74,7 +75,7 @@ export class CustomerFormComponent {
 			'vehicleMiles': [oldVal.vehicleMiles]
 
 		});
-		
+
 		this.active = false;
         setTimeout(() => this.active = true, 0);
 	}
@@ -86,9 +87,9 @@ export class CustomerFormComponent {
 	gotoListPage() {
 		this.router.navigate(['/customer-list']);
 	}
-	
+
 	onSave( other ) {
-		
+
 		const willAddNew = other || false;
 		const isNew = this.customerForm.value.id ? false : true;
 		this.vehiclePlateValid();
@@ -130,20 +131,20 @@ export class CustomerFormComponent {
 	}
 
 	vehiclePlateValid() {
-		if (this.customerForm.controls.vehicleLicence.value === '') {
+		if (this.customerForm.value.vehicleLicence === '') {
 			this.vehiclePlateNull = true;
 			return false;
 		}
 		this.vehiclePlateNull = false;
-		if (this.customerForm.controls.vehicleLicence.value.length !== 7) {
-			this.vehiclePlateLen = true; 
+		if (this.customerForm.value.vehicleLicence.length !== 7) {
+			this.vehiclePlateLen = true;
 			return false;
 		}
 		this.vehiclePlateLen = false;
 		return true;
 	}
 	vehiclePlateAjax() {
-		const val = this.customerForm.controls.vehicleLicence.value;
+		const val = this.customerForm.value.vehicleLicence;
 		this.vehiclePlateLen = false;
 		if (val.length === 7 ) {
 			this.vehiclePlateHas = false;
@@ -154,12 +155,12 @@ export class CustomerFormComponent {
 			}, err => console.error(err));
 		} else if( val.length > 7 ) {
 			this.vehiclePlateHas = false;
-			this.vehiclePlateLen = true; 
+			this.vehiclePlateLen = true;
 		}
 	}
 	onMobileValid() {
-		let mobileErr = this.customerForm.controls.mobile.errors;
-		this.mobileFormatValid = mobileErr && mobileErr.pattern ? true : false;
+		// let mobileErr = this.customerForm.controls.mobile.errors;
+		// this.mobileFormatValid = mobileErr && mobileErr.pattern ? true : false;
 	}
 	onMobileFocus() {
 		this.mobileFormatValid = false;

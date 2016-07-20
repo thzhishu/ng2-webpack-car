@@ -179,7 +179,7 @@ export class UserApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         // verify required parameter 'token' is not null or undefined
-        
+
         headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -294,7 +294,7 @@ export class UserApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response;
+                    return response.json();
                 }
             });
     }

@@ -41,7 +41,8 @@
               <label for="store_server" class="g-label">
                 <span class="warning">*</span>服务类型</label>
               <div class="g-ipt g-wml g-checkbox-group" ngControlGroup="serviceId">
-                <label class="checkbox-label" [attr.for]="'ci'+i+j" *ngFor="let sl of shop.sList, let j = index"><input [attr.id]="'ci'+i+j" class="checkbox-input" type="checkbox" ngControl="sl.checked" >{{sl.name}}</label>
+                <md-checkbox [(ngModel)]="asdasd" >asdasdsad</md-checkbox>
+                <!-- <label class="checkbox-label" *ngFor="let sl of shop.sList, let j = index"><md-checkbox [(ngModel)]="sl.checked" >{{sl.name}}</md-checkbox></label> -->
               </div>
             </div>
             <h3>

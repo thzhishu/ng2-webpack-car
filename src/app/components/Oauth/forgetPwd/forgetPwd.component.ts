@@ -55,9 +55,9 @@ export class ForgetPwdComponent {
    * @return {[type]} [description]
    */
   getCodeImg() {
-    this.cApi.commonCaptchaPost().subscribe(data => {
-      this.img = 'data:image/jpeg;base64,'+ (data.text() || '');
-      this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
+    this.cApi.commonCaptchaPost().subscribe((data:Response) => {
+        this.img = 'data:image/jpeg;base64,'+ data.text();
+        this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
     });
   }
   onChangeCodeImg() {

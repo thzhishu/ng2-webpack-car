@@ -22,10 +22,11 @@ import { CustomerFormComponent } from '../customerForm/customerForm.component';
 
 export class CustomerEditComponent {
 	customerFields: any;
+	customerId:number;
 	@ViewChild(CustomerFormComponent) cf: CustomerFormComponent;
 	constructor(private router: Router, fb: FormBuilder, private params: RouteSegment,  private cApi: CustomerApi) {
 		console.log(params);
-		this.customerId = params.getParam('id');
+		this.customerId = +params.getParam('id');
 	}
 
 	ngOnInit() {
@@ -42,7 +43,7 @@ export class CustomerEditComponent {
 			}
 		}, err => console.error(err));
 	}
-	
 
-	
+
+
 }

@@ -1,35 +1,38 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
+import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
+import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
+import { Cookie } from 'services';
+
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi, ShopApi, RegionApi, models } from 'client';
+
+import { UserApi, CommonApi, ShopApi, RegionApi, RegionItem } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
-import { Cookie } from 'services';
+
+const YEARS_20 = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
+const STATION_10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 @Component({
   moduleId: module.id,
   selector: 'init-store',
   template: require('./initStore.html'),
   styles: [require('./initStore.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent,MdCheckbox],
   providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, RegionApi, Md5, Cookie]
 })
 
 export class InitStoreComponent {
   shopList: any;
-  provinceList: Array<models.RegionItem>;
-  cityList: Array<models.RegionItem>;
-  countyList: Array<models.RegionItem>;
-  formGroup: any:
+  provinceList: Array<RegionItem>;
+  cityList: Array<RegionItem>;
+  countyList: Array<RegionItem>;
+  formGroup: any;
   sList: any;
-
-  const YEARS_20: Array<number> = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
-  const STATION_10: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
 
@@ -63,13 +66,13 @@ export class InitStoreComponent {
   }
 
   // 获取区域列表
-  getCounty(cityId: string) {
-    this.rApi.regionCityIdCountyGet(cityId:string).subscribe(data => {
-      if (data.meta.code === 200) {
-        this.countyList = data.data;
-      }
-    })
-  }
+  // getCounty(cityId: string) {
+  //   this.rApi.regionCityIdCountyGet(cityId).subscribe((data) => {
+  //     if (data.meta.code === 200) {
+  //       this.countyList = data.data;
+  //     }
+  //   })
+  // }
 
   getServiceType() {
     this.cApi.commonDictServicesPost().subscribe(data => {

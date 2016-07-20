@@ -7,7 +7,7 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/co
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi, ShopApi } from 'client';
+import { UserApi, CommonApi, ShopApi,UserResponse } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { Cookie } from 'services';
 
@@ -45,11 +45,9 @@ export class LoginMinComponent {
    * @return {[type]} [description]
    */
   getCodeImg() {
-    this.cApi.commonCaptchaPost().subscribe(data => {
-      if (data) {
+    this.cApi.commonCaptchaPost().subscribe((data:Response) => {
         this.img = 'data:image/jpeg;base64,' + (data.text() || '');
         this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
-      }
     });
   }
   onChangeCodeImg() {
@@ -63,13 +61,12 @@ export class LoginMinComponent {
     }
     let params = this.loginForm.value;
     // mobile: string, password: string, code: string,
-    this.uApi.userLoginPost(params.phone, params.pwd, params.rnd).subscribe(data => {
+    this.uApi.userLoginPost(params.phone, params.pwd, params.rnd).subscribe((data) => {
       if (data.meta.code === 200) {
-        Cookie.save('token', data.data.User.token, '7');
+        Cookie.save('token', data.data.User.token, 7);
         Cookie.save('shopId', '5');
         this.sApi.defaultHeaders.set('token', data.data.User.token);
         if (data.data.User.lastShopId === null) {
-          
           this.router.navigate(['/init-store']);
         } else {
           this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);

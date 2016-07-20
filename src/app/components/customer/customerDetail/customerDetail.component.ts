@@ -7,7 +7,7 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/co
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { CustomerApi, Customer, BusinessDetail } from 'client';
+import { CustomerApi, Customer, BusinessDetail,BusinessHistoryDetail } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
 
 
@@ -34,16 +34,16 @@ export class CustomerDetailComponent {
 	hasSend: Boolean = false;
 	sendTimes: number = 0;
 	tempMobile: string = '';
-	
+
 	constructor(private router: Router, private params: RouteSegment, private cApi: CustomerApi) {
-		this.customerId = params.getParam('id');
+		this.customerId = +params.getParam('id');
 		if(!this.customerId) {
 			router.navigate(['/customer-list']);
 		}
 	}
 
 	ngOnInit() {
-		
+
 		this.getCustomerById(this.customerId);
 
 	}
@@ -77,7 +77,7 @@ export class CustomerDetailComponent {
 	onShowCommentWin(record) {
 		this.showCommentWin = true;
 		this.historyRecord = record;
-		
+
 		console.log('historyRecord', this.historyRecord) ;
 	}
 
@@ -103,7 +103,7 @@ export class CustomerDetailComponent {
 
 	// 重新通过手机号发送
 	onResend() {
-		if (!this.hasSend) return false; 
+		if (!this.hasSend) return false;
 		// 成功
 
 	}

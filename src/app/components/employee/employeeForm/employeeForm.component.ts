@@ -35,8 +35,8 @@ export class EmployeeFormComponent {
 			required: false,
 			mobile: false
 		}
-		
-		
+
+
 	}
 
 	ngOnInit() {
@@ -45,12 +45,12 @@ export class EmployeeFormComponent {
 	save() {
 		if(this.employee.name == '' && this.employee.code == "") {
 			this.formErr.required = true;
-			return false;
+			return null;
 		}
-		
+
 		if(this.employee.mobile != '' && this.onCheckMobile()) {
 			this.formErr.mobile = true;
-			return false;
+			return null;
 		}
 		this.formErr = {
 			required: false,
@@ -61,11 +61,10 @@ export class EmployeeFormComponent {
 			return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
 		}
 		return this.eApi.employeeUpdatePost( this.employee.id, this.employee.name, this.employee.code, this.employee.mobile );
-		
 	}
 	onSave() {
 		console.log(this.employee)
-		
+
 		let result = this.save();
 		if(result) {
 			result.subscribe(data=>{
@@ -76,7 +75,7 @@ export class EmployeeFormComponent {
 				console.error(err);
 			})
 		}
-			
+
 	}
 	onSaveAndNew() {
 		let result = this.save();
@@ -93,7 +92,7 @@ export class EmployeeFormComponent {
 				console.error(err);
 			})
 		}
-			
+
 	}
 	onReset() {
 		this.router.navigate(['/employee-list']);
@@ -109,5 +108,5 @@ export class EmployeeFormComponent {
 		}
 		return this.formErr.mobile;
 	}
-	
+
 }
