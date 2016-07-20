@@ -7,8 +7,9 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/co
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi } from 'client';
+import {  CustomerApi, Customer } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
+
 
 @Component({
 	moduleId: module.id,
@@ -16,18 +17,24 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 	template: require('./customerList.html'),
 	styles: [require('./customerList.scss')],
 	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent],
-	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5 ]
+	providers: [HTTP_PROVIDERS, CustomerApi ]
 })
 
 export class CustomerListComponent {
-	
-	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
-		console.log(params);
-		
-	}
+	customers: Customer[] = [];
+	constructor(private cApi: CustomerApi) {}
 
 	ngOnInit() {
-		
+		this.getCustomers();
+	}
+
+	getCustomers() {
+		this.cApi.customerListGet('d98019b3-c07c-4e90-ad1e-e4bc185be0f4', '1234').subscribe(data => {
+			this.customers = data.data && data.data.length ? data.data : [];
+			console.log('customers: ', this.customers);
+		}, err => {
+			console.error(err);
+		});
 	}
 	
 

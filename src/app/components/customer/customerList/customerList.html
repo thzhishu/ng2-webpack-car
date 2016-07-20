@@ -7,7 +7,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a ui-sref="my-account">我的顾客</a>
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/customer-list']">我的顾客</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -25,7 +25,7 @@
       <!-- 主内容标题 -->
       <div class="pr c-header">
         我的顾客
-        <a ui-sref="customer-add" class="pa s-btn">+新顾客</a>
+        <a [routerLink]="['/customer-add']" class="pa s-btn">+新顾客</a>
       </div>
       <!-- 主内容标题 end -->
       <!-- 主内容 -->
@@ -41,152 +41,25 @@
                 <th>车品牌</th>
                 <th>车型号</th>
                 <th>行驶里程数</th>
-                <th>消费总金额(元)</th>
                 <th>最后入店时间</th>
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody style="display:none;">
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
+            <tbody *ngIf="customers.length">
+              <tr *ngFor = "let cr of customers; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{cr.vehicleLicence || '-'}}</td>
+                <td>{{cr.name || '-'}}</td>
+                <td>{{cr.mobile || '-'}}</td>
+                <td>{{cr.vehicleBrand || '-'}}</td>
+                <td>{{cr.vehicleModel || '-'}}</td>
+                <td>{{cr.vehicleMiles ? cr.vehicleMiles + '公里' : '-'}}</td>
+                <td>{{cr.lastEnterDate || '-'}}</td>
                 <td>
-                  <a ui-sref="customer-detail">查看详情</a>
+                  <a [routerLink]="['/customer-detail', {id: cr.id}]">查看详情</a>
                 </td>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>沪B2L052</td>
-                <td>向景景</td>
-                <td>15921256088</td>
-                <td>大众</td>
-                <td>A7</td>
-                <td>50000公里</td>
-                <td>10800</td>
-                <td>2016/6/20</td>
-                <td>
-                  <a ui-sref="customer-detail">查看详情</a>
-                </td>
-              </tr>
+              
               
               
             </tbody>
@@ -222,7 +95,7 @@
           <!-- 列表分页 end -->
 
         </div>
-        <div class="list-empty" >
+        <div class="list-empty" *ngIf="!customers.length">
           <div class="le-img"></div>
           <div class="le-txt tc">
             <!-- 检索： 未检索到此顾客相关信息 -->

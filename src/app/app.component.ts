@@ -23,6 +23,7 @@ import * as moment from 'moment';
     { path: '/forget-pwd', component: components.ForgetPwdComponent },
     { path: '/my-account', component: components.MyAccountComponent },
     { path: '/modify-store', component: components.ModifyStoreComponent },
+    { path: '/store-add', component: components.StoreAddComponent },
     { path: '/modify-pwd', component: components.ModifyPwdComponent },
     { path: '/employee-add', component: components.EmployeeAddComponent },
     { path: '/employee-edit', component: components.EmployeeEditComponent },

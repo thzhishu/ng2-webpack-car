@@ -43,14 +43,14 @@ export class EmployeeFormComponent {
 		console.log("dd:", this.employee)
 	}
 	save() {
-		if(this.employee.name == "" && this.employee.code == "") {
+		if(this.employee.name == '' && this.employee.code == "") {
 			this.formErr.required = true;
-			return Observable.create();
+			return false;
 		}
 		
-		if(this.employee.mobile != "" && this.onCheckMobile()) {
+		if(this.employee.mobile != '' && this.onCheckMobile()) {
 			this.formErr.mobile = true;
-			return Observable.create();
+			return false;
 		}
 		this.formErr = {
 			required: false,
