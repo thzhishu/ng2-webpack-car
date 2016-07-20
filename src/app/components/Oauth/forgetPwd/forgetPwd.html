@@ -1,6 +1,6 @@
 <div class="forgetPwd">
   <main-logo></main-logo>
-  <form (ngSubmit)="onSubmit()" [ngFormModel]="fpForm">
+  <form (ngSubmit)="onCheckPhone()" [ngFormModel]="fpForm" *ngIf="next==1" >
     <div class="forgetPwd-block animated rubberBand" [class.flipOutY]="fpForm.submitted">
       <h2 class="forgetPwd-title">找回密码<a [routerLink]="['/register']" class="forgetPwd-register-link fr">注册新账户</a>
       </h2>
@@ -15,8 +15,8 @@
       </div>
       <div class="forgetPwd-input" [class.error]="!fpForm.controls.rnd?.valid && !fpForm.controls.rnd?.pristine">
         <input type="" class="w140 dib" maxlength="4"  ngControl="rnd"  required placeholder="请输入右侧图形校验码" >
-        <img [src]="" class="dib link ml10" alt="验证码">
-        <a class="dib link ml10" (click)="onChangeCode()">换一张</a>
+        <img [src]="img" class="dib link ml10" alt="验证码" (click)="onChangeCodeImg()">
+        <a class="dib link ml10" (click)="onChangeCodeImg()">换一张</a>
         <div class="msg">
           <span class="text-error" *ngIf="!fpForm.controls.rnd?.valid">请输入右侧图形校验码</span>
         </div>
@@ -28,12 +28,12 @@
           <span class="text-error" *ngIf="!fpForm.controls.code?.valid">验证码错误</span>
         </div>
       </div>
-      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!fpForm.valid" (click)="onCheckPhone()">下一步</button>
+      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!fpForm.valid" >下一步</button>
       <a [routerLink]="['/login-min']" class="forgetPwd-register-link">又想起来了</a>
       <i></i>
     </div>
   </form>
-  <form (ngSubmit)="onSubmit()" [ngFormModel]="newPwdForm" *ngIf="next!=1" >
+  <form (ngSubmit)="onEditPwd()" [ngFormModel]="newPwdForm" *ngIf="next!=1" >
     <div class="forgetPwd-block animated" [class.zoomOutRight]="newPwdForm.submitted" >
       <h2 class="forgetPwd-title">设置新密码</h2>
       <div class="forgetPwd-input">
@@ -52,9 +52,12 @@
             <span *ngIf="newPwdForm.controls.checkPwd.errors.required">密码不能为空</span>
             <span *ngIf="newPwdForm.controls.checkPwd.errors.pattern">请输入正确的密码</span>
           </span>
+          <span class="text-error" *ngIf="diff">
+            两次密码不一致
+          </span>
         </div>
       </div>
-      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!newPwdForm.valid" (click)="onEditPwd()">确认提交</button>
+      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!newPwdForm.valid" >确认提交</button>
       <i></i>
     </div>
   </form>

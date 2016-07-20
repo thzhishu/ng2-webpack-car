@@ -73,9 +73,6 @@ export class LoginMinComponent {
           this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
           this.router.navigate(['/employee-list']);
         }
-
-
-
       }
     });
   }

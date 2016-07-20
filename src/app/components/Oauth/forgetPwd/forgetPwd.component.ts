@@ -29,6 +29,8 @@ export class ForgetPwdComponent {
   next: number = 1;
   loading: number = 0;
   sign:string;
+  img:any;
+  diff:number = 0;
 
   constructor( private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi ) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
@@ -54,9 +56,9 @@ export class ForgetPwdComponent {
    */
   getCodeImg() {
     this.cApi.commonCaptchaPost().subscribe(data => {
-      console.log('this.cApi.commonCaptchaPost()');
-      console.dir(data);
-    })
+      this.img = 'data:image/jpeg;base64,'+ (data.text() || '');
+      this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
+    });
   }
   onChangeCodeImg() {
     this.getCodeImg();
@@ -104,39 +106,49 @@ export class ForgetPwdComponent {
     let salt = 'thzs0708';
     this.sign = Md5.hashStr(phone + rnd + salt,false).toString();
     this.uApi.userPasswordSmsPost(phone, rnd, this.sign).subscribe(data => {
-      console.log('this.uApi.userPasswordSmsPost()');
-      console.dir(data);
+
     })
   }
   //验证手机号
   onCheckPhone() {
-    this.next = 2;
-    console.log(this.fpForm);
     if (!this.fpForm.valid) {
-      alert('你输入的信息有误.不能完成登录');
+      alert('你输入的信息有误.不能完成找回密码');
       return false;
     }
     let params = this.fpForm.value;
-    params.uuid = '123456';
+    params.uuid = this.uApi.defaultHeaders.get('uuid');
     //code: string, phone: string, uuid: string,
     this.cApi.commonCodeVerifyGet(params.code, params.phone, params.uuid).subscribe(data => {
-      console.log('this.cApi.commonCodeVerifyGet()');
-      console.dir(data);
+      if(data.meta.code===200){
+        this.next = 2;
+        this.sign = data.data.sign;
+      }else{
+        alert(data.error.message);
+      }
     })
   }
 
   //重置密码
   onEditPwd() {
-    console.log(this.newPwdForm);
     if (!this.newPwdForm.valid) {
       alert('你输入的信息有误.不能完成重置密码');
       return false;
     }
     let params = this.newPwdForm.value;
+    if(params.pwd!==params.checkPwd){
+      alert('两次密码不一致');
+      this.diff = 1;
+    }else{
+      this.diff = 0;
+    }
     //password: string, rePassword: string, sign: string
-    this.uApi.userUpdatePwdPost(params.pwd, params.checkPwd, this.sign).subscribe(data => {
-      console.log('this.uApi.userUpdatePwdPost()');
-      console.dir(data);
+    this.uApi.userUpdatePwdPost(Md5.hashStr(params.pwd,false).toString(), Md5.hashStr(params.checkPwd,false).toString(), this.sign).subscribe(data => {
+      if(data.meta.code===200){
+        this.next = 1;
+        alert('密码修改成功');
+      }else{
+        alert(data.error.message);
+      }
     })
   }
 

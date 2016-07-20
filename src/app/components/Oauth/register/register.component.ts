@@ -107,8 +107,7 @@ export class RegisterComponent {
     let salt = 'thzs0708';
     this.sign = Md5.hashStr(phone + rnd + salt).toString();
     this.uApi.userRegisterSmsPost(phone, rnd, this.sign).subscribe(data => {
-      console.log('this.uApi.userRegisterPost()');
-      console.dir(data);
+
     })
   }
 
@@ -122,8 +121,6 @@ export class RegisterComponent {
     let params = this.rForm.value;
     //mobile: string, password: string, code: string, captcha: string
     this.uApi.userRegisterPost(params.phone, params.pwd, params.code, params.rnd).subscribe(data => {
-      console.log('this.uApi.userRegisterPost()');
-      console.dir(data);
       let json = data.json();
       if(json.meta.code==200){
         this.uApi.defaultHeaders.token = data.headers.get('token') || 'token';
@@ -135,8 +132,12 @@ export class RegisterComponent {
             } else {
               this.router.navigate(['/init-store']);
             }
+          }else{
+            alert(data.error.message);
           }
         });
+      }else{
+        alert(data.error.message);
       }
     })
   }
