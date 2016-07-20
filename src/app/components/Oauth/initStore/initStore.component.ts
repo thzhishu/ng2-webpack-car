@@ -31,14 +31,17 @@ export class InitStoreComponent {
   const STATION_10: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
-    this.formGroup = new ControlGroup();
+    // this.formGroup = new ControlGroup();
   }
   // 初始化
   ngOnInit() {
-    this.shopList = [
-      this.formGroup
-    ];
+    this.shopList = [];
     this.getProvince();
+    this.getServiceType();
+  }
+
+  info(data){
+    console.dir(data);
   }
 
   // 获取省列表
@@ -68,9 +71,19 @@ export class InitStoreComponent {
     })
   }
 
+  getServiceType(){
+    this.cApi.commonDictServicesPost().subscribe(data => {
+      if (data.meta.code === 200) {
+        this.serviceTypeList = Object.assign({},{serviceTypeList:[].concat(data.data)});
+        this.shopList.push(Object.assign({}, this.serviceTypeList));
+      }
+    })
+  }
+
 
   onAddShop(index) {
-    this.shopList.splice(index,0,this.formGroup);
+    console.log(this.serviceTypeList);
+    this.shopList.splice(index,0,this.serviceTypeList);
   }
 
   onDelhop(index) {
@@ -81,10 +94,19 @@ export class InitStoreComponent {
     this.getCity(id);
   }
 
+  AssemblyServiceId(data){
+    _.forEach(this.serviceTypeList,(val,i)=>{
+          console.log(val,i);
+
+    })
+  }
+
   onResigerShop(f){
+    console.log(this.serviceTypeList);
     // payload: models.MyShopResponse
     let data = f.value;
     console.log(data);
+    this.AssemblyServiceId(data);
     this.sApi.defaultHeaders.set('content-type', 'application/json');
     this.sApi.shopRegisterPost(data).subscribe(data => {
       console.log(data);
