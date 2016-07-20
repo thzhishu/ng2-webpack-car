@@ -10,6 +10,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { CustomerApi, Customer, BusinessDetail } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
 
+
 @Component({
 	moduleId: module.id,
 	selector: 'customer-detail',
@@ -22,14 +23,29 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 export class CustomerDetailComponent {
 	customerId: number;
 	customerDetail: any;
-	customer: any;
+	customer: any = {};
 	histories: BusinessHistoryDetail;
-	constructor(private params: RouteSegment, private cApi: CustomerApi) {
+	showCommentWin: Boolean = false;
+	historyRecord: any = {};
+	sendErr: any = {
+		mobile: false,
+		times: false
+	};
+	hasSend: Boolean = false;
+	sendTimes: number = 0;
+	tempMobile: string = '';
+	
+	constructor(private router: Router, private params: RouteSegment, private cApi: CustomerApi) {
 		this.customerId = params.getParam('id');
+		if(!this.customerId) {
+			router.navigate(['/customer-list']);
+		}
 	}
 
 	ngOnInit() {
+		
 		this.getCustomerById(this.customerId);
+
 	}
 	getCustomerById(id) {
 		this.cApi.customerHistoryCustomerIdGet(id).subscribe(data => {
@@ -51,8 +67,52 @@ export class CustomerDetailComponent {
 	}
 	formatCustomer(customer) {
 		const currentYear = (new Date()).getFullYear();
+		const gender = parseInt(customer.gender);
 		customer.age = currentYear - customer.birthYear;
-		customer.sex = customer.gender === 0 ? '女' : customer.gender === 1 ? '男' : '其它';
+		customer.sex = gender === 0 ? '女' : gender === 1 ? '男' : '其它';
 		return customer;
 	}
+
+	// 显示评价弹出层
+	onShowCommentWin(record) {
+		this.showCommentWin = true;
+		this.historyRecord = record;
+		
+		console.log('historyRecord', this.historyRecord) ;
+	}
+
+	// 关闭评价弹出层
+	onCloseCommentWin() {
+		this.showCommentWin = false;
+		this.historyRecord = {};
+		console.log('func onCloseCommentWin() called....');
+	}
+
+	// 通过手机号发送
+	onSend() {
+		const mobile = this.customer.mobile || this.tempMobile;
+		if (mobile === '' || !(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(mobile)) ) {
+			this.sendErr.mobile = true;
+			return;
+		}
+		console.log(mobile);
+		// 成功
+		this.hasSend = true;
+
+	}
+
+	// 重新通过手机号发送
+	onResend() {
+		if (!this.hasSend) return false; 
+		// 成功
+
+	}
+
+	// 评价弹出层电话输入框获取焦点
+	onMobileFocus() {
+		this.sendErr.mobile = false;
+		this.sendErr.times = false;
+	}
+
+
 }

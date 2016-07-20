@@ -8,7 +8,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a ui-sref="customer-list">我的顾客</a> > <a ui-sref="customer-add">添加顾客</a>
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/customer-list']" >我的顾客</a> > <a [routerLink]="['/customer-add']" >添加顾客</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -26,102 +26,9 @@
       <div class="c-header">我的顾客</div>
       <!-- 主内容标题 end -->
       
-      <!-- 顾客表单 -->
-      <div class="business-add customer-add-form">
-        <form  >
-          <div class="c-form customer-form">
-            <!-- 顾客表单字段 -->
-            <div class="pr  ">
-              <div class="g-field">
-                <label for="employee_name" class="g-label">
-                  <span class="warning">*</span>车牌号</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_name" placeholder="必填项" class="g-w343">
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_code" class="g-label">手机号</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_code" placeholder="" class="g-w343">
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_tel" class="g-label">车架号</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_tel" placeholder="" class="g-w343">
-                </div>
-              </div>
-            </div>
-            <h5>
-              <i class="arrow-up"></i>
-              <span class="ml20">填写更多信息(选填)</span>
-            </h5>
-            <div class="pr ">
-              <div class="g-field">
-                <label for="employee_name" class="g-label">姓名</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_name" placeholder="" class="g-w343">
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_code" class="g-label">出生年月</label>
-                <div class="g-ipt">
-                  <select class="g-w343" name="">
-                    <option value="option">请选择</option>
-                  </select>
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_tel" class="g-label">性别</label>
-                <div class="g-ipt">
-                  <select class="g-w343" name="">
-                    <option value="option">请选择</option>
-                    <option value="option">男</option>
-                    <option value="option">女</option>
-                  </select>
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_name" class="g-label">车品牌</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_name" placeholder="" class="g-w343">
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_code" class="g-label">车型号</label>
-                <div class="g-ipt">
-                  <input type="text" id="employee_code" placeholder="" class="g-w343">
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_tel" class="g-label">购买年份</label>
-                <div class="g-ipt">
-                  <select class="g-w343" name="">
-                    <option value="option">请选择</option>
-                    <option value="option">2015</option>
-                    <option value="option">2016</option>
-                  </select>
-                </div>
-              </div>
-              <div class="g-field">
-                <label for="employee_tel" class="g-label">行驶里程数</label>
-                <div class="g-ipt">
-                  <input type="number" id="employee_tel" placeholder="" class="g-w343">
-                </div>
-              </div>
-            </div>
-            <!-- 顾客表单字段 end -->
-            <!-- 顾客表单按钮  -->
-            <div class="g-btns">
-              <div class="g-btn g-btn-green">保存</div>
-              <div class="g-btn g-btn-green">保存并新建</div>
-              <div class="g-btn g-btn-gray">取消</div>
-            </div>
-            <!-- 顾客表单按钮 end -->
-          </div>
-        </form>
-      </div>
-      <!-- 顾客表单 end -->
+     
+
+      <customer-form [customer]="customerFields"></customer-form>
 
       <!-- 页脚  -->
       <page-footer></page-footer>

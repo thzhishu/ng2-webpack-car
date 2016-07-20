@@ -22,7 +22,7 @@ import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 
 export class EmployeeEditComponent {
 	employee: any;
-	id:string;
+	id: string;
 	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
 		this.employee = {
 			id: '',
