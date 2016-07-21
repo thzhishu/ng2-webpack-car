@@ -203,6 +203,9 @@ export class ShopApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        // headerParams.set('content-type', 'application/json');
+        
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {
             throw new Error('Required parameter payload was null or undefined when calling shopRegisterPost.');

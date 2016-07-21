@@ -5,7 +5,7 @@
   min-height: 100%;
 
   .register-progress-rate {
-    background: url("../images/register-progress-rate.png") 0 0 no-repeat;
+    background: url("/assets/images/register-progress-rate.png") 0 0 no-repeat;
     display: block;
     width: 613px;
     height: 109px;
@@ -18,7 +18,7 @@
     width: 800px;
     margin: 0 auto;
     .right-arrow {
-      background: url("../images/right-corner.png") 0 0 no-repeat;
+      background: url("/assets/images/right-corner.png") 0 0 no-repeat;
       position: absolute;
       right: 0;
       bottom: -41px;
@@ -89,7 +89,7 @@
       }
     }
     i.arrow-up {
-      background: url("../images/arrow-up.png") 0 0 no-repeat;
+      background: url("/assets/images/arrow-up.png") 0 0 no-repeat;
       width: 13px;
       height: 17px;
       display: inline-block;

@@ -82,7 +82,8 @@ module.exports = {
             'client': helpers.root('src/client'),
             'common': helpers.root('src/app/common'),
             'components': helpers.root('src/app/components'),
-            'assets': helpers.root('src/assets')
+            'assets': helpers.root('src/assets'),
+            'services': helpers.root('src/app/services'),
         },
 
     },

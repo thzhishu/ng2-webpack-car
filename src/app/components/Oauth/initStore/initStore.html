@@ -1,69 +1,69 @@
 <div class="init-store">
   <main-logo></main-logo>
-  <div class="init-store-block animated rubberBand" ng-class="{zoomOutRight:vm.oauth.submited==1}">
+  <div class="init-store-block animated rubberBand" ng-class="{zoomOutRight:isForm.submited==1}">
     <div class="p-gray p-modify-store">
-      <div class="">
         <div class="register-progress-rate"></div>
         <!-- 门店表单 -->
-        <div class="c-form c-modify-store">
-          <!-- 门店表单字段 -->
-          <h3><span class="title-underline">基础信息</span></h3>
-          <div class="g-field">
-            <label for="store_name" class="g-label"><span class="warning">*</span>门店名称</label>
-            <div class="g-ipt">
-              <input type="text" id="store_name" class="g-wl">
-              <a href="javascript:void(0);" class="add-store">新增门店</a>
+        <form (ngSubmit)="onResigerShop()" [ngFormModel]="isForm">
+          <div class="c-form c-modify-store">
+            <!-- 门店表单字段 -->
+            <h3><span class="title-underline">基础信息</span></h3>
+            <div class="g-field">
+              <label for="store_name" class="g-label"><span class="warning">*</span>门店名称</label>
+              <div class="g-ipt">
+                <input type="text" id="store_name" ngControl="name" class="g-wl">
+                <a href="javascript:void(0);" class="add-store">新增门店</a>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_name" class="g-label"><span class="warning">*</span>门店地址</label>
-            <div class="g-sel">
-              <select class="g-ws">
+            <div class="g-field">
+              <label for="store_name" class="g-label"><span class="warning">*</span>门店地址</label>
+              <div class="g-sel">
+                <select class="g-ws">
                 <option value="1">上海市</option>
                 <option value="1">北京市</option>
                 <option value="1">重庆市</option>
                 <option value="1">天津市</option>
               </select>
-              <select class="g-ws">
+                <select class="g-ws">
                 <option value="1">上海市</option>
                 <option value="1">北京市</option>
                 <option value="1">重庆市</option>
                 <option value="1">天津市</option>
               </select>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_name" class="g-label"></label>
-            <input type="text" class="g-wml">
-          </div>
-          <div class="g-field">
-            <label for="store_server" class="g-label"><span class="warning">*</span>服务类型</label>
-            <div class="g-ipt">
-              <select id="store_park" class="g-wm">
+            <div class="g-field">
+              <label for="store_name" class="g-label"></label>
+              <input type="text" class="g-wml">
+            </div>
+            <div class="g-field">
+              <label for="store_server" class="g-label"><span class="warning">*</span>服务类型</label>
+              <div class="g-ipt">
+                <select id="store_park" class="g-wm">
                 <option value="4">4个</option>
                 <option value="3">3个</option>
                 <option value="2">2个</option>
                 <option value="1">1个</option>
               </select>
+              </div>
             </div>
-          </div>
-          <h3><span class="title-underline">详细信息</span><i class="arrow-up"></i></h3>
-          <div class="g-field">
-            <label for="store_director" class="g-label">负责人</label>
-            <div class="g-ipt">
-              <input type="text" id="store_director" class="g-wm">
+            <h3><span class="title-underline">详细信息</span><i class="arrow-up"></i></h3>
+            <div class="g-field">
+              <label for="store_director" class="g-label">负责人</label>
+              <div class="g-ipt">
+                <input type="text" id="store_director" class="g-wm">
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_tel" class="g-label">联系方式</label>
-            <div class="g-ipt">
-              <input type="text" id="store_tel" class="g-wm">
+            <div class="g-field">
+              <label for="store_tel" class="g-label">联系方式</label>
+              <div class="g-ipt">
+                <input type="text" id="store_tel" class="g-wm">
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_year" class="g-label">开店年份</label>
-            <div class="g-sel">
-              <select id="store_year" class="g-wm">
+            <div class="g-field">
+              <label for="store_year" class="g-label">开店年份</label>
+              <div class="g-sel">
+                <select id="store_year" class="g-wm">
                 <option value="2016">2016年</option>
                 <option value="2015">2015年</option>
                 <option value="2014">2014年</option>
@@ -72,38 +72,38 @@
                 <option value="2011">2011年</option>
                 <option value="2010">2010年</option>
               </select>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_area" class="g-label">门店面积</label>
-            <div class="g-ipt">
-              <input type="text" id="store_area" class="g-wm"> <span class="g-unit">m<i>2</i></span>
+            <div class="g-field">
+              <label for="store_area" class="g-label">门店面积</label>
+              <div class="g-ipt">
+                <input type="text" id="store_area" class="g-wm"> <span class="g-unit">m<i>2</i></span>
+              </div>
             </div>
-          </div>
-          <div class="g-field">
-            <label for="store_park" class="g-label">汽修工位</label>
-            <div class="g-sel">
-              <select id="store_park" class="g-wm">
+            <div class="g-field">
+              <label for="store_park" class="g-label">汽修工位</label>
+              <div class="g-sel">
+                <select id="store_park" class="g-wm">
                 <option value="4">4个</option>
                 <option value="3">3个</option>
                 <option value="2">2个</option>
                 <option value="1">1个</option>
               </select>
+              </div>
+            </div>
+            <div class="g-field border-bottom-underline h36">
+              <a href="javascript:void(0);" class="del-store">删除该门店</a>
             </div>
           </div>
-          <div class="g-field border-bottom-underline h36">
-            <a href="javascript:void(0);" class="del-store">删除该门店</a>
+          <!-- 门店表单字段 end -->
+          <!-- 门店表单按钮  -->
+          <div class="g-btns center">
+            <button class="g-btn g-btn-green" type="submit" >保存</button>
           </div>
-        </div>
-        <!-- 门店表单字段 end -->
-        <!-- 门店表单按钮  -->
-        <div class="g-btns center">
-          <a class="g-btn g-btn-green" ui-sref="business-list">保存</a>
-        </div>
-        <!-- 门店表单按钮 end -->
-
-      </div>
+          <!-- 门店表单按钮 end -->
+      </form>
       <!-- 门店表单 end -->
+      <i class="right-arrow"></i>
     </div>
     <!-- 弹出层 -->
     <div class="fwin del-win">
@@ -129,8 +129,6 @@
       </div>
     </div>
     <!-- 弹出层 end -->
-    <i class="right-arrow"></i>
   </div>
   <page-footer class="white"></page-footer>
-</div>
 </div>

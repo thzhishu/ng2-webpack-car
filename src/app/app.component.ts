@@ -21,6 +21,7 @@ import * as moment from 'moment';
     { path: '/login-min', component: components.LoginMinComponent },
     { path: '/register', component: components.RegisterComponent },
     { path: '/forget-pwd', component: components.ForgetPwdComponent },
+    { path: '/init-store', component: components.InitStoreComponent },
     { path: '/my-account', component: components.MyAccountComponent },
     { path: '/modify-store', component: components.ModifyStoreComponent },
     { path: '/store-add', component: components.StoreAddComponent },

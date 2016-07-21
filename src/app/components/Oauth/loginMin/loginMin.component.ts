@@ -7,8 +7,9 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/co
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi } from 'client';
+import { UserApi, CommonApi, ShopApi } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
+import { Cookie } from 'services';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +17,7 @@ import { MainLogoComponent, PageFooterComponent } from 'common';
   template: require('./loginMin.html'),
   styles: [require('./loginMin.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5],
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5,Cookie]
 })
 
 export class LoginMinComponent {
@@ -25,17 +26,17 @@ export class LoginMinComponent {
   user: any = {};
   seekDisabeld: number = 0;
   seekBtnTitle: number = 0;
-  img:any;
-  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
-    this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
-    //表单验证
+  img: any;
+  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
+    this.zone = new NgZone({ enableLongStackTrace: false }); // 事务控制器
+    // 表单验证
     this.loginForm = fb.group({
       'phone': [''],
       'rnd': [''],
-      'pwd': [''],
+      'pwd': ['']
     });
   }
-  //初始化
+  // 初始化
   ngOnInit() {
     this.getCodeImg();
   }
@@ -45,30 +46,40 @@ export class LoginMinComponent {
    */
   getCodeImg() {
     this.cApi.commonCaptchaPost().subscribe(data => {
-      this.img = 'data:image/jpeg;base64,' + (data.text() || '');
-      this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
+      if (data) {
+        this.img = 'data:image/jpeg;base64,' + (data.text() || '');
+        this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
+      }
     });
   }
   onChangeCodeImg() {
     this.getCodeImg();
   }
-  //登录
+  // 登录
   onLogin() {
     if (!this.loginForm.valid) {
       alert('你输入的信息有误.不能完成登录');
       return false;
     }
     let params = this.loginForm.value;
-    //mobile: string, password: string, code: string, 
+    // mobile: string, password: string, code: string, 
     this.uApi.userLoginPost(params.phone, params.pwd, params.rnd).subscribe(data => {
-      console.log('this.uApi.userLoginPost()');
-      console.dir(data);
-      let json = data.json();
-      if(json.meta.code==200){
-        this.uApi.defaultHeaders.token = data.headers.get('token');
-        this.router.navigate(['/employee-list']);
+      if (data.meta.code === 200) {
+        console.log(data.data);
+        Cookie.save('token', data.data.User.token,'7');
+        this.sApi.defaultHeaders.set('token', data.data.User.token);
+        this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
+          if (data.meta.code === 200) {
+            if (data.data.length > 0) {
+              this.router.navigate(['/employee-list']);
+            } else {
+              this.router.navigate(['/init-store']);
+            }
+          }
+        });
+
       }
-    })
+    });
   }
 
   toHome() {
