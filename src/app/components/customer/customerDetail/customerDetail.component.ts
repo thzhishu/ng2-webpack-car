@@ -35,7 +35,7 @@ export class CustomerDetailComponent {
 		this.cApi.customerHistoryCustomerIdGet(id).subscribe(data => {
 			if (data.data) {
 				this.customerDetail = data.data;
-				//this.customer = this.customerDetail.customers.length ? this.customerDetail.customers[0] || [];
+				// this.customer = this.customerDetail.customers.length ? this.customerDetail.customers[0] || [];
 				this.customer = this.customerDetail.customers && this.customerDetail.customers.length ? this.customerDetail.customers[0] : {} ;
 				this.histories = this.customerDetail.histories || [];
 				this.customer = this.formatCustomer(this.customer);

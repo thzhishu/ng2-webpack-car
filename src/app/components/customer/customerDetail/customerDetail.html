@@ -90,12 +90,12 @@
                   
                 </tr>
               </thead>
-              <tbody>
+              <tbody *ngFor="let hs of histories">
                 <tr>
-                  <td >2016.06.15  15:30</td>
-                  <td>更换玻璃</td>
-                  <td>小钟</td>
-                  <td>福耀原福耀原福耀原</td>
+                  <td >{{hs.paidDate || '-'}}</td>
+                  <td>{{hs.supplies[0]?.name || '-'}}</td>
+                  <td>{{hs.employee || '-'}}</td>
+                  <td>{{hs.description || '-'}}</td>
                   <td class="cd-r-satisfaction"><a href="">点击邀请顾客做服务评价</a></td>
                 </tr>
                 <tr>
