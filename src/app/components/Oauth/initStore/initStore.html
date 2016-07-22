@@ -40,7 +40,7 @@
             <div class="g-field fs14">
               <label for="store_server" class="g-label">
                 <span class="warning">*</span>服务类型</label>
-              <div class="g-ipt g-wml g-checkbox-group" ngControlGroup="serviceId">
+              <div class="g-ipt g-wml g-checkbox-group" ngControlGroup="serviceIds">
                 <md-checkbox *ngFor="let sl of shop.sList, let j = index" ngControl="{{sl.id}}" [(ngModel)]="sl.checked">{{sl.name}}</md-checkbox>
               </div>
             </div>
@@ -95,7 +95,7 @@
         <!-- 门店表单字段 end -->
         <!-- 门店表单按钮  -->
         <div class="g-btns center">
-          <button class="g-btn g-btn-green" type="submit">保存</button>
+          <button class="g-btn g-btn-green" type="submit" [disabled]="!f.valid||loading">保存</button>
         </div>
         <!-- 门店表单按钮 end -->
       </form>

@@ -35,6 +35,7 @@ export class InitStoreComponent {
   sList: any;
   STATION_10: any;
   YEARS_20: any;
+  loading: number = 0;
 
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
 
@@ -90,8 +91,6 @@ export class InitStoreComponent {
 
   onAddShop(index) {
     this.shopList.splice(index + 1, 0, { sList: _.cloneDeep(this.sList) });
-    // this.shopList.push({sList:_.cloneDeep(this.sList)});
-    console.log(this.shopList, index);
   }
 
   onDelhop(index) {
@@ -105,24 +104,29 @@ export class InitStoreComponent {
   AssemblyServiceId(data) {
     let ay = [];
     let list = [];
-    let obj = _.cloneDeep(data);
+    let obj = data;
     _.forEach(obj, (val, i) => {
-      _.forEach(val.serviceId, (sub, j) => {
+      _.forEach(val.serviceIds, (sub, j) => {
         if (sub) {
           list.push(j);
         }
       })
-      val.serviceId = list;
+      val.serviceIds = list.join(',');
+      ay.push(val);
     })
     return ay;
   }
 
   onResigerShop(f) {
-    let data = Object.assign({},f.value);
+    this.loading = 1;
+    let data = f.value;
     let post = this.AssemblyServiceId(data);
     // payload: models.Shop
     this.sApi.shopRegisterPost(post[0]).subscribe(data => {
-      console.log(data);
+      this.loading = 0;
+      if (data.meta.code === 200) {
+        this.router.navigate(['/my-account']);
+      }
     });
   }
 
