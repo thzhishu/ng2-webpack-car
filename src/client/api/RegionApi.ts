@@ -36,7 +36,7 @@ import { Cookie } from 'services';
 
 @Injectable()
 export class RegionApi {
-  protected basePath = 'http://localhost:3000/api/v1';
+  protected basePath = '/api/v1';
   public defaultHeaders: Headers = new Headers();
 
   constructor(protected http: Http, @Optional() basePath: string) {
