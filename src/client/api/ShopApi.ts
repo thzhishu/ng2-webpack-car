@@ -50,7 +50,7 @@ export class ShopApi {
      *
      * @param payload product
      */
-    public shopBatchSavePost (payload: models.MyShopResponse, extraHttpRequestParams?: any ) : Observable<models.ShopResponse> {
+    public shopBatchSavePost (payload: Array<models.Shop>, extraHttpRequestParams?: any ) : Observable<models.ShopResponse> {
         const path = this.basePath + '/shop/batchSave';
 
         let queryParameters = new URLSearchParams();

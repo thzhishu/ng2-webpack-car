@@ -49,7 +49,7 @@ export class CommonApi {
      * 验证码，返回的是验证码图片的base64
      * 通过的验证码接口
      */
-    public commonCaptchaBase64Post (extraHttpRequestParams?: any ) : Observable<string> {
+    public commonCaptchaBase64Post (extraHttpRequestParams?: any ) : Observable<Response> {
         const path = this.basePath + '/common/captchaBase64';
 
         let queryParameters = new URLSearchParams();
@@ -78,7 +78,7 @@ export class CommonApi {
      * 验证码，返回的是stream， 客户端直接在图片src引用api url
      * 通过的验证码接口
      */
-    public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<{}> {
+    public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<Response> {
         const path = this.basePath + '/common/captcha';
 
         let queryParameters = new URLSearchParams();
@@ -98,7 +98,7 @@ export class CommonApi {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return response.json();
+                    return response;
                 }
             });
     }

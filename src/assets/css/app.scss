@@ -242,15 +242,23 @@ html {
   cursor: pointer;
   box-shadow: 0 0 5px rgba(119, 119, 119, .75);
   text-decoration: none;
+  &[disabled],.disabled{
+    background: #9a9a9a;
+  }
+  &:hover {
+    &[disabled],.disabled{
+      background: #9a9a9a;
+    }
+  }
 }
 .g-btn-gray {
   background: #9a9a9a;
 }
 .g-btn-green {
   background: #38b549;
-}
-.g-btn-green:hover {
-  background: #008f46;
+  &:hover {
+    background: #008f46;
+  }
 }
 
 .g-ckb > div { margin-top: 15px; }
@@ -606,7 +614,7 @@ html {
 .list-empty {
   font-size: 14px;
   margin-top:142px;
-  
+
 }
 .list-empty-pa {
   position: absolute;
@@ -731,7 +739,7 @@ html {
   width:36px;
   z-index:3;
   text-align: center;
-  
+
   color:#fff;
 }
 .g-addico:before,
@@ -749,15 +757,15 @@ html {
   left:6px;
 }
 .g-addico:after {
-  width:2px; 
+  width:2px;
   height:12px;
   top:6px;
   left:11px;
 }
 .g-addico:hover {
   width:70px;
-  
-  
+
+
 }
 .g-addico:hover i {
   width:100%;

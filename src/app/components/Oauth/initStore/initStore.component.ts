@@ -36,6 +36,7 @@ export class InitStoreComponent {
   STATION_10: any;
   YEARS_20: any;
   loading: number = 0;
+  errorServiceType: number = 0;
 
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
 
@@ -102,6 +103,7 @@ export class InitStoreComponent {
   }
 
   AssemblyServiceId(data) {
+    this.errorServiceType = 1;
     let ay = [];
     let list = [];
     let obj = data;
@@ -109,6 +111,7 @@ export class InitStoreComponent {
       _.forEach(val.serviceIds, (sub, j) => {
         if (sub) {
           list.push(j);
+          this.errorServiceType = 0;
         }
       })
       val.serviceIds = list.join(',');
@@ -121,11 +124,16 @@ export class InitStoreComponent {
     this.loading = 1;
     let data = f.value;
     let post = this.AssemblyServiceId(data);
+    if(this.errorServiceType){
+      return false;
+    }
     // payload: models.Shop
-    this.sApi.shopRegisterPost(post[0]).subscribe(data => {
+    this.sApi.shopBatchSavePost(post).subscribe(data => {
       this.loading = 0;
       if (data.meta.code === 200) {
         this.router.navigate(['/my-account']);
+      }else{
+        alert(data.error.message);
       }
     });
   }
