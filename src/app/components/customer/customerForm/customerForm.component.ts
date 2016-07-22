@@ -100,7 +100,7 @@ export class CustomerFormComponent {
 			return;
 		}
 
-		if(submitting) return;
+		if(this.submitting) return;
 		this.submitting = true;
 
 		let vals = this.customerForm.value;

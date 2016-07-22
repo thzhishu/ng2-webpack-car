@@ -173,17 +173,14 @@ export class UserApi {
      *
      * @param token 用户的登录凭证
      */
-    public userMeGet (token: string, extraHttpRequestParams?: any ) : Observable<models.MyAcountResponse> {
+    public userMeGet ( extraHttpRequestParams?: any ) : Observable<models.MyAcountResponse> {
         const path = this.basePath + '/user/me';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         // verify required parameter 'token' is not null or undefined
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling userMeGet.');
-        }
-            headerParams.set('token', token);
-
+        
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,

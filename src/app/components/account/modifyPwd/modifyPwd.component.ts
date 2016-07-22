@@ -48,6 +48,7 @@ export class ModifyPwdComponent {
             this.uApi.userChangePwdPost(params.oldPassword,params.password,params.rePassword).subscribe(data => {
                 console.log('this.cApi.userChangePwdPost()');
                 console.dir(data);
+                alert('密码修改成功');
             })
         } else {
             alert('你输入的信息有误');

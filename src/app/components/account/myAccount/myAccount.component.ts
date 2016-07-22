@@ -35,7 +35,7 @@ export class MyAccountComponent {
 
 	getAccountInfo() {
 		//let self = this;
-		this.uApi.userMeGet('d98019b3-c07c-4e90-ad1e-e4bc185be0f4').subscribe(data => {
+		this.uApi.userMeGet().subscribe(data => {
 			console.log(data);
 			this.accountBaseInfo = data.data;
 		}, err => {console.error(err); });

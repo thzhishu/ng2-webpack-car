@@ -66,8 +66,10 @@ export class LoginMinComponent {
     this.uApi.userLoginPost(params.phone, params.pwd, params.rnd).subscribe(data => {
       if (data.meta.code === 200) {
         Cookie.save('token', data.data.User.token, '7');
+        Cookie.save('shopId', '5');
         this.sApi.defaultHeaders.set('token', data.data.User.token);
         if (data.data.User.lastShopId === null) {
+          
           this.router.navigate(['/init-store']);
         } else {
           this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);

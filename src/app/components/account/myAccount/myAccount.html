@@ -37,6 +37,10 @@
           <div class="s-td"><span *ngIf="fir">门店资料：</span></div>
           <div class="s-td">{{shop.name}}<a [routerLink]="['/modify-store',{id: shop.id}]">修改</a><div *ngIf="fir" class="g-addico"><i></i><span>添加</span></div></div>
         </div>
+        <div class="s-tr" *ngIf="!accountBaseInfo.shops?.length">
+          <div class="s-td"><span >门店资料：</span></div>
+          <div class="s-td">还没有创建门店<a [routerLink]="['/store-add']" class="g-addico"><i></i><span>添加</span></a></div>
+        </div>
         <!--<div class="s-tr">
           <div class="s-td"></div>
           <div class="s-td">徐汇区肇嘉浜路店<a ui-sref="modify-store">修改</a></div>
