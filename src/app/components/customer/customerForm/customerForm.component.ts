@@ -9,18 +9,18 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, CustomerApi, Customer } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
-import { CustomerForm } from '../customerForm/customerForm.component';
 
 @Component({
 	moduleId: module.id,
-	selector: 'customer-add',
-	template: require('./customerAdd.html'),
-	styles: [require('./customerAdd.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, CustomerForm],
+	selector: 'customer-form',
+	template: require('./customerForm.html'),
+	styles: [require('./customerForm.scss')],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent],
 	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, CustomerApi ]
 })
 
-export class CustomerAddComponent {
+export class CustomerFormComponent {
+    @Input() customer;
 	customerForm: ControlGroup;
 	vehiclePlateNull: Boolean = false;
 	vehiclePlateLen: Boolean = false;
@@ -28,12 +28,13 @@ export class CustomerAddComponent {
 	mobileFormatValid: Boolean = false;
 	birthdayYearArr: number[] = [];
 	vehicleYearArr: number[] = [];
-	active:Boolean = true;
+	active: Boolean = true;
 	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
 		this.initFb();
 		const currentYear = +(new Date()).getFullYear();
 		this.birthdayYearArr = this.rangeArr(1950, currentYear).reverse();
 		this.vehicleYearArr = this.rangeArr(1990, currentYear).reverse();
+        console.log(Object.assign({}, this.customer));
 	}
 
 	ngOnInit() {
