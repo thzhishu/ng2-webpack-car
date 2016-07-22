@@ -7,7 +7,7 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } f
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi, ShopApi, RegionApi } from 'client';
+import { UserApi, CommonApi, ShopApi, RegionApi,models } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { Cookie } from 'services';
 
@@ -26,18 +26,22 @@ export class InitStoreComponent {
   cityList: Array<models.RegionItem>;
   countyList: Array<models.RegionItem>;
   formGroup:any:
+  sList:any;
 
   const YEARS_20: Array<number> = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
   const STATION_10: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
-    // this.formGroup = new ControlGroup();
+    this.formGroup = new ControlGroup();
+    this.f = fb.array([this.formGroup,this.formGroup]);
+    console.log(this.f,'this.f');
   }
   // 初始化
   ngOnInit() {
+    this.getServiceType();
     this.shopList = [];
     this.getProvince();
-    this.getServiceType();
+
   }
 
   info(data){
@@ -74,16 +78,17 @@ export class InitStoreComponent {
   getServiceType(){
     this.cApi.commonDictServicesPost().subscribe(data => {
       if (data.meta.code === 200) {
-        this.serviceTypeList = Object.assign({},{serviceTypeList:[].concat(data.data)});
-        this.shopList.push(Object.assign({}, this.serviceTypeList));
+        this.formGroup.serviceId = data.data;
+        this.onAddShop(0);
       }
     })
   }
 
 
-  onAddShop(index) {
-    console.log(this.serviceTypeList);
-    this.shopList.splice(index,0,this.serviceTypeList);
+  onAddShop(index,f) {
+    // f.addControl('this.formGroup');
+    console.log(f);
+    this.shopList.splice(index,0,{});
   }
 
   onDelhop(index) {
@@ -95,22 +100,22 @@ export class InitStoreComponent {
   }
 
   AssemblyServiceId(data){
-    _.forEach(this.serviceTypeList,(val,i)=>{
-          console.log(val,i);
+    // _.forEach(this.serviceTypeList,(val,i)=>{
+    //       console.log(val,i);
 
-    })
+    // })
   }
 
   onResigerShop(f){
-    console.log(this.serviceTypeList);
+    console.log(f);
     // payload: models.MyShopResponse
-    let data = f.value;
-    console.log(data);
-    this.AssemblyServiceId(data);
-    this.sApi.defaultHeaders.set('content-type', 'application/json');
-    this.sApi.shopRegisterPost(data).subscribe(data => {
-      console.log(data);
-    });
+    // let data = f.value;
+    // console.log(data);
+    // this.AssemblyServiceId(data);
+    // this.sApi.defaultHeaders.set('content-type', 'application/json');
+    // this.sApi.shopRegisterPost(data).subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
   toHome() {

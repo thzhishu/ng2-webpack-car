@@ -7,8 +7,8 @@
       <form (ngSubmit)="onResigerShop(f)" #f="ngForm"  >
         <div class="" >
           {{shopList|json}}
-          <div class="c-form c-modify-store" ngControlGroup="{{i}}" #shopForm  *ngFor="let shop of shopList;let i = index">
-            <!-- 门店表单字段 -->
+          <div class="c-form c-modify-store"  ngControlGroup="f.controls[0]" *ngFor="let shop of f.controls, let i = index" >
+            <!-- 门店表单字段 -->{{shop|json}}
             <h3>
               <span class="title-underline">基础信息</span>
             </h3>
@@ -16,19 +16,19 @@
               <label for="store_name" class="g-label">
                 <span class="warning">*</span>门店名称</label>
               <div class="g-ipt">
-                <input type="text" id="store_name" ngControl="name" class="g-wl">
-                <a href="javascript:void(0);" class="add-store" (click)="onAddShop(i)">新增门店</a>
+                <input type="text" id="store_name" [(ngModel)]="name" class="g-wl">
+                <a href="javascript:void(0);" class="add-store" (click)="onAddShop(i,f)">新增门店</a>
               </div>
             </div>
             <div class="g-field">
               <label for="store_name" class="g-label">
                 <span class="warning">*</span>门店地址</label>
               <div class="g-sel">
-                <select class="g-ws" ngControl="provinceId" (ngModelChange)="onChangeProvince($event)">
+                <select class="g-ws" [(ngModel)]="provinceId" (ngModelChange)="onChangeProvince($event)">
                   <option value="null">请选择省市</option>
                   <option [value]="plist.id" *ngFor="let plist of provinceList">{{plist.name}}</option>
                 </select>
-                <select class="g-ws" ngControl="cityId">
+                <select class="g-ws" [(ngModel)]="cityId">
                   <option value="null">请选择城市</option>
                   <option [value]="clist.id" *ngFor="let clist of cityList">{{clist.name}}</option>
                 </select>
@@ -36,13 +36,13 @@
             </div>
             <div class="g-field">
               <label for="store_name" class="g-label" placeholder="详细地址"></label>
-              <input type="text" ngControl="address" class="g-wml">
+              <input type="text" [(ngModel)]="address" class="g-wml">
             </div>
             <div class="g-field fs14">
               <label for="store_server" class="g-label">
                 <span class="warning">*</span>服务类型</label>
               <div class="g-ipt g-wml g-checkbox-group">
-                <label class="checkbox-label" *ngFor="let sl of shop.serviceTypeList, let j = index"><input class="checkbox-input" type="checkbox" [(ngModel)]="sl.checked" >{{i + ', ' + j}}{{sl.name}}</label>
+                <label class="checkbox-label" *ngFor="let sl of serviceTypeList, let i = index"><input class="checkbox-input" type="checkbox" [(ngModel)]="sl.checked" >{{sl.name}}</label>
               </div>
             </div>
             <h3>
@@ -52,19 +52,19 @@
             <div class="g-field">
               <label for="store_director" class="g-label">负责人</label>
               <div class="g-ipt">
-                <input type="text" id="store_director" ngControl="ownerName" class="g-wm">
+                <input type="text" id="store_director" [(ngModel)]="ownerName" class="g-wm">
               </div>
             </div>
             <div class="g-field">
               <label for="store_tel" class="g-label">联系方式</label>
               <div class="g-ipt">
-                <input type="text" id="store_tel" ngControl="phone" class="g-wm">
+                <input type="text" id="store_tel" [(ngModel)]="phone" class="g-wm">
               </div>
             </div>
             <div class="g-field">
               <label for="store_year" class="g-label">开店年份</label>
               <div class="g-sel">
-                <select id="store_year" ngControl="openingDate" class="g-wm">
+                <select id="store_year" [(ngModel)]="openingDate" class="g-wm">
                   <option value="null">请选择开店年份</option>
                   <option [value]="y" *ngFor="let y of YEARS_20">{{y}}</option>
                 </select>
@@ -73,7 +73,7 @@
             <div class="g-field">
               <label for="store_area" class="g-label">门店面积</label>
               <div class="g-ipt">
-                <input type="text" id="store_area" ngControl="area" class="g-wm">
+                <input type="text" id="store_area" [(ngModel)]="area" class="g-wm">
                 <span class="g-unit">m<i>2</i>
                 </span>
               </div>
@@ -81,7 +81,7 @@
             <div class="g-field">
               <label for="store_park" class="g-label">汽修工位</label>
               <div class="g-sel">
-                <select id="store_park" class="g-wm" ngControl="station">
+                <select id="store_park" class="g-wm" [(ngModel)]="station">
                   <option value="null">请选择汽修工位</option>
                   <option [value]="s" *ngFor="let s of STATION_10">{{s}}</option>
                 </select>
