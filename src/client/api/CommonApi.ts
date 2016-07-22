@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -52,6 +54,9 @@ export class CommonApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -80,6 +85,10 @@ export class CommonApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
+
         // verify required parameter 'code' is not null or undefined
         if (code === null || code === undefined) {
             throw new Error('Required parameter code was null or undefined when calling commonCodeVerifyGet.');
@@ -127,6 +136,10 @@ export class CommonApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
+
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,

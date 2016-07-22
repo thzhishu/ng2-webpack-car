@@ -7,7 +7,7 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi } from 'client';
+import { UserApi, CommonApi,ShopApi } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 
 @Component({
@@ -16,7 +16,7 @@ import { MainLogoComponent, PageFooterComponent } from 'common';
   template: require('./register.html'),
   styles: [require('./register.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5],
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi,ShopApi, Md5],
 })
 
 export class RegisterComponent {
@@ -28,7 +28,7 @@ export class RegisterComponent {
   openProtocol: number = 0;
   img: any;
   sign:string;
-  constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+  constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
     //表单验证
     this.rForm = fb.group({
@@ -128,6 +128,15 @@ export class RegisterComponent {
       if(json.meta.code==200){
         this.uApi.defaultHeaders.token = data.headers.get('token') || 'token';
         this.router.navigate(['/login-min']);
+        this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
+          if (data.meta.code === 200) {
+            if (data.data.length > 0) {
+              this.router.navigate(['/employee-list']);
+            } else {
+              this.router.navigate(['/init-store']);
+            }
+          }
+        });
       }
     })
   }

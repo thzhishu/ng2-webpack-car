@@ -17,6 +17,7 @@
     background: #fff;
     width: 800px;
     margin: 0 auto;
+    position: relative;
     .right-arrow {
       background: url("/assets/images/right-corner.png") 0 0 no-repeat;
       position: absolute;
@@ -126,6 +127,19 @@
       }
       .g-ws {
         width: 208px;
+      }
+      &.fs14{
+        font-size: 14px;
+      }
+      .g-checkbox-group{
+        margin: 10px 0;
+      }
+      .checkbox-label{
+        display: inline-block;
+        margin: 0 30px 20px 0;
+        .checkbox-input{
+          height: 14px;
+        }
       }
     }
     .g-op {

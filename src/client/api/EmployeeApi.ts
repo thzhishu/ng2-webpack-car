@@ -28,6 +28,8 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
+import { Cookie } from 'services';
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 'use strict';
@@ -53,6 +55,9 @@ export class EmployeeApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling employeeDeleteDelete.');
@@ -89,6 +94,9 @@ export class EmployeeApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
         // verify required parameter 'token' is not null or undefined
         if (token === null || token === undefined) {
             throw new Error('Required parameter token was null or undefined when calling employeeEmployeeIdGet.');
@@ -124,6 +132,9 @@ export class EmployeeApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -153,6 +164,8 @@ export class EmployeeApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         headerParams.set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -190,6 +203,8 @@ export class EmployeeApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
 
         headerParams.set('Content-Type', 'application/x-www-form-urlencoded');
 
