@@ -8,7 +8,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a ui-sref="report-week-satisfaction">我的周报</a> > <a ui-sref="report-week-satisfaction">满意度评价报告</a>
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/report/week/satisfaction']">我的周报</a> > <a [routerLink]="['/report/week/satisfaction']">满意度评价报告</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -24,16 +24,17 @@
       <!-- 带搜索+添加的面包屑 end -->
       <!-- 主内容 -->
         <!-- 切换卡 -->
-        <div class="c-tab">
-          <a class="c-tab-item active" ui-sref="report-week-satisfaction">满意度评价报告</a>
-          <a class="c-tab-item " ui-sref="report-week-business">业务总结报告</a>
+        <div class="pr c-tab">
+          <a class="c-tab-item" [routerLink]="['/report/week/satisfaction']">满意度评价报告</a>
+          
+          <div class="pa rp-head-print ico-print">打印本周周报</div>
         </div>
         <!-- 切换卡 end -->
         <!-- 主标题 -->
         <div class="pr tc rp-head">
-          您打败了 <span class="c-pink">71%</span> 同行业门店
-          <div class="pa rp-head-time">2016-06-20 至 2016-06-27</div>
-          <div class="pa rp-head-print ico-print">打印本周周报</div>
+          您打败了 <span class="c-pink">{{percent}}%</span> 同行业门店
+          <div class="pa rp-head-time">{{start}} 至 {{end}}</div>
+          
         </div>
         <!-- 主标题 end -->
         <!-- 好 & 差 -->
@@ -41,16 +42,15 @@
           <div class="pr-block-tr">
             <div class="c-block pr-good">
               <h2>做的好的请继续保持！</h2>
-              <div>门店的会员优惠活动</div>
-              <div>门店的整体环境</div>
-              <div>本次活动的质量</div>
-              <div>本次活动的质量</div>
+              <div *ngFor="let gd of shopGoods">{{gd}}</div>
+              <div class="pr-nodata" *ngIf="!shopGoods.length">
+                暂无数据，您需要邀请车主参与服务评价
+              </div>
             </div>
             <div class="c-block pr-bad">
               <h2>尽快改需要改进的！</h2>
-              <!--<div>门店的着装及礼仪</div>
-              <div>门店的整体环境</div>-->
-              <div class="pr-nodata">
+              <div *ngFor="let gd of shopBads">{{gd}}</div>
+              <div class="pr-nodata" *ngIf="!shopBads.length">
                 暂无数据，您需要邀请车主参与服务评价
               </div>
             </div>
@@ -71,18 +71,11 @@
                   <div class="ds-cell">主理技师</div>
                   <div class="ds-cell">综合得分</div>
                 </div>
-                <div class="ds-row">
-                  <div class="ds-cell">小王</div>
-                  <div class="ds-cell">9.3分</div>
+                <div class="ds-row" *ngFor="let eg of employeeGoods">
+                  <div class="ds-cell">{{eg.name || '-'}}</div>
+                  <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
                 </div>
-                <div class="ds-row">
-                  <div class="ds-cell">--</div>
-                  <div class="ds-cell">--</div>
-                </div>
-                <div class="ds-row">
-                  <div class="ds-cell">小王</div>
-                  <div class="ds-cell">9.3分</div>
-                </div>
+                
                 
               </div>
             </div>
@@ -92,17 +85,9 @@
                   <div class="ds-cell">主理技师</div>
                   <div class="ds-cell">综合得分</div>
                 </div>
-                <div class="ds-row">
-                  <div class="ds-cell">小王</div>
-                  <div class="ds-cell">9.3分</div>
-                </div>
-                <div class="ds-row">
-                  <div class="ds-cell">小王</div>
-                  <div class="ds-cell">9.3分</div>
-                </div>
-                <div class="ds-row">
-                  <div class="ds-cell">小王</div>
-                  <div class="ds-cell">9.3分</div>
+                <div class="ds-row" *ngFor="let eg of employeeBads">
+                  <div class="ds-cell">{{eg.name || '-'}}</div>
+                  <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
                 </div>
                 
               </div>
@@ -120,100 +105,27 @@
               <thead>
                 <tr>
                   <th>日期</th>
-                  <th>施工项目</th>
+                  <th>服务项目</th>
                   <th>主理技师</th>
                   <th>客户车型</th>
-                  <th>服务评价</th>
                   <th>服务得分</th>
                   
                 </tr>
               </thead>
-              <tbody  >
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
+              <tbody  *ngIf="improvements.length" >
+                <tr *ngFor="let im of improvements">
+                  <td>{{ im.date }}</td>
+                  <td>{{ im.serviceName }}</td>
+                  <td>{{ im.employeeName }}</td>
+                  <td>{{ im.model }}</td>
+                  <td>{{ im.comments[0]?.score }}分</td>
                 </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
-                <tr>
-                  <td>2016-6-18</td>
-                  <td>更换玻璃</td>
-                  <td>向景景</td>
-                  <td>C200L</td>
-                  <td>员工的服务态度</td>
-                  <td>7.3分</td>
-                </tr>
+                
                 
                 
               </tbody>
             </table>
-            <div class="pr-nodata">
+            <div class="pr-nodata" *ngIf="!improvements.length">
               暂无数据，您需要邀请车主参与服务评价
             </div>
 
