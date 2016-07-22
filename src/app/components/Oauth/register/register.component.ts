@@ -1,13 +1,13 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
-import { HTTP_PROVIDERS,Response } from '@angular/http';
+import { HTTP_PROVIDERS, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi,ShopApi,User } from 'client';
+import { UserApi, CommonApi, ShopApi, User } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { Cookie } from 'services';
 
@@ -17,7 +17,7 @@ import { Cookie } from 'services';
   template: require('./register.html'),
   styles: [require('./register.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi,ShopApi, Md5],
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5],
 })
 
 export class RegisterComponent {
@@ -25,11 +25,14 @@ export class RegisterComponent {
   zone: any;
   user: any = {};
   seekDisabeld: number = 0;
-  seekBtnTitle:any;
+  seekBtnTitle: any;
   openProtocol: number = 0;
   img: any;
-  sign:string;
-  constructor(private router: Router,private fb: FormBuilder,private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
+  sign: string;
+  errorPhoneCode: string;
+  loading: number = 0;
+
+  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
     //表单验证
     this.rForm = fb.group({
@@ -49,8 +52,8 @@ export class RegisterComponent {
    * @return {[type]} [description]
    */
   getCodeImg() {
-    this.cApi.commonCaptchaPost().subscribe((data:Response) => {
-      this.img = 'data:image/jpeg;base64,'+ (data.text() || '');
+    this.cApi.commonCaptchaBase64Post().subscribe((data: Response) => {
+      this.img = 'data:image/jpeg;base64,' + (data.text() || '');
       this.uApi.defaultHeaders.set('uuid', data.headers.get('uuid'));
     });
   }
@@ -108,38 +111,43 @@ export class RegisterComponent {
     let salt = 'thzs0708';
     this.sign = Md5.hashStr(phone + rnd + salt).toString();
     this.uApi.userRegisterSmsPost(phone, rnd, this.sign).subscribe(data => {
-
+      if (data.meta.code !== 200) {
+        this.errorPhoneCode = data.error.message;
+      }
     })
   }
 
   //注册
   onRegister() {
-    console.log(this.rForm);
+    this.loading = 1;
     if (!this.rForm.valid) {
       alert('你输入的信息有误.不能完成注册');
+      this.loading = 0;
       return false;
     }
     let params = this.rForm.value;
     //mobile: string, password: string, code: string, captcha: string
-    this.uApi.userRegisterPost(params.phone, params.pwd, params.code, params.rnd).subscribe((data) => {
-      if(data.meta.code==200){
-        Cookie.save('token', data.data.User.token, 7);
-        // this.router.navigate(['/login-min']);
-        this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
-          if (data.meta.code === 200) {
-            if (data.data.length > 0) {
-              this.router.navigate(['/employee-list']);
+    this.uApi.userRegisterPost(params.phone, Md5.hashStr(params.pwd, false).toString(), params.code, params.rnd)
+      .subscribe((data) => {
+        this.loading = 0;
+        if (data.meta.code == 200) {
+          Cookie.save('token', data.data.User.token, 7);
+          // this.router.navigate(['/login-min']);
+          this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
+            if (data.meta.code === 200) {
+              if (data.data.length > 0) {
+                this.router.navigate(['/employee-list']);
+              } else {
+                this.router.navigate(['/init-store']);
+              }
             } else {
-              this.router.navigate(['/init-store']);
+              alert(data.error.message);
             }
-          }else{
-            alert(data.error.message);
-          }
-        });
-      }else{
-        alert(data.error.message);
-      }
-    })
+          });
+        } else {
+          alert(data.error.message);
+        }
+      })
   }
 
   toHome() {

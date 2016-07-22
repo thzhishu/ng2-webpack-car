@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -56,7 +56,9 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        headerParams.set('Content-Type', 'application/json');
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {
@@ -91,7 +93,8 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
@@ -133,9 +136,11 @@ export class ShopApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         // verify required parameter 'mobile' is not null or undefined
         if (mobile === null || mobile === undefined) {
@@ -176,19 +181,14 @@ export class ShopApi {
      *
      * @param token 用户的登录凭证
      */
-    public shopMyshopGet (token: string, extraHttpRequestParams?: any ) : Observable<models.MyShopResponse> {
+    public shopMyshopGet (extraHttpRequestParams?: any ) : Observable<models.MyShopResponse> {
         const path = this.basePath + '/shop/myshop';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
-        // verify required parameter 'token' is not null or undefined
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling shopMyshopGet.');
-        }
-            headerParams.set('token', token);
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -217,8 +217,9 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-        headerParams.set('content-type', 'application/json');
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        headerParams.set('Content-Type', 'application/json');
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {
@@ -253,15 +254,10 @@ export class ShopApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'token' is not null or undefined
-        if (token === null || token === undefined) {
-            throw new Error('Required parameter token was null or undefined when calling shopShopIdGet.');
-        }
-        // verify required parameter 'shopId' is not null or undefined
-        if (shopId === null || shopId === undefined) {
-            throw new Error('Required parameter shopId was null or undefined when calling shopShopIdGet.');
-        }
-            headerParams.set('token', token);
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        headerParams.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -290,7 +286,9 @@ export class ShopApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        headerParams.set('Content-Type', 'application/json');
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {

@@ -56,12 +56,12 @@ export interface Survey {
     /**
      * 问卷开始时间， 如果没有，留空
      */
-    start?: Date;
+    start?: string;
 
     /**
      * 问卷结束时间， 如果没有， 留空
      */
-    end?: Date;
+    end?: string;
 
     pages?: Array<models.Page>;
 }

@@ -64,7 +64,7 @@ export interface BusinessDetail {
     /**
      * 入店时间'yyyy-MM-dd HH:mm'                                    
      */
-    enterDate?: Date;
+    enterDate?: string;
 
     /**
      * 描述 

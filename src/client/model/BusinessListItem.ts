@@ -39,7 +39,7 @@ export interface BusinessListItem {
     /**
      * 时间 
      */
-    date?: Date;
+    date?: string;
 
     /**
      * 顾客id    

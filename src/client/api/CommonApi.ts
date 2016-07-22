@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -46,17 +46,17 @@ export class CommonApi {
     }
 
     /**
-     * 验证码，返回的是stream， 客户端直接在图片src引用api url
+     * 验证码，返回的是验证码图片的base64
      * 通过的验证码接口
      */
-    public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<{}> {
+    public commonCaptchaBase64Post (extraHttpRequestParams?: any ) : Observable<string> {
         const path = this.basePath + '/common/captchaBase64';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token'));
-        headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
@@ -75,6 +75,35 @@ export class CommonApi {
     }
 
     /**
+     * 验证码，返回的是stream， 客户端直接在图片src引用api url
+     * 通过的验证码接口
+     */
+    public commonCaptchaPost (extraHttpRequestParams?: any ) : Observable<{}> {
+        const path = this.basePath + '/common/captcha';
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let requestOptions: RequestOptionsArgs = {
+            method: 'POST',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * 找回密码，检验手机验证码有效性， 客户端在点下一步时候调用, 如果服务端返回200， 则json里个修改密码的凭证sign. 客户端需要将在/user/updatePwd接口用到sign
      *
      * @param code 手机验证码
@@ -87,8 +116,8 @@ export class CommonApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'code' is not null or undefined
         if (code === null || code === undefined) {
@@ -132,13 +161,14 @@ export class CommonApi {
      * 数据字典， 返回服务类型
      * 服务类型列表，服务端请使用缓存。做法:实现CleanAware接口，在clean里实现清理
      */
-    public commonDictServicesPost (extraHttpRequestParams?: any ) : Observable<models.ServiceResponse> {
+    public commonDictServicesGet (extraHttpRequestParams?: any ) : Observable<models.ServiceResponse> {
         const path = this.basePath + '/common/dict/services';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',

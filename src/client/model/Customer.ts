@@ -86,5 +86,5 @@ export interface Customer {
     /**
      * 最后入店时间   
      */
-    lastEnterDate?: Date;
+    lastEnterDate?: string;
 }

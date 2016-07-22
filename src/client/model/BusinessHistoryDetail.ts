@@ -59,7 +59,7 @@ export interface BusinessHistoryDetail {
     /**
      * 入店时间'yyyy-MM-dd HH:mm'                                    
      */
-    enterDate?: Date;
+    enterDate?: string;
 
     /**
      * 描述 
@@ -76,7 +76,7 @@ export interface BusinessHistoryDetail {
     /**
      * 结账时间'yyyy-MM-dd'  
      */
-    paidDate?: Date;
+    paidDate?: string;
 
     /**
      * 技师 

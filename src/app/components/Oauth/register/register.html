@@ -26,6 +26,7 @@
         <a class="inner-btn" [class.disabled]="seekDisabeld||!rForm.controls.phone?.valid||!rForm.controls.rnd?.valid" (click)="onSeekPhone(rForm.value.phone,rForm.value.rnd)">{{seekBtnTitle!=null?seekBtnTitle+'s':'发送验证码'}}</a>
         <div class="msg">
           <span class="text-error" *ngIf="!rForm.controls.code?.valid">验证码错误</span>
+          <span class="text-error" *ngIf="errorPhoneCode">{{errorPhoneCode}}</span>
         </div>
       </div>
       <div class="register-input" [class.error]="!rForm.controls.pwd?.valid && !rForm.controls.pwd?.pristine">
@@ -39,7 +40,7 @@
           <a href="javascript:void(0);" class="protocol" (click)="onOpenProtocol()"><<天会智数隐私协议>></a>
         </label>
       </div>
-      <button type="submit" class="register-btn-submit" [disabled]="!rForm.valid">注册</button>
+      <button type="submit" class="register-btn-submit" [disabled]="!rForm.valid||loading">注册</button>
       <i></i>
     </div>
   </form>

@@ -59,10 +59,10 @@ export interface EmployeeListItem {
     /**
      * 创建时间
      */
-    createTime?: Date;
+    createTime?: string;
 
     /**
      * 修改时间
      */
-    updateTime?: Date;
+    updateTime?: string;
 }

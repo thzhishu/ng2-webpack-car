@@ -29,14 +29,14 @@ export class CustomerListComponent {
 	}
 
 	getCustomers() {
-		this.cApi.customerListGet('d98019b3-c07c-4e90-ad1e-e4bc185be0f4', '1234').subscribe(data => {
+		this.cApi.customerListGet().subscribe(data => {
 			this.customers = data.data && data.data.length ? data.data : [];
 			console.log('customers: ', this.customers);
 		}, err => {
 			console.error(err);
 		});
 	}
-	
 
-	
+
+
 }

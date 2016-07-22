@@ -57,7 +57,7 @@
           </span>
         </div>
       </div>
-      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!newPwdForm.valid" >确认提交</button>
+      <button type="submit" class="forgetPwd-btn-submit" [disabled]="!newPwdForm.valid||loading" >确认提交</button>
       <i></i>
     </div>
   </form>
