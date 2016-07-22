@@ -6,6 +6,7 @@
       <!-- 门店表单 -->
       <form (ngSubmit)="onResigerShop(f)" #f="ngForm"  >
         <div class="" >
+          {{shopList|json}}
           <div class="c-form c-modify-store" ngControlGroup="{{i}}" #shopForm  *ngFor="let shop of shopList;let i = index">
             <!-- 门店表单字段 -->
             <h3>
@@ -40,13 +41,8 @@
             <div class="g-field fs14">
               <label for="store_server" class="g-label">
                 <span class="warning">*</span>服务类型</label>
-              <div class="g-ipt g-wml g-checkbox-group" ngControlGroup="serviceIds">
-                <label class="checkbox-label" for="ci1"><input id="ci1" class="checkbox-input" type="checkbox" name="name" value="">快修快保</label>
-                <label class="checkbox-label" for="ci2"><input id="ci2" class="checkbox-input" type="checkbox" name="name" value="">美容改装</label>
-                <label class="checkbox-label" for="ci3"><input id="ci3" class="checkbox-input" type="checkbox" name="name" value="">轮胎专项</label>
-                <label class="checkbox-label" for="ci4"><input id="ci4" class="checkbox-input" type="checkbox" name="name" value="">综合维修</label>
-                <label class="checkbox-label" for="ci5"><input id="ci5" class="checkbox-input" type="checkbox" name="name" value="">其他
-                  <input *ngIf="" type="text" name="name" value=""></label>
+              <div class="g-ipt g-wml g-checkbox-group">
+                <label class="checkbox-label" *ngFor="let sl of shop.serviceTypeList, let i = index"><input class="checkbox-input" type="checkbox" [(ngModel)]="sl.checked" >{{sl.name}}</label>
               </div>
             </div>
             <h3>
