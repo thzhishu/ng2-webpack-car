@@ -43,14 +43,14 @@
             </div>
             <h5>
               <i class="arrow-up"></i>
-              <span class="ml20">填写更多信息(选填)</span>
+              <span class="ml20 suctip">填写更多信息(选填)</span>
             </h5>
             <div class="pr ">
               <div class="g-field">
                 <label for="employee_name" class="g-label">姓名</label>
                 <div class="g-ipt">
                   <input type="text" id="employee_name" placeholder="" class="g-w343" ngControl="name">
-                  <div class="g-field-tip" >
+                  <div class="g-field-tip suctip" >
                     车主信息越完善有助于您更好管理顾客
                     
                   </div>
@@ -69,7 +69,7 @@
                 <label for="employee_tel" class="g-label">性别</label>
                 <div class="g-ipt">
                   <select class="g-w343" name="" ngControl="gender">
-                    <option value="2">请选择</option>
+                    <option value="">请选择</option>
                     <option value="1">男</option>
                     <option value="0">女</option>
                   </select>
@@ -107,7 +107,7 @@
             <!-- 顾客表单按钮  -->
             <div class="g-btns">
               <div class="g-btn g-btn-green" (click)="onSave()">保存</div>
-              <div class="g-btn g-btn-green" (click)="onSave(true)">保存并新建</div>
+              <div class="g-btn g-btn-green" (click)="onSave(true)" *ngIf="!customerForm.value.id">保存并新建</div>
               <div class="g-btn g-btn-gray" (click)="gotoListPage()">取消</div>
             </div>
             <!-- 顾客表单按钮 end -->

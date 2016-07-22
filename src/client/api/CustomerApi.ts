@@ -240,4 +240,39 @@ export class CustomerApi {
             });
     }
 
+
+    /**
+     * 根据顾客id获取顾客详情
+     * 
+     * @param customerId 顾客id
+     */
+    public customerCustomerIdGet (customerId: string, extraHttpRequestParams?: any ) : Observable<models.CustomerSearchResponse> {
+        const path = this.basePath + '/customer/{customerId}'
+            .replace('{' + 'customerId' + '}', String(customerId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+
+        // verify required parameter 'customerId' is not null or undefined
+        if (customerId === null || customerId === undefined) {
+            throw new Error('Required parameter customerId was null or undefined when calling customerHistoryCustomerIdGet.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
 }

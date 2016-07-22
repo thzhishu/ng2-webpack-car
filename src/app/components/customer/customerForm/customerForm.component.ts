@@ -29,33 +29,52 @@ export class CustomerFormComponent {
 	birthdayYearArr: number[] = [];
 	vehicleYearArr: number[] = [];
 	active: Boolean = true;
+	submitting: Boolean = false;
 	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
-		this.initFb();
+		
 		const currentYear = +(new Date()).getFullYear();
 		this.birthdayYearArr = this.rangeArr(1950, currentYear).reverse();
 		this.vehicleYearArr = this.rangeArr(1990, currentYear).reverse();
-        console.log(Object.assign({}, this.customer));
+		this.customerDefault = {
+			'id': '',
+			'vehicleLicence': '',
+			'mobile': '',
+			'vehicleFrame': '',
+			'name': '',
+			'birthYear': '',
+			'gender': '',
+			'vehicleBrand': '',
+			'vehicleModel': '',
+			'vehicleYear': '',
+			'vehicleMiles': ''
+		}
+        
 	}
 
 	ngOnInit() {
-		
+		this.initFb();
+		console.log('cfc', Object.assign({}, this.customer));
 	}
 
 	initFb() {
+		console.log(this.customer);
+		const oldVal = _.cloneDeep(this.customer || this.customerDefault);
+		console.log('old-val', oldVal);
 		this.customerForm = this.fb.group({
-			'id': [''],
-			'vehicleLicence': [''],
-			'mobile': [''],
-			'vehicleFrame': [''],
-			'name': [''],
-			'birthYear': [''],
-			'gender': [''],
-			'vehicleBrand': [''],
-			'vehicleModel': [''],
-			'vehicleYear': [''],
-			'vehicleMiles': ['']
+			'id': [oldVal.id],
+			'vehicleLicence': [oldVal.vehicleLicence],
+			'mobile': [oldVal.mobile],
+			'vehicleFrame': [oldVal.vehicleFrame],
+			'name': [oldVal.name],
+			'birthYear': [oldVal.birthYear],
+			'gender': [oldVal.gender],
+			'vehicleBrand': [oldVal.vehicleBrand],
+			'vehicleModel': [oldVal.vehicleModel],
+			'vehicleYear': [oldVal.vehicleYear],
+			'vehicleMiles': [oldVal.vehicleMiles]
 
 		});
+		
 		this.active = false;
         setTimeout(() => this.active = true, 0);
 	}
@@ -69,6 +88,7 @@ export class CustomerFormComponent {
 	}
 	
 	onSave( other ) {
+		
 		const willAddNew = other || false;
 		const isNew = this.customerForm.value.id ? false : true;
 		this.vehiclePlateValid();
@@ -80,21 +100,32 @@ export class CustomerFormComponent {
 			return;
 		}
 
+		if(submitting) return;
+		this.submitting = true;
+
 		let vals = this.customerForm.value;
 
 		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence, vals.id, vals.mobile, vals.vehicleFrame, vals.name, vals.birthYear, vals.gender, vals.vehicleBrand, vals.vehicleModel, vals.vehicleYear, vals.vehicleMiles).subscribe(data => {
 			if (data.data) {
+				this.submitting = false;
 				// 需要继续创建
 				if (isNew && willAddNew) {
 					this.initFb();
 					return;
 				}
+				// 添加一次
 				if (isNew) {
 					this.gotoListPage();
 					return;
 				}
+				// 更新
+				alert('修改成功');
+
 			}
-		}, err => console.error(err) );
+		}, err => {
+			console.error(err)
+			this.submitting = false;
+		} );
 
 	}
 
