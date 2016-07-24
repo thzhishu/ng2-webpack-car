@@ -33,7 +33,7 @@ export interface UserResponse {
 
     meta?: models.BasicMeta;
 
-    data?: any; //models.User;
+    data?: models.User| any;
 
     error?: models.Error;
 }

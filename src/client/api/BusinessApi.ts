@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -59,9 +59,11 @@ export class BusinessApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
@@ -113,8 +115,8 @@ export class BusinessApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
@@ -148,8 +150,8 @@ export class BusinessApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
@@ -182,7 +184,8 @@ export class BusinessApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
@@ -212,31 +215,32 @@ export class BusinessApi {
      * 今日生意
      *
      * @param date 时间
-     * @param shopId 门店id
+     * @param pageNumber 当前页
+     * @param pageSize 分页大小
      */
-    public businessListGet (date: string, shopId: string, extraHttpRequestParams?: any ) : Observable<models.BusinessListResponse> {
+    public businessListGet (date: string, pageNumber?: string, pageSize?: string, extraHttpRequestParams?: any ) : Observable<models.BusinessListResponse> {
         const path = this.basePath + '/business/list';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'date' is not null or undefined
         if (date === null || date === undefined) {
             throw new Error('Required parameter date was null or undefined when calling businessListGet.');
         }
-        // verify required parameter 'shopId' is not null or undefined
-        if (shopId === null || shopId === undefined) {
-            throw new Error('Required parameter shopId was null or undefined when calling businessListGet.');
-        }
         if (date !== undefined) {
             queryParameters.set('date', date);
         }
 
-        if (shopId !== undefined) {
-            queryParameters.set('shopId', shopId);
+        if (pageNumber !== undefined) {
+            queryParameters.set('pageNumber', pageNumber);
+        }
+
+        if (pageSize !== undefined) {
+            queryParameters.set('pageSize', pageSize);
         }
 
         let requestOptions: RequestOptionsArgs = {
@@ -266,8 +270,8 @@ export class BusinessApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {

@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -46,6 +46,41 @@ export class CustomerApi {
     }
 
     /**
+     * 根据用户id返回顾客信息
+     * 根据用户id返回顾客信息
+     * @param customerId 用户id
+     */
+    public customerCustomerIdGet (customerId: string, extraHttpRequestParams?: any ) : Observable<models.CustomerResponse> {
+        const path = this.basePath + '/customer/{customerId}'
+            .replace('{' + 'customerId' + '}', String(customerId));
+
+        let queryParameters = new URLSearchParams();
+        let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        // verify required parameter 'customerId' is not null or undefined
+        if (customerId === null || customerId === undefined) {
+            throw new Error('Required parameter customerId was null or undefined when calling customerCustomerIdGet.');
+        }
+        let requestOptions: RequestOptionsArgs = {
+            method: 'GET',
+            headers: headerParams,
+            search: queryParameters
+        };
+
+        return this.http.request(path, requestOptions)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json();
+                }
+            });
+    }
+
+    /**
      * 根据顾客id获取顾客详情和历史生意记录
      *
      * @param customerId 顾客id
@@ -57,7 +92,8 @@ export class CustomerApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'customerId' is not null or undefined
         if (customerId === null || customerId === undefined) {
@@ -82,21 +118,25 @@ export class CustomerApi {
     /**
      * 根据顾客id获取顾客详情和历史生意记录
      *
-     * @param token 用户凭证
-     * @param shopId 当前门店id
+     * @param pageNumber 当前页
+     * @param pageSize 分页大小
      */
-    public customerListGet (token?: string, shopId?: string, extraHttpRequestParams?: any ) : Observable<models.CustomerListResponse> {
+    public customerListGet (pageNumber?: string, pageSize?: string, extraHttpRequestParams?: any ) : Observable<models.CustomerListResponse> {
         const path = this.basePath + '/customer/list';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-            headerParams.set('token', token);
 
-            
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
-            headerParams.set('shopId', shopId);
-            headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-        queryParameters.set('pageNumber', 2);
+        if (pageNumber !== undefined) {
+            queryParameters.set('pageNumber', pageNumber);
+        }
+
+        if (pageSize !== undefined) {
+            queryParameters.set('pageSize', pageSize);
+        }
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -134,9 +174,11 @@ export class CustomerApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         // verify required parameter 'vehicleLicence' is not null or undefined
         if (vehicleLicence === null || vehicleLicence === undefined) {
@@ -155,6 +197,7 @@ export class CustomerApi {
         formParams.append('vehicleModel',vehicleModel);
         formParams.append('vehicleYear',vehicleYear);
         formParams.append('vehicleMiles',vehicleMiles);
+
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -176,21 +219,31 @@ export class CustomerApi {
      * 根据手机号和车牌号检索用户， 分两种情况:  1. 客户端先读取返回结构的customers:array， 如果array.length&gt;0，则显示客户列表  2. 如果customers只有一个用户， 则显示单用户信息，并且读取histories显示交易明细
      *
      * @param phoneOrVehicleLicence 手机号or车牌号
+     * @param pageNumber 当前页
+     * @param pageSize 分页大小
      */
-    public customerSearchPhoneOrVehicleLicenceGet (phoneOrVehicleLicence: string, extraHttpRequestParams?: any ) : Observable<models.CustomerSearchResponse> {
+    public customerSearchPhoneOrVehicleLicenceGet (phoneOrVehicleLicence: string, pageNumber?: string, pageSize?: string, extraHttpRequestParams?: any ) : Observable<models.CustomerSearchResponse> {
         const path = this.basePath + '/customer/search/{phoneOrVehicleLicence}'
             .replace('{' + 'phoneOrVehicleLicence' + '}', String(phoneOrVehicleLicence));
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'phoneOrVehicleLicence' is not null or undefined
         if (phoneOrVehicleLicence === null || phoneOrVehicleLicence === undefined) {
             throw new Error('Required parameter phoneOrVehicleLicence was null or undefined when calling customerSearchPhoneOrVehicleLicenceGet.');
         }
+        if (pageNumber !== undefined) {
+            queryParameters.set('pageNumber', pageNumber);
+        }
+
+        if (pageSize !== undefined) {
+            queryParameters.set('pageSize', pageSize);
+        }
+
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -219,47 +272,12 @@ export class CustomerApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'vehicleLicence' is not null or undefined
         if (vehicleLicence === null || vehicleLicence === undefined) {
             throw new Error('Required parameter vehicleLicence was null or undefined when calling customerVehicleVehicleLicenceGet.');
-        }
-        let requestOptions: RequestOptionsArgs = {
-            method: 'GET',
-            headers: headerParams,
-            search: queryParameters
-        };
-
-        return this.http.request(path, requestOptions)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json();
-                }
-            });
-    }
-
-
-    /**
-     * 根据顾客id获取顾客详情
-     *
-     * @param customerId 顾客id
-     */
-    public customerCustomerIdGet (customerId: string, extraHttpRequestParams?: any ) : Observable<models.CustomerSearchResponse> {
-        const path = this.basePath + '/customer/{customerId}'
-            .replace('{' + 'customerId' + '}', String(customerId));
-
-        let queryParameters = new URLSearchParams();
-        let headerParams = this.defaultHeaders;
-
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
-
-        // verify required parameter 'customerId' is not null or undefined
-        if (customerId === null || customerId === undefined) {
-            throw new Error('Required parameter customerId was null or undefined when calling customerHistoryCustomerIdGet.');
         }
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',

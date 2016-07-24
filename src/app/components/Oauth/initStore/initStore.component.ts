@@ -22,7 +22,7 @@ const STATION_10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   selector: 'init-store',
   template: require('./initStore.html'),
   styles: [require('./initStore.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent,MdCheckbox],
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent, MdCheckbox],
   providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, RegionApi, Md5, Cookie]
 })
 
@@ -33,6 +33,9 @@ export class InitStoreComponent {
   countyList: Array<RegionItem>;
   formGroup: any;
   sList: any;
+  STATION_10: any;
+  YEARS_20: any;
+  loading: number = 0;
 
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
 
@@ -41,6 +44,8 @@ export class InitStoreComponent {
   ngOnInit() {
     this.getServiceType();
     this.getProvince();
+    this.STATION_10 = STATION_10;
+    this.YEARS_20 = YEARS_20;
   }
 
   info(data) {
@@ -75,7 +80,7 @@ export class InitStoreComponent {
   // }
 
   getServiceType() {
-    this.cApi.commonDictServicesPost().subscribe(data => {
+    this.cApi.commonDictServicesGet().subscribe(data => {
       if (data.meta.code === 200) {
         this.sList = data.data;
         this.shopList = [{ sList: _.cloneDeep(this.sList) }];
@@ -86,8 +91,6 @@ export class InitStoreComponent {
 
   onAddShop(index) {
     this.shopList.splice(index + 1, 0, { sList: _.cloneDeep(this.sList) });
-    // this.shopList.push({sList:_.cloneDeep(this.sList)});
-    console.log(this.shopList, index);
   }
 
   onDelhop(index) {
@@ -99,31 +102,32 @@ export class InitStoreComponent {
   }
 
   AssemblyServiceId(data) {
-    _.forEach(data, (val, i) => {
-      console.log(val, i);
-      if(i==='serviceId'){
-        let list = [];
-        _.forEach(val, (sub, j) => {
-          console.log(sub, j);
-          if(sub.checked){
-            list.push(sub.id);
-          }
-        })
-        val = list;
-      }
+    let ay = [];
+    let list = [];
+    let obj = data;
+    _.forEach(obj, (val, i) => {
+      _.forEach(val.serviceIds, (sub, j) => {
+        if (sub) {
+          list.push(j);
+        }
+      })
+      val.serviceIds = list.join(',');
+      ay.push(val);
     })
+    return ay;
   }
 
   onResigerShop(f) {
-    console.log(f);
-    // payload: models.MyShopResponse
+    this.loading = 1;
     let data = f.value;
-    // console.log(data);
-    this.AssemblyServiceId(data);
-    // this.sApi.defaultHeaders.set('content-type', 'application/json');
-    // this.sApi.shopRegisterPost(data).subscribe(data => {
-    //   console.log(data);
-    // });
+    let post = this.AssemblyServiceId(data);
+    // payload: models.Shop
+    this.sApi.shopRegisterPost(post[0]).subscribe(data => {
+      this.loading = 0;
+      if (data.meta.code === 200) {
+        this.router.navigate(['/my-account']);
+      }
+    });
   }
 
   toHome() {

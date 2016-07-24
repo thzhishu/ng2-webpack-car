@@ -31,7 +31,7 @@ export interface BehaviorSalesTimeSeries {
     /**
      * 时间，服务端返回的格式'yyyy-MM-dd HH:mm'
      */
-    date?: Date;
+    date?: string;
 
     /**
      * 营业额

@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -57,9 +57,11 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         // verify required parameter 'oldPassword' is not null or undefined
         if (oldPassword === null || oldPassword === undefined) {
@@ -107,6 +109,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let formParams = new URLSearchParams();
 
         // verify required parameter 'mobile' is not null or undefined
@@ -152,6 +158,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let requestOptions: RequestOptionsArgs = {
             method: 'POST',
             headers: headerParams,
@@ -173,14 +183,15 @@ export class UserApi {
      *
      * @param token 用户的登录凭证
      */
-    public userMeGet ( extraHttpRequestParams?: any ) : Observable<models.MyAcountResponse> {
+    public userMeGet (extraHttpRequestParams?: any ) : Observable<models.MyAcountResponse> {
         const path = this.basePath + '/user/me';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        // verify required parameter 'token' is not null or undefined
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -209,6 +220,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let formParams = new URLSearchParams();
 
         // verify required parameter 'mobile' is not null or undefined
@@ -258,6 +273,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let formParams = new URLSearchParams();
 
         // verify required parameter 'mobile' is not null or undefined
@@ -311,6 +330,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let formParams = new URLSearchParams();
 
         // verify required parameter 'mobile' is not null or undefined
@@ -357,9 +380,11 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         // verify required parameter 'shopId' is not null or undefined
         if (shopId === null || shopId === undefined) {
@@ -397,6 +422,10 @@ export class UserApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
+
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
         let formParams = new URLSearchParams();
 
         // verify required parameter 'password' is not null or undefined

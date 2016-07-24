@@ -34,7 +34,7 @@
             </span>
           </div>
         </div>
-        <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid" >下一步</button>
+        <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid||loading" >下一步</button>
         <a [routerLink]="['/forget-pwd']" class="login-min-register-link">忘记密码</a>
       </div>
       <i></i>

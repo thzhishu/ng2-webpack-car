@@ -26,6 +26,7 @@
 import * as models from './models';
 
 export interface MyShopResponse {
+    
 
     meta?: models.Meta;
 

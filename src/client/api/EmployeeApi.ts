@@ -28,7 +28,7 @@ import {Observable} from 'rxjs/Observable';
 import * as models from '../model/models';
 import 'rxjs/Rx';
 
-import { Cookie } from 'services';
+import { Cookie } from 'services';  //tobeplus 缓存注入 header
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -56,7 +56,8 @@ export class EmployeeApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'id' is not null or undefined
         if (id === null || id === undefined) {
@@ -95,7 +96,8 @@ export class EmployeeApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         // verify required parameter 'token' is not null or undefined
         if (token === null || token === undefined) {
@@ -105,8 +107,8 @@ export class EmployeeApi {
         if (employeeId === null || employeeId === undefined) {
             throw new Error('Required parameter employeeId was null or undefined when calling employeeEmployeeIdGet.');
         }
-           // headerParams.set('token', token);
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+            headerParams.set('token', token);
+
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
             headers: headerParams,
@@ -126,14 +128,25 @@ export class EmployeeApi {
     /**
      * 返回当前门店员工
      *
+     * @param pageNumber 当前页
+     * @param pageSize 分页大小
      */
-    public employeeListGet (extraHttpRequestParams?: any ) : Observable<models.EmployeeListResponse> {
+    public employeeListGet (pageNumber?: string, pageSize?: string, extraHttpRequestParams?: any ) : Observable<models.EmployeeListResponse> {
         const path = this.basePath + '/employee/list';
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        if (pageNumber !== undefined) {
+            queryParameters.set('pageNumber', pageNumber);
+        }
+
+        if (pageSize !== undefined) {
+            queryParameters.set('pageSize', pageSize);
+        }
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
@@ -163,9 +176,11 @@ export class EmployeeApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         headerParams.set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -202,9 +217,11 @@ export class EmployeeApi {
 
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
-        let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+
+        let formParams = new URLSearchParams();
 
         headerParams.set('Content-Type', 'application/x-www-form-urlencoded');
 

@@ -76,7 +76,7 @@ export interface Shop {
     /**
      * 开店日期
      */
-    openingDate?: Date;
+    openingDate?: string;
 
     /**
      * 工位
@@ -91,10 +91,10 @@ export interface Shop {
     /**
      * 创建时间     
      */
-    createTime?: Date;
+    createTime?: string;
 
     /**
      * 更新时间                  
      */
-    updateTime?: Date;
+    updateTime?: string;
 }

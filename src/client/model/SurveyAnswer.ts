@@ -31,7 +31,7 @@ export interface SurveyAnswer {
     /**
      * 问题id
      */
-    questionId?: string;
+    questionId?: number;
 
     /**
      * 问题分类
