@@ -23,7 +23,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || 8080;
 const METADATA = webpackMerge(commonConfig.metadata, {
-    baseUrl: '/rewardredirect/',
+    baseUrl: '/',
     host: HOST,
     port: PORT,
     ENV: ENV,

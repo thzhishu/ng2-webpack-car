@@ -36,7 +36,7 @@ import { Cookie } from 'services';
 
 @Injectable()
 export class BusinessApi {
-    protected basePath = 'http://localhost:3000/api/v1';
+    protected basePath = '/api/v1';
     public defaultHeaders : Headers = new Headers();
 
     constructor(protected http: Http, @Optional() basePath: string) {
@@ -61,7 +61,7 @@ export class BusinessApi {
         let headerParams = this.defaultHeaders;
         let formParams = new URLSearchParams();
 
-        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId')); 
+        headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
 
         // verify required parameter 'businessId' is not null or undefined
         if (businessId === null || businessId === undefined) {
