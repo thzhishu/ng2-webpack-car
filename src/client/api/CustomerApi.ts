@@ -92,9 +92,11 @@ export class CustomerApi {
         let headerParams = this.defaultHeaders;
             headerParams.set('token', token);
 
-            headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+            
 
             headerParams.set('shopId', shopId);
+            headerParams.set('token', Cookie.load('token')); headerParams.set('shopId', Cookie.load('shopId'));
+        queryParameters.set('pageNumber', 2);
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',

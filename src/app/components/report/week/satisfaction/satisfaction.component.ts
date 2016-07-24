@@ -8,14 +8,14 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, ReportApi } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
 
 @Component({
 	moduleId: module.id,
 	selector: 'report-week-satisfaction',
 	template: require('./satisfaction.html'),
 	styles: [require('./satisfaction.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent],
 	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, ReportApi ]
 })
 

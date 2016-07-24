@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, CustomerApi, Customer } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
 import { CustomerFormComponent } from '../customerForm/customerForm.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { CustomerFormComponent } from '../customerForm/customerForm.component';
 	selector: 'customer-add',
 	template: require('./customerAdd.html'),
 	styles: [require('./customerAdd.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, CustomerFormComponent],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, CustomerFormComponent, SearchBarComponent, PageFooterComponent],
 	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, CustomerApi ]
 })
 

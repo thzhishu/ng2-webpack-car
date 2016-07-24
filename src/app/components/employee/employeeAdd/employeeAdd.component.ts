@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, EmployeeApi } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
 import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 
 
@@ -17,7 +17,7 @@ import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 	selector: 'employee-add',
 	template: require('./employeeAdd.html'),
 	styles: [require('./employeeAdd.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent, SearchBarComponent, PageFooterComponent],
 	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, EmployeeApi ]
 })
 

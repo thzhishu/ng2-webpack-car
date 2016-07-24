@@ -13,11 +13,7 @@
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
-        <!--<div class="pa search">
-          <input type="text" placeholder="输入顾客手机/车牌">
-          <div class="search-btn"></div>
-        </div>-->
-       <search-bar></search-bar>
+        <search-bar></search-bar>
         <!--搜索 end-->
         <!-- 添加新生意 -->
         <a href="" class="pa g-btn g-btn-green">+  记录新生意</a>
@@ -65,8 +61,8 @@
                   <span>*</span>请再次填写新密码
                 </div>
                 <div class="g-field-tip"
-                  [class.warning] = "!mpwdForm.controls.rePassword?.isEq"
-                  *ngIf="!mpwdForm.controls.rePassword?.isEq">
+                  [class.warning] = "!isEqual"
+                  *ngIf="!isEqual">
                   <span>*</span>两次填写的新密码不一致
                 </div>
               </div>

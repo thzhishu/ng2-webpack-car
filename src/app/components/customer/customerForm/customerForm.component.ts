@@ -157,7 +157,7 @@ export class CustomerFormComponent {
 					this.vehiclePlateHas = true;
 				}
 			}, err => console.error(err));
-		} else if( val.length > 7 ) {
+		} else if ( val.length > 7 ) {
 			this.vehiclePlateHas = false;
 			this.vehiclePlateLen = true;
 		}

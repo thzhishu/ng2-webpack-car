@@ -11,7 +11,11 @@ import {
 
 export class PageFooterComponent {
   @Input() cls: string;
-  constructor() {
-
+  @Input() footContent: string;
+  constructor() {}
+  ngOnInit() {
+    if (!this.footContent) {
+      this.footContent = '2006-2016 All rights reserved 上海皓煦数据技术有限公司 沪ICP备08012157号-5';
+    }    
   }
 }
