@@ -8,6 +8,7 @@
                 <label for="employee_name" class="g-label">
                   <span class="warning">*</span>车牌号</label>
                 <div class="g-ipt">
+                  
                   <input type="text" id="employee_name" placeholder="必填项" class="g-w343" required ngControl="vehicleLicence" (keyup)="vehiclePlateAjax()" (focus)="onVehiclePlateFocus()" >
                   <div class="g-field-tip warning" *ngIf ="vehiclePlateNull || vehiclePlateLen || vehiclePlateHas">
                     <div *ngIf="vehiclePlateNull">

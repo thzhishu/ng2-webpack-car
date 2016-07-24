@@ -30,7 +30,7 @@ export class CustomerFormComponent {
 	vehicleYearArr: number[] = [];
 	active: Boolean = true;
 	submitting: Boolean = false;
-	customerDefault:any;
+	customerDefault: any;
 	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
 
 		const currentYear = +(new Date()).getFullYear();
@@ -97,6 +97,7 @@ export class CustomerFormComponent {
 		const willAddNew = other || false;
 		const isNew = this.customerForm.value.id ? false : true;
 		this.vehiclePlateValid();
+		console.log(this.vehiclePlateNull,this.vehiclePlateLen,  this.vehiclePlateHas)
 		if (this.vehiclePlateNull || this.vehiclePlateLen || this.vehiclePlateHas ) {
 			return;
 		}
@@ -105,11 +106,10 @@ export class CustomerFormComponent {
 			return;
 		}
 
-		if(this.submitting) return;
+		if (this.submitting) return;
 		this.submitting = true;
 
 		let vals = this.customerForm.value;
-
 		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence, vals.id, vals.mobile, vals.vehicleFrame, vals.name, vals.birthYear, vals.gender, vals.vehicleBrand, vals.vehicleModel, vals.vehicleYear, vals.vehicleMiles).subscribe(data => {
 			if (data.data) {
 				this.submitting = false;
@@ -135,12 +135,14 @@ export class CustomerFormComponent {
 	}
 
 	vehiclePlateValid() {
-		if (this.customerForm.value.vehicleLicence === '') {
+		let vehicleLicence = this.customerForm.value.vehicleLicence;
+		console.log(vehicleLicence)
+		if (vehicleLicence === '') {
 			this.vehiclePlateNull = true;
 			return false;
 		}
 		this.vehiclePlateNull = false;
-		if (this.customerForm.value.vehicleLicence.length !== 7) {
+		if ( vehicleLicence.length < 7 || vehicleLicence.length > 9 ) {
 			this.vehiclePlateLen = true;
 			return false;
 		}
@@ -150,14 +152,14 @@ export class CustomerFormComponent {
 	vehiclePlateAjax() {
 		const val = this.customerForm.value.vehicleLicence;
 		this.vehiclePlateLen = false;
-		if (val.length === 7 ) {
+		if (val.length > 6 && val.length < 10 ) {
 			this.vehiclePlateHas = false;
 			this.cApi.customerVehicleVehicleLicenceGet(encodeURI(val)).subscribe(data => {
-				if(data.data) {
+				if (data.data) {
 					this.vehiclePlateHas = true;
 				}
 			}, err => console.error(err));
-		} else if ( val.length > 7 ) {
+		} else if ( val.length >= 10) {
 			this.vehiclePlateHas = false;
 			this.vehiclePlateLen = true;
 		}
