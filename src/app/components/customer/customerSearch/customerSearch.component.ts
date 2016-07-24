@@ -13,22 +13,21 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 
 @Component({
 	moduleId: module.id,
-	selector: 'customer-list',
-	template: require('./customerList.html'),
-	styles: [require('./customerList.scss')],
+	selector: 'customer-search',
+	template: require('./customerSearch.html'),
+	styles: [require('./customerSearch.scss')],
 	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent],
 	providers: [HTTP_PROVIDERS, CustomerApi ]
 })
 
-export class CustomerListComponent {
+export class CustomerSearchComponent {
 	customers: Customer[] = [];
-	searchStr: string = '';
-	constructor(private cApi: CustomerApi, private params: RouteSegment, private router: Router) {
-		this.searchStr = params.getParam('s') || '';
-	}
+	constructor(private cApi: CustomerApi, private params: RouteSegment) {
+        console.log('S: ', this.params.getParam('s'));
+    }
 
 	ngOnInit() {
-		this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
+		this.getCustomers();
 	}
 
 	getCustomers() {
@@ -37,25 +36,6 @@ export class CustomerListComponent {
 			console.log('customers: ', this.customers);
 		}, err => {
 			console.error(err);
-			this.customers = [];
-		});
-	}
-	getSearchCustomers() {
-		if ( this.searchStr === '' ) return;
-		this.cApi.customerSearchPhoneOrVehicleLicenceGet(this.searchStr).subscribe( data => {
-			if (data.data) {
-				let dd = data.data;
-				if ( dd.totalAmount === 1 ) {
-					this.router.navigate(['/customer-detail', { id: dd.customers[0].id }]);
-				} else {
-					this.customers = dd.customers;
-				}
-			} else {
-				this.customers = [];
-			}
-		}, err => {
-			console.error(err);
-			this.customers = [];
 		});
 	}
 	
