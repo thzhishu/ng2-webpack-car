@@ -1,4 +1,4 @@
-import { Component, Input, Output, NgZone } from '@angular/core';
+import { Component, Input, Output, NgZone, OnChanges, SimpleChange } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
@@ -55,6 +55,10 @@ export class CustomerFormComponent {
 	ngOnInit() {
 		this.initFb();
 		console.log('cfc', Object.assign({}, this.customer));
+	}
+
+	ngOnChanges( changes ) {
+		console.log(changes);
 	}
 
 	initFb() {
