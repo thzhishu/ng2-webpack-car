@@ -272,6 +272,7 @@ export class BusinessApi {
 
         headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
         headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        headerParams.set('Content-Type', 'application/json');
 
         // verify required parameter 'payload' is not null or undefined
         if (payload === null || payload === undefined) {

@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 import { BusinessApi,BusinessList } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
-import { BusinessAddComponent } from 'components';
+import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +19,7 @@ import { BusinessAddComponent } from 'components';
   template: require('./businessList.html'),
   styles: [require('./businessList.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,BusinessAddComponent],
-  providers: [HTTP_PROVIDERS, BusinessApi, Md5]
+  providers: [HTTP_PROVIDERS, BusinessApi]
 })
 
 export class BusinessListComponent {
@@ -31,6 +31,14 @@ export class BusinessListComponent {
   }
   // 初始化
   ngOnInit() {
+    this.getList();
+  }
+
+  onOpen(){
+    console.log('open');
+  }
+
+  onClose(){
     this.getList();
   }
 
