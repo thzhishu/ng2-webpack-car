@@ -75,7 +75,7 @@ export class LoginMinComponent {
             this.router.navigate(['/init-store']);
           } else {
             this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
-            this.router.navigate(['/employee-list']);
+            this.router.navigate(['/business-list']);
           }
         } else {
           alert(data.error.message);

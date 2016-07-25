@@ -34,7 +34,9 @@ import * as moment from 'moment';
     { path: '/customer-detail', component: components.CustomerDetailComponent },
     { path: '/customer-list', component: components.CustomerListComponent },
     { path: '/report/week/business', component: components.ReportWeekBusinessComponent },
-    { path: '/report/week/satisfaction', component: components.ReportWeekSatisfactionComponent }
+    { path: '/report/week/satisfaction', component: components.ReportWeekSatisfactionComponent },
+    // { path: '/business-add', component: components.BusinessAddComponent },
+    { path: '/business-list', component: components.BusinessListComponent }
 ])
 
 export class AppComponent implements OnInit {
