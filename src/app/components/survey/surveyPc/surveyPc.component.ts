@@ -27,10 +27,10 @@ export class SurveyPcComponent {
     }
 
     getSurveyQuestions() {
-        this.sApi.surveyLoadUrlGet('0LMUjj').subscribe(data => {
-            console.log(data.data);
-            console.log(JSON.parse(data.data));
-        }, err => console.error(err));
+        // this.sApi.surveyLoadUrlGet('0LMUjj').subscribe(data => {
+        //     console.log(data.data);
+        //     console.log(JSON.parse(data.data));
+        // }, err => console.error(err));
     }
 
 }
