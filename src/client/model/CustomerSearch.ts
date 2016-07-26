@@ -34,7 +34,7 @@ export interface CustomerSearch {
     totalAmount?: number;
 
     /**
-     * 生意评价平均分
+     * 服务评价平均分
      */
     totalAvgScore?: number;
 

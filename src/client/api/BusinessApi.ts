@@ -46,9 +46,9 @@ export class BusinessApi {
     }
 
     /**
-     * 发送某个生意问卷url到客户手机,2016-07-15
+     * 发送某个服务问卷url到客户手机,2016-07-15
      *
-     * @param businessId 生意id
+     * @param businessId 服务id
      * @param mobile 手机号
      * @param rnd 4位随机数， 客户端生成
      * @param sign 签名, md5(phone+rnd+salt)， 其中salt&#x3D;thzs0708, 不符合签名的请求一律返回错误
@@ -104,7 +104,7 @@ export class BusinessApi {
     }
 
     /**
-     * 获取生意信息，新加2016-07-12
+     * 获取服务信息，新加2016-07-12
      *
      * @param businessId
      */
@@ -139,9 +139,9 @@ export class BusinessApi {
     }
 
     /**
-     * 返回生意评价需要的二维码url和问卷url,2016-07-15
+     * 返回服务评价需要的二维码url和问卷url,2016-07-15
      *
-     * @param businessId 生意id
+     * @param businessId 服务id
      */
     public businessBusinessIdUrlGet (businessId: string, extraHttpRequestParams?: any ) : Observable<models.BusinessCommentURLResponse> {
         const path = this.basePath + '/business/{businessId}/url'
@@ -174,9 +174,9 @@ export class BusinessApi {
     }
 
     /**
-     * 删除生意，后端需要验证是否属于自己的生意
+     * 删除服务，后端需要验证是否属于自己的服务
      *
-     * @param id 生意id
+     * @param id 服务id
      */
     public businessDeleteDelete (id: string, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
         const path = this.basePath + '/business/delete';
@@ -212,7 +212,7 @@ export class BusinessApi {
     }
 
     /**
-     * 今日生意
+     * 今日服务
      *
      * @param date 时间
      * @param pageNumber 当前页
@@ -262,7 +262,7 @@ export class BusinessApi {
     /**
      * 保存或新建服务项目
      *
-     * @param payload 服务项目(生意或者交易)
+     * @param payload 服务项目(服务或者交易)
      */
     public businessSaveOrUpdatePost (payload: models.BusinessDetail, extraHttpRequestParams?: any ) : Observable<models.CommonResponse> {
         const path = this.basePath + '/business/saveOrUpdate';

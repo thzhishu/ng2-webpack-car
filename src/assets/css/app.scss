@@ -2,7 +2,11 @@
   box-sizing: border-box;
   outline: none;
 }
-
+a:-webkit-any-link{
+  color: #343434;
+  text-decoration: none;
+  cursor: auto;
+}
 .app,
 .app>[ui-view] {
   height: 100%;

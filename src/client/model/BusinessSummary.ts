@@ -26,13 +26,13 @@
 import * as models from './models';
 
 /**
- * 生意汇总
+ * 服务汇总
  */
 export interface BusinessSummary {
     
 
     /**
-     * 生意数量
+     * 服务数量
      */
     total?: number;
 

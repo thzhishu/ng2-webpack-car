@@ -4,6 +4,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
 
 import * as moment from 'moment';
@@ -11,7 +12,7 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Cookie } from 'services';
 
-import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem } from 'client';
+import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem,CustomerSearchResponse } from 'client';
 
 @Component({
   moduleId: module.id,
@@ -34,12 +35,27 @@ export class BusinessAddComponent implements OnInit {
   employeeChecked: boolean = true;
   employeeInput: string = '';
 
+  private searchVehicleCode = new Subject<CustomerSearchResponse>();
+
+  private VehicleCode: Observable<CustomerSearchResponse> = this.searchVehicleCode
+    .debounceTime(300)
+    .distinctUntilChanged()
+    .switchMap((term: string) => this.cApi.customerVehicleVehicleLicenceGet(term));
+
+
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private bApi: BusinessApi, private eApi: EmployeeApi, private cApi: CustomerApi) {
 
   }
   // 初始化
   ngOnInit() {
     this.getEmployeeList();
+    this.VehicleCode.subscribe(data => {
+      if (data.meta.code === 200) {
+        this.customer = data.data;
+      } else {
+        alert(data.error.message);
+      }
+    });
   }
 
   getEmployeeList() {
@@ -61,13 +77,14 @@ export class BusinessAddComponent implements OnInit {
     if (!val.target.value || val.target.value.length < 6) {
       return false;
     }
-    this.cApi.customerVehicleVehicleLicenceGet(val.target.value).subscribe(data => {
-      if (data.meta.code === 200) {
-        this.customer = data.data;
-      } else {
-        alert(data.error.message);
-      }
-    })
+    this.searchVehicleCode.next(val.target.value);
+    // this.cApi.customerVehicleVehicleLicenceGet(val.target.value).subscribe(data => {
+    //   if (data.meta.code === 200) {
+    //     this.customer = data.data;
+    //   } else {
+    //     alert(data.error.message);
+    //   }
+    // })
   }
 
   onSubmit(f) {

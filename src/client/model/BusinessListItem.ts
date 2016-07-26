@@ -26,7 +26,7 @@
 import * as models from './models';
 
 /**
- * 生意
+ * 服务
  */
 export interface BusinessListItem {
     

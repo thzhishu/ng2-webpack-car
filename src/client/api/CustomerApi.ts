@@ -81,7 +81,7 @@ export class CustomerApi {
     }
 
     /**
-     * 根据顾客id获取顾客详情和历史生意记录
+     * 根据顾客id获取顾客详情和历史服务记录
      *
      * @param customerId 顾客id
      */
@@ -116,7 +116,7 @@ export class CustomerApi {
     }
 
     /**
-     * 根据顾客id获取顾客详情和历史生意记录
+     * 根据顾客id获取顾客详情和历史服务记录
      *
      * @param pageNumber 当前页
      * @param pageSize 分页大小

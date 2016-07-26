@@ -59,7 +59,7 @@ export class CustomerFormComponent {
 			'vehicleMiles': ''
 		}
 
-		
+
 	}
 
 	ngOnInit() {
@@ -71,7 +71,7 @@ export class CustomerFormComponent {
 
 	ngOnDestroy() {
 		console.log('destroy');
-		this.items.unsubscribe();
+		// this.items.unsubscribe();
 	}
 
 	ngOnChanges( changes ) {
@@ -199,12 +199,12 @@ export class CustomerFormComponent {
 		this.vehiclePlateLen = false;
 		this.vehiclePlateHas = false;
 		if ( val.length > 6 && val.length < 10 ) {
-			
+
 			this.searchTermStream.next(val);
 		} else if (val.length >= 10) {
 			this.vehiclePlateHas = false;
 			this.vehiclePlateLen = true;
-			
+
 		}
 	}
 }
