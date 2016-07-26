@@ -101,10 +101,10 @@ export class EmployeeFormComponent {
 		this.formErr[type] = false;
 	}
 	onCheckMobile() {
-		if(this.employee.mobile == "") {
+		if (this.employee.mobile === '') {
 			this.formErr.mobile = false;
 		} else {
-			this.formErr.mobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(this.employee.mobile) ? false : true;
+			this.formErr.mobile = /^(13[0-9]|15[012356789]|17[015678]|18[0-9]|14[579])[0-9]{8}$/.test(this.employee.mobile) ? false : true;
 		}
 		return this.formErr.mobile;
 	}

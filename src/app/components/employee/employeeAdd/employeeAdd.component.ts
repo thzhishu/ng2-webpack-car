@@ -30,81 +30,8 @@ export class EmployeeAddComponent {
 			code: '',
 			mobile: ''
 		}
-		// this.formErr = {
-		// 	required: false,
-		// 	mobile: false
-		// }
 		
-		// console.log(this.employee)
 	}
 
-	
 
-	// ngOnInit() {
-		
-	// }
-	// save() {
-	// 	if(this.employee.name == "" && this.employee.code == "") {
-	// 		this.formErr.required = true;
-	// 		return false;
-	// 	}
-		
-	// 	if(this.employee.mobile != "" && this.onCheckMobile()) {
-	// 		this.formErr.mobile = true;
-	// 		return false;
-	// 	}
-	// 	this.formErr = {
-	// 		required: false,
-	// 		mobile: false
-	// 	}
-	// 	console.log(this.employee.name, this.employee.code, this.employee.mobile);
-	// 	return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
-	// }
-	// onSave() {
-	// 	console.log(this.employee)
-		
-	// 	let result = this.save();
-	// 	if(result) {
-	// 		result.subscribe(data=>{
-	// 			console.log('创建了一个新的员工');
-	// 			this.router.navigate(['/employee-list']);
-	// 		}, err=>{
-	// 			console.error('创建新的员工失败');
-	// 			console.error(err);
-	// 		})
-	// 	}
-			
-	// }
-	// onSaveAndNew() {
-	// 	let result = this.save();
-	// 	if(result) {
-	// 		result.subscribe(data=>{
-	// 			console.log('创建了一个新的员工');
-	// 			this.employee = {
-	// 				name: '',
-	// 				code: '',
-	// 				mobile: ''
-	// 			}
-	// 		}, err=>{
-	// 			console.error('创建新的员工失败');
-	// 			console.error(err);
-	// 		})
-	// 	}
-			
-	// }
-	// onReset() {
-
-	// }
-	// onHideTip(type) {
-	// 	this.formErr[type] = false;
-	// }
-	// onCheckMobile() {
-	// 	if(this.employee.mobile == "") {
-	// 		this.formErr.mobile = false;
-	// 	} else {
-	// 		this.formErr.mobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(this.employee.mobile) ? false : true;
-	// 	}
-	// 	return this.formErr.mobile;
-	// }
-	
 }
