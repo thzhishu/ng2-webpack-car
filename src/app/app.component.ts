@@ -14,7 +14,7 @@ import * as moment from 'moment';
   styles: [require('assets/css/app.scss')],
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS],
-  encapsulation: ViewEncapsulation.Native
+  encapsulation: ViewEncapsulation.None
 })
 
 @Routes([

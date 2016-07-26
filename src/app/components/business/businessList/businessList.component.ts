@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { BusinessApi,BusinessList } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent,PaginationComponent } from 'common';
 import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
 
 @Component({
@@ -19,14 +19,18 @@ import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
   selector: 'business-list',
   template: require('./businessList.html'),
   styles: [require('./businessList.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,DATEPICKER_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,BusinessAddComponent],
-  providers: [HTTP_PROVIDERS, BusinessApi]
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,DATEPICKER_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,BusinessAddComponent,PaginationComponent],
+  providers: [HTTP_PROVIDERS, BusinessApi],
+  host: {
+      '(click)': 'closeDatePicker($event)'
+  }
 })
 
 export class BusinessListComponent {
   list:BusinessList;
   date:string;
   page:any = {current:1,limit:20,total:0};
+  dateShow:boolean;
 
   constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment,private bApi: BusinessApi) {
     this.date = moment().format('YYYY-MM-DD');
@@ -34,6 +38,20 @@ export class BusinessListComponent {
   // 初始化
   ngOnInit() {
     this.getList();
+  }
+
+  onShowDate(event) {
+      event.stopPropagation();
+      this.dateShow = !this.dateShow;
+  }
+
+  public closeDatePicker(event) {
+      event.stopPropagation();
+      this.dateShow = false;
+  }
+
+  moment(date){
+    return moment(date).format('YYYY-MM-DD');
   }
 
   onLastDate(){
@@ -54,13 +72,18 @@ export class BusinessListComponent {
     this.getList();
   }
 
+  changePage(event){
+    this.page.current = event;
+    this.getList();
+  }
+
   getList(){
-    this.bApi.businessListGet(this.date).subscribe(data => {
+    this.bApi.businessListGet(this.date,this.page.current).subscribe(data => {
       if (data.meta.code === 200) {
         this.list = data.data;
         this.page.current = data.meta.current;
         this.page.limit = data.meta.limit;
-        this.page.total = data.meta.total;
+        this.page.total = data.meta.total||150;
       }
     })
   }

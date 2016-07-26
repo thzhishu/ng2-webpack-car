@@ -23,12 +23,14 @@
       <!-- 主内容标题 -->
       <div class="sub-header tc">
         <div class="dib fl date-directive">
-          <a href="javascript:void(0);" (click)="onLastDate()"> &lt; </a> {{date}} <a href="javascript:void(0);" (click)="onNextDate()"> 	&gt; </a>
-          <datepicker [ngModel]="date" (ngModelChange)="date = moment($event)" ></datepicker>
+          <a href="javascript:void(0);" class="last" (click)="onLastDate()"> &lt; </a> &nbsp;&nbsp;&nbsp;&nbsp; <span (click)="onShowDate($event)">{{date}}</span> &nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" class="next" (click)="onNextDate()"> 	&gt; </a>
+          <div class="datepicker-tip" *ngIf="dateShow">
+            <datepicker [ngModel]="date" (ngModelChange)="date = moment($event);getList()" [showWeeks]="false" ></datepicker>
+          </div>
         </div>
-        <h2 class="dib title">记录新服务</h2>
+        <h5 class="dib title">记录新服务</h5>
         <div class="dib fr business-info">
-          合计: <span class="warning">{{page?.total}}</span> 笔服务 ￥ <span class="warning">{{list?.score}}</span>
+          合计: <span class="warning">{{page?.total||0}}</span> 笔服务 平均 <span class="warning">{{list?.score||0}}</span> 分
         </div>
       </div>
       <!-- 主内容标题 end -->
@@ -50,7 +52,7 @@
                 <th>满意度评分</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="list?.content">
               <tr *ngFor="let item of list?.content, let i = index">
                 <td>{{i+1}}</td>
                 <td>{{item.date|date:'shortTime'}}</td>
@@ -65,42 +67,15 @@
           </table>
 
           <!-- 列表分页 -->
-          <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
-            link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
-
-            <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
-
-
-            <ul  class="pagination pagination-md links">
-              <li class="txt-page prev-page disabled">
-                <a href="" ng-click="gotoPage(page-1)">上一页</a>
-              </li>
-
-              <li   class="ng-scope active"><a href=""  class="ng-binding">第1页</a></li>
-
-              <li   class="ng-scope"><a href="" class="ng-binding">2</a></li>
-              <li  class="page-ellipse disabled ng-scope"><a href="">......</a></li>
-              <li   class="ng-scope"><a href="" class="ng-binding">22</a></li>
-              <li   class="ng-scope"><a href="" class="ng-binding">23</a></li>
-              <li class="txt-page next-page">
-                <a href="" ng-click="gotoPage(page+1)"  class=" ng-scope">下一页</a>
-
-              </li>
-            </ul>
-            <div  class="mx-paginate-jump ng-scope">
-              转到
-              <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
-              <button ng-click="jumpToPage(jumpPage-1)">GO</button>
-            </div>
-          </div>
+          <pagination *ngIf="list?.content" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
           <!-- 列表分页 end -->
 
         </div>
-        <div class="list-empty" style="display:none;" >
+        <div class="list-empty" *ngIf="!list?.content" >
           <div class="le-img"></div>
           <div class="le-txt tc">
-            当前未添加员工
-            <a class="g-btn g-btn-green" ui-sref="business-add">+  添加新员工</a>
+            当前未添加服务
+            <a class="g-btn g-btn-green" ui-sref="business-add">+  添加新服务</a>
           </div>
         </div>
 
