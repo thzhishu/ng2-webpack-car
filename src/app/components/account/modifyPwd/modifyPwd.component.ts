@@ -1,5 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +25,7 @@ export class ModifyPwdComponent {
     mpwdForm: ControlGroup;
     active: Boolean;
     isEqual: Boolean = true;
-	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+	constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi) {
 		this.mpwdForm = fb.group({
             'oldPassword': [''],
             'password': [''],

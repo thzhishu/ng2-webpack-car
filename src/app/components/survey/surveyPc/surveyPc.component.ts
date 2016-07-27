@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { SurveyApi } from 'client';
 @Component({
     moduleId: module.id,
@@ -12,7 +12,7 @@ import { SurveyApi } from 'client';
 
 export class SurveyPcComponent {
     survey: any;
-    constructor( private router: Router, private params: RouteSegment, private sApi: SurveyApi ) {
+    constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
 
     }
     ngOnInit() {

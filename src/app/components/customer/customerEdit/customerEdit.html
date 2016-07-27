@@ -4,12 +4,12 @@
 <main>
   <div class="p-gray p-modify-store">
     <div class="playout">
-      
+
       <!-- 带搜索+添加的面包屑 -->
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/customer-list']" >我的顾客</a> > <a [routerLink]="['/customer-edit', {id: customerId}]" >修改顾客信息</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/customer-list" routerLinkActive="active">我的顾客</a> > <a routerLink="/customer-edit" [routerLinkActiveOptions]="{id: customerId}"  routerLinkActive="active">修改顾客信息</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -24,18 +24,16 @@
       <div class="c-header">我的顾客</div>
       <!-- 主内容标题 end -->
       <!-- 顾客表单 -->
-      
+
 
       <customer-form [customer]="customerFields"></customer-form>
-        
+
       <!-- 顾客表单 end -->
       <!-- 页脚  -->
       <page-footer></page-footer>
       <!-- 页脚 end -->
     </div>
-    
+
   </div>
-    
+
 </main>
-
-

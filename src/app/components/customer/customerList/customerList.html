@@ -7,7 +7,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/customer-list']">我的顾客</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/customer-list" routerLinkActive="active">我的顾客</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -22,7 +22,7 @@
       <!-- 主内容标题 -->
       <div class="pr c-header">
         我的顾客
-        <a [routerLink]="['/customer-add']" class="pa s-btn">+新顾客</a>
+        <a routerLink="/customer-add" routerLinkActive="active" class="pa s-btn">+新顾客</a>
       </div>
       <!-- 主内容标题 end -->
       <!-- 主内容 -->
@@ -53,42 +53,17 @@
                 <td>{{cr.vehicleMiles ? cr.vehicleMiles + '公里' : '-'}}</td>
                 <td>{{cr.lastEnterDate || '-'}}</td>
                 <td>
-                  <a [routerLink]="['/customer-detail', {id: cr.id}]">查看详情</a>
+                  <a routerLink="/customer-detail" [routerLinkActiveOptions]="{id: cr.id}"  routerLinkActive="active">查看详情</a>
                 </td>
               </tr>
-              
-              
-              
+
+
+
             </tbody>
           </table>
 
           <!-- 列表分页 -->
-          <div style="display:none;" class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
-            link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
-
-            <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
-
-
-            <ul  class="pagination pagination-md links">
-              <li class="txt-page prev-page disabled">
-                <a href="" ng-click="gotoPage(page-1)">上一页</a>
-              </li>
-              
-              <li   class="ng-scope active"><a href=""  class="ng-binding">第1页</a></li>
-              <li   class="ng-scope"><a href="" class="ng-binding">2</a></li>
-              <li  class="page-ellipse disabled ng-scope"><a href="">......</a></li>
-              <li   class="ng-scope"><a href="" class="ng-binding">22</a></li>
-              <li   class="ng-scope"><a href="" class="ng-binding">23</a></li>
-              <li class="txt-page next-page">
-                <a href="" ng-click="gotoPage(page+1)"  class=" ng-scope">下一页</a>
-              </li>
-            </ul>
-            <div  class="mx-paginate-jump ng-scope">
-              转到
-              <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
-              <button ng-click="jumpToPage(jumpPage-1)">GO</button>
-            </div>
-          </div>
+          <pagination *ngIf="customers.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
           <!-- 列表分页 end -->
 
         </div>
@@ -96,7 +71,7 @@
           <div class="le-img"></div>
           <div class="le-txt tc">
             <!-- 检索： 未检索到此顾客相关信息 -->
-            当前未添加顾客 
+            当前未添加顾客
             <a class="g-btn g-btn-green" ui-sref="customer-add">+  添加新顾客</a>
           </div>
         </div>
@@ -117,8 +92,8 @@
               <h1>确定删除该员工？</h1>
               <div>
                 该员工及其信息将被删除，其历史服务记录<br>
-                不会被删除 
-                
+                不会被删除
+
               </div>
             </div>
           </div>
@@ -133,7 +108,3 @@
   </div>
 
 </main>
-
-
-
-          

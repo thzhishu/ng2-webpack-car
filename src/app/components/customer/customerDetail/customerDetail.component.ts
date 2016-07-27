@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { CustomerApi, Customer, BusinessDetail,BusinessHistoryDetail } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent,PaginationComponent } from 'common';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 	selector: 'customer-detail',
 	template: require('./customerDetail.html'),
 	styles: [require('./customerDetail.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,PaginationComponent],
 	providers: [HTTP_PROVIDERS, CustomerApi ]
 })
 
@@ -34,19 +34,32 @@ export class CustomerDetailComponent {
 	hasSend: Boolean = false;
 	sendTimes: number = 0;
 	tempMobile: string = '';
+	sub:any;
+	page:any = {};
 
-	constructor(private router: Router, private params: RouteSegment, private cApi: CustomerApi) {
-		this.customerId = +params.getParam('id');
-		if(!this.customerId) {
-			router.navigate(['/customer-list']);
-		}
+	constructor(private router: Router, private route: ActivatedRoute, private cApi: CustomerApi) {
+
 	}
 
 	ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.customerId = +params['id'];
+			this.getCustomerById(this.customerId);
+			if(!this.customerId) {
+				this.router.navigate(['/customer-list']);
+			}
+    });
+  }
 
-		this.getCustomerById(this.customerId);
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
-	}
+	changePage(cur) {
+    this.page.current = event;
+    this.getCustomerById(this.customerId);
+  }
+
 	getCustomerById(id) {
 		this.cApi.customerHistoryCustomerIdGet(id).subscribe(data => {
 			if (data.data) {
@@ -58,6 +71,9 @@ export class CustomerDetailComponent {
 				console.log('customerDetail: ', this.customerDetail);
 				console.log('customer: ', this.customer);
 				console.log('histories: ', this.histories);
+				this.page.current = data.meta.current;
+	      this.page.limit = data.meta.limit;
+	      this.page.total = data.meta.total;
 			} else {
 				//啥都没有
 				this.customerDetail = {};

@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -21,7 +21,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 
 export class StoreAddComponent {
 	storeForm: ControlGroup;
-	constructor(router: Router, fb: FormBuilder, params: RouteSegment, uApi: UserApi) {
+	constructor(router: Router, fb: FormBuilder, private route: ActivatedRoute, uApi: UserApi) {
 		this.storeForm = fb.group({
 			'name': ['', Validators.required],
 			'provinceId': [0],

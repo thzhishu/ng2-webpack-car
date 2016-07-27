@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import {  CustomerApi, Customer } from 'client';
-import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
+import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent,PaginationComponent } from 'common';
 
 
 @Component({
@@ -16,18 +16,33 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 	selector: 'customer-list',
 	template: require('./customerList.html'),
 	styles: [require('./customerList.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent],
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,PaginationComponent],
 	providers: [HTTP_PROVIDERS, CustomerApi ]
 })
 
 export class CustomerListComponent {
 	customers: Customer[] = [];
 	searchStr: string = '';
-	constructor(private cApi: CustomerApi, private params: RouteSegment, private router: Router) {
-		this.searchStr = params.getParam('s') || '';
+	sub:any;
+	page:any = {};
+	constructor(private cApi: CustomerApi, private route: ActivatedRoute, private router: Router) {
+
 	}
 
 	ngOnInit() {
+		this.sub = this.route.params.subscribe(params => {
+			console.log(params);
+			this.searchStr = params['s'];
+			this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
+		});
+	}
+
+	ngOnDestroy() {
+		this.sub.unsubscribe();
+	}
+
+	changePage(cur){
+		this.page.current = event;
 		this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
 	}
 
@@ -35,13 +50,16 @@ export class CustomerListComponent {
 		this.cApi.customerListGet().subscribe(data => {
 			this.customers = data.data && data.data.length ? data.data : [];
 			console.log('customers: ', this.customers);
+			this.page.current = data.meta.current;
+			this.page.limit = data.meta.limit;
+			this.page.total = data.meta.total;
 		}, err => {
 			console.error(err);
 			this.customers = [];
 		});
 	}
 	getSearchCustomers() {
-		if ( this.searchStr === '' ) return;
+		if ( this.searchStr === ''||this.searchStr === null||this.searchStr === undefined ) return;
 		this.cApi.customerSearchPhoneOrVehicleLicenceGet(this.searchStr).subscribe( data => {
 			if (data.data) {
 				let dd = data.data;
@@ -50,6 +68,9 @@ export class CustomerListComponent {
 				} else {
 					this.customers = dd.customers;
 				}
+				this.page.current = data.meta.current;
+				this.page.limit = data.meta.limit;
+				this.page.total = data.meta.total;
 			} else {
 				this.customers = [];
 			}

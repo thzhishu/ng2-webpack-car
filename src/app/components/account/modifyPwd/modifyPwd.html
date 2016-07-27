@@ -4,12 +4,12 @@
 <main>
   <div class="p-gray">
     <div class="playout">
-      
+
       <!-- 带搜索+添加的面包屑 -->
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/my-account']">我的账户</a> > <a [routerLink]="['/modify-pwd']">修改密码</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/my-account" routerLinkActive="active">我的账户</a> > <a routerLink="/modify-pwd" routerLinkActive="active">修改密码</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -32,14 +32,14 @@
               <label for="pwd_current" class="g-label">当前密码</label>
               <div class="g-ipt">
                 <input type="password" id="pwd_current" class="g-wxm" ngControl="oldPassword" required >
-                <div class="g-field-tip" 
+                <div class="g-field-tip"
                   [class.warning] = "mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid"
                   *ngIf="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid">
                   <span>*</span>请填写当前密码
                 </div>
               </div>
             </div>
-            
+
             <div class="g-field">
               <label for="pwd_new" class="g-label">新密码</label>
               <div class="g-ipt">
@@ -67,8 +67,8 @@
                 </div>
               </div>
             </div>
-            
-            
+
+
           </div>
           <!-- 密码表单字段 end -->
           <!-- 密码表单按钮  -->
@@ -85,6 +85,5 @@
       <!-- 页脚 end -->
     </div>
   </div>
-    
-</main>
 
+</main>

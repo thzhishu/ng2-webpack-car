@@ -8,7 +8,7 @@
             <div class="searchbar">
                 <!-- 面包屑导航 -->
                 <div class="crumbs">
-                    <a href="javascript:;">首页</a> > <a [routerLink]="['/employee-list']">我的员工</a>
+                    <a href="javascript:;">首页</a> > <a routerLink="/employee-list" routerLinkActive="active" >我的员工</a>
                 </div>
                 <!-- 面包屑导航 end -->
                 <!--搜索-->
@@ -23,7 +23,7 @@
             <!-- 主内容标题 -->
             <div class="pr c-header">
                 我的员工
-                <a [routerLink]="['/employee-add']" class="pa s-btn" *ngIf="employeeList.length">+新员工</a>
+                <a routerLink="/employee-add" routerLinkActive="active" class="pa s-btn" *ngIf="employeeList.length">+新员工</a>
             </div>
             <!-- 主内容标题 end -->
             <!-- 主内容 -->
@@ -48,7 +48,7 @@
                                 <td>{{employee.mobile || '—'}}</td>
                                 <td>{{employee.serviceTimes ? employee.serviceTimes + '次' : '—' }}</td>
                                 <td>
-                                    <a [routerLink]="['/employee-edit', {id: employee.id}]">编辑</a>
+                                    <a routerLink="/employee-edit" [routerLinkActiveOptions]="{id: employee.id}"  routerLinkActive="active">编辑</a>
                                     <a href="javascript:;" (click)="onDel(employee, i)">删除</a>
                                 </td>
                             </tr>
@@ -57,33 +57,7 @@
                     </table>
 
                     <!-- 列表分页 -->
-                    <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage" link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
-
-                        <div class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
-
-
-                        <ul class="pagination pagination-md links">
-                            <li class="txt-page prev-page disabled">
-                                <a href="" ng-click="gotoPage(page-1)">上一页</a>
-                            </li>
-
-                            <li class="ng-scope active"><a href="" class="ng-binding">第1页</a></li>
-
-                            <li class="ng-scope"><a href="" class="ng-binding">2</a></li>
-                            <li class="page-ellipse disabled ng-scope"><a href="">......</a></li>
-                            <li class="ng-scope"><a href="" class="ng-binding">22</a></li>
-                            <li class="ng-scope"><a href="" class="ng-binding">23</a></li>
-                            <li class="txt-page next-page">
-                                <a href="" ng-click="gotoPage(page+1)" class=" ng-scope">下一页</a>
-
-                            </li>
-                        </ul>
-                        <div class="mx-paginate-jump ng-scope">
-                            转到
-                            <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
-                            <button ng-click="jumpToPage(jumpPage-1)">GO</button>
-                        </div>
-                    </div>
+                    <pagination *ngIf="employeeList.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
                     <!-- 列表分页 end -->
 
                 </div>
@@ -91,7 +65,7 @@
                     <div class="le-img"></div>
                     <div class="le-txt tc">
                         当前未添加员工
-                        <a class="g-btn g-btn-green" [routerLink]="['/employee-add']">+  添加新员工</a>
+                        <a class="g-btn g-btn-green" routerLink="/employee-add" routerLinkActive="active">+  添加新员工</a>
                     </div>
                 </div>
 

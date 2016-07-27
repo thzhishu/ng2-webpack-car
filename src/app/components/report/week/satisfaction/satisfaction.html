@@ -3,7 +3,7 @@
 <main>
   <div class="p-gray p-modify-store">
     <div class="playout">
-      
+
       <!-- 带搜索+添加的面包屑 -->
       <div class="searchbar">
         <!-- 面包屑导航 -->
@@ -23,7 +23,7 @@
         <!-- 切换卡 -->
         <div class="pr c-tab">
           <a class="c-tab-item" [routerLink]="['/report/week/satisfaction']">满意度评价报告</a>
-          
+
           <div class="pa rp-head-print ico-print">打印本周周报</div>
         </div>
         <!-- 切换卡 end -->
@@ -31,7 +31,7 @@
         <div class="pr tc rp-head">
           您打败了 <span class="c-pink">{{percent}}%</span> 同行业门店
           <div class="pa rp-head-time">{{start}} 至 {{end}}</div>
-          
+
         </div>
         <!-- 主标题 end -->
         <!-- 好 & 差 -->
@@ -53,7 +53,7 @@
             </div>
           </div>
         </div>
-          
+
         <!-- 好 & 差 end -->
         <!-- 技师 -->
         <div class="pr-tech">
@@ -72,8 +72,8 @@
                   <div class="ds-cell">{{eg.name || '-'}}</div>
                   <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
                 </div>
-                
-                
+
+
               </div>
             </div>
             <div class="ds-cell">
@@ -86,7 +86,7 @@
                   <div class="ds-cell">{{eg.name || '-'}}</div>
                   <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@
                   <th>主理技师</th>
                   <th>客户车型</th>
                   <th>服务得分</th>
-                  
+
                 </tr>
               </thead>
               <tbody  *ngIf="improvements.length" >
@@ -117,9 +117,9 @@
                   <td>{{ im.model }}</td>
                   <td>{{ im.comments[0]?.score }}分</td>
                 </tr>
-                
-                
-                
+
+
+
               </tbody>
             </table>
             <div class="pr-nodata" *ngIf="!improvements.length">
@@ -127,32 +127,7 @@
             </div>
 
             <!-- 列表分页 -->
-            <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
-              link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
-
-              <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
-
-
-              <ul  class="pagination pagination-md links">
-                <li class="txt-page prev-page disabled">
-                  <a href="" ng-click="gotoPage(page-1)">上一页</a>
-                </li>
-                
-                <li   class="ng-scope active"><a href=""  class="ng-binding">第1页</a></li>
-                <li   class="ng-scope"><a href="" class="ng-binding">2</a></li>
-                <li  class="page-ellipse disabled ng-scope"><a href="">......</a></li>
-                <li   class="ng-scope"><a href="" class="ng-binding">22</a></li>
-                <li   class="ng-scope"><a href="" class="ng-binding">23</a></li>
-                <li class="txt-page next-page">
-                  <a href="" ng-click="gotoPage(page+1)"  class=" ng-scope">下一页</a>
-                </li>
-              </ul>
-              <div  class="mx-paginate-jump ng-scope">
-                转到
-                <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
-                <button ng-click="jumpToPage(jumpPage-1)">GO</button>
-              </div>
-            </div>
+            <pagination *ngIf="improvements.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
             <!-- 列表分页 end -->
 
           </div>
@@ -161,7 +136,7 @@
 
         </div>
         <!-- 技师需改进 end -->
-      
+
       <!-- 主内容 end -->
 
 
@@ -169,8 +144,7 @@
       <page-footer></page-footer>
       <!-- 页脚 end -->
     </div>
-    
-  </div>
-    
-</main>
 
+  </div>
+
+</main>

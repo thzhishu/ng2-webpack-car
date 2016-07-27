@@ -2,7 +2,7 @@
   <main-logo></main-logo>
   <form (ngSubmit)="onRegister()" [ngFormModel]="rForm">
     <div class="register-block animated rubberBand" [ngClass]="{zoomOutRight:rForm.submitted}">
-      <h2 class="register-title">注册<a [routerLink]="['/login-min']" class="register-login-link fr">已有账户登录</a>
+      <h2 class="register-title">注册<a routerLink="/login-min" routerLinkActive="active" class="register-login-link fr">已有账户登录</a>
       </h2>
       <div class="register-input " [class.error]="!rForm.controls.phone?.valid && !rForm.controls.phone?.pristine">
         <input type="text" ngControl="phone" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" placeholder="请输入您的手机号码">
@@ -23,7 +23,7 @@
       </div>
       <div class="register-input" [class.error]="!rForm.controls.code?.valid && !rForm.controls.code?.pristine">
         <input type="text" class="inner-group" maxlength="10" ngControl="code" required placeholder="请输入短信验证码">
-        <a class="inner-btn" [class.disabled]="seekDisabeld||!rForm.controls.phone?.valid||!rForm.controls.rnd?.valid" (click)="onSeekPhone(rForm.value.phone,rForm.value.rnd)">{{seekBtnTitle!=null?seekBtnTitle+'s':'发送验证码'}}</a>
+        <a class="inner-btn" [class.disabled]="seekDisabeld||!rForm.controls.phone?.valid||!rForm.controls.rnd?.valid" (click)="onSeekPhone(rForm.value.phone,rForm.value.rnd)">{{seekBtnTitle}}</a>
         <div class="msg">
           <span class="text-error" *ngIf="!rForm.controls.code?.valid">验证码错误</span>
           <span class="text-error" *ngIf="errorPhoneCode">{{errorPhoneCode}}</span>

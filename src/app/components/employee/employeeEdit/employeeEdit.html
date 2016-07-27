@@ -3,12 +3,12 @@
 <main>
   <div class="p-gray p-modify-store">
     <div class="playout">
-      
+
       <!-- 带搜索+添加的面包屑 -->
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/employee-list']">我的员工</a> > <a [routerLink]="['/employee-edit', {id: employee.id}]">编辑员工</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/employee-list" routerLinkActive="active" >我的员工</a> > <a routerLink="/employee-edit" routerLinkActive="active" [routerLinkActiveOptions]="{id: employee.id}" >编辑员工</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -29,8 +29,7 @@
       <page-footer></page-footer>
       <!-- 页脚 end -->
     </div>
-    
-  </div>
-    
-</main>
 
+  </div>
+
+</main>

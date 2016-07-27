@@ -9,7 +9,7 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/business-list']">我的服务</a> > <a >今日服务</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/business-list" routerLinkActive="active">我的服务</a> > <a >今日服务</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -56,10 +56,10 @@
               <tr *ngFor="let item of list?.content, let i = index">
                 <td>{{i+1}}</td>
                 <td>{{item.date|date:'shortTime'}}</td>
-                <td><a [routerLink]="['/customer-detail',{id:item.id}]">{{item.licence}}</a></td>
+                <td><a routerLink="/customer-detai" [routerLinkActiveOptions]="{id: item.id}"  routerLinkActive="active">{{item.licence}}</a></td>
                 <td>{{item.customer}}</td>
                 <td>{{item.mobile}}</td>
-                <td><a [routerLink]="['/customer-detail',{id:item.id}]">{{item.services}}</a></td>
+                <td><a routerLink="/customer-detai" [routerLinkActiveOptions]="{id: item.id}"  routerLinkActive="active">{{item.services}}</a></td>
                 <td>{{item.employee}}</td>
                 <td>{{item.score}}</td>
               </tr>
