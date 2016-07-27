@@ -4,14 +4,14 @@ import { FORM_DIRECTIVES } from '@angular/common';
 import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
 
 import { MainLogoComponent, PageFooterComponent } from 'common';
+import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
 
 @Component({
   moduleId: module.id,
   selector: 'init-store',
   template: require('./initStore.html'),
   styles: [require('./initStore.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
-  providers: []
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent,StoreFormComponent]
 })
 
 export class InitStoreComponent {
@@ -21,7 +21,7 @@ export class InitStoreComponent {
   }
   // 初始化
   ngOnInit() {
-
+    
   }
 
   onSuccess(data){
