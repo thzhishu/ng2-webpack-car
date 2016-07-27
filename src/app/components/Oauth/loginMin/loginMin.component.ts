@@ -69,7 +69,7 @@ export class LoginMinComponent {
         this.loading = 0;
         if (data.meta.code === 200) {
           Cookie.save('token', data.data.User.token, 7);
-          Cookie.save('shopId', '5');
+          Cookie.save('shopId', data.data.User.lastShopId);
           this.sApi.defaultHeaders.set('token', data.data.User.token);
           if (data.data.User.lastShopId === null) {
             this.router.navigate(['/init-store']);

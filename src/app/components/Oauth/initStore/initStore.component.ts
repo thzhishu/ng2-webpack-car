@@ -131,7 +131,7 @@ export class InitStoreComponent {
     this.sApi.shopBatchSavePost(post).subscribe(data => {
       this.loading = 0;
       if (data.meta.code === 200) {
-        this.router.navigate(['/my-account']);
+        this.router.navigate(['/business-list']);
       }else{
         alert(data.error.message);
       }

@@ -1,6 +1,6 @@
 <navbar></navbar>
 <menus></menus>
-<business-add></business-add>
+<business-add (open)="onOpen()" (close)="onClose()" #ba [businessShow]="0" ></business-add>
 <main class="business-list">
   <div class="p-gray p-modify-store">
     <div class="playout">
@@ -9,21 +9,21 @@
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a ui-sref="business-list">我的生意</a> > <a ui-sref="business-add" >今日生意</a>
+          <a href="javascript:;">首页</a> > <a [routerLink]="['/business-list']">我的生意</a> > <a >今日生意</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
         <search-bar></search-bar>
         <!--搜索 end-->
         <!-- 添加新生意 -->
-        <a ui-sref="business-add" class="pa g-btn g-btn-green">+  记录新生意</a>
+        <a ui-sref="business-add" class="pa g-btn g-btn-green" (click)="ba.businessShow=1;" >+  记录新生意</a>
         <!-- 添加新生意 end-->
       </div>
       <!-- 带搜索+添加的面包屑 end -->
       <!-- 主内容标题 -->
       <div class="sub-header tc">
         <div class="dib fl date-directive">
-          <  2016-06-20  >
+          <  {{date}}  >
         </div>
         <h2 class="dib title">记录新生意</h2>
         <div class="dib fr business-info">

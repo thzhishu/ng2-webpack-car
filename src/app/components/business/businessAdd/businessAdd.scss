@@ -16,7 +16,6 @@
   z-index: 80;
   overflow: hidden;
   background:rgba(0,0,0,.6);
-
   .business-protocol-block{
     opacity: 1;
     transition: all .4s cubic-bezier(.25,.8,.25,1);
@@ -35,12 +34,55 @@
     flex-direction: column;
     background: #fff;
     color: #343434;
-    padding: 35px;
-    border-radius: 15px;
+    padding: 25px;
+    border-radius: 5px;
+    .g-field{
+      font-size: 14px;
+    }
+    .business-protocol-header{
+      // padding: 20px 0;
+      .business-protocol-title{
+        font-size: 18px;
+        color: #343434;
+        float: left;
+        margin: 0;
+      }
+      .business-protocol-close{
+        font-size: 18px;
+        color: #777;
+        float: right;
+        text-decoration: none;
+      }
+    }
+    .business-protocol-row{
+      margin: 10px 0 10px 50px;
+      overflow: hidden;
+    }
     .business-protocol-content{
-      overflow: auto;
-      min-width: 100%;
-      max-height: 80%;
+      // overflow: auto;
+      // min-width: 100%;
+      // max-height: 80%;
+    }
+    .business-protocol-left{
+      float: left;
+      width: 380px;
+    }
+    .business-protocol-right{
+      float: right;
+      width: 190px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .new-customer{
+      color: #f16557;
+      margin: 0 auto;
+    }
+    .old-customer{
+      color: #36b34a;
+      margin: 0 auto;
+    }
+    .msg{
+      margin: 10px 0 10px 90px;
     }
     h2{
       text-align: center;
@@ -61,12 +103,19 @@
     .btn-block{
       text-align: center;
       margin-top: 30px;
+      clear: both;
       .submit{
         padding: 10px 40px;
         background: #38b549;
         color: #fff;
         border-radius: 5px;
         cursor: pointer;
+        &[disabled]{
+          background: #c0c0c0;
+        }
+        &.disabled{
+          background: #c0c0c0;
+        }
       }
       .cancel{
         padding: 10px 40px;

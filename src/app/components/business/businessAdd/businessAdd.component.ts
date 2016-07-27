@@ -1,35 +1,121 @@
-import { Component, Input, Output, NgZone } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
-import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
+import { Cookie } from 'services';
 
-// import { } from 'client';
-import { MainLogoComponent, PageFooterComponent } from 'common';
+import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem } from 'client';
 
 @Component({
   moduleId: module.id,
   selector: 'business-add',
   template: require('./businessAdd.html'),
   styles: [require('./businessAdd.scss')],
-  // directives: [MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, Md5]
+  directives: [ROUTER_DIRECTIVES, MdCheckbox],
+  providers: [HTTP_PROVIDERS, BusinessApi, EmployeeApi, CustomerApi]
 })
 
-export class BusinessAddComponent {
-  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment) {
+export class BusinessAddComponent implements OnInit {
+  @Input() businessShow: number;
+  @Output() open = new EventEmitter();
+  @Output() close = new EventEmitter();
+
+  loading: number = 0;
+  employeeList: Array<EmployeeListItem>;
+  customer: Customer;
+  // businessShow: number = 0;
+  employeeChecked: boolean = true;
+  employeeInput: string = '';
+
+  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private bApi: BusinessApi, private eApi: EmployeeApi, private cApi: CustomerApi) {
 
   }
   // 初始化
   ngOnInit() {
+    this.getEmployeeList();
+  }
+
+  getEmployeeList() {
+    this.eApi.employeeListGet().subscribe(data => {
+      if (data.meta.code === 200) {
+        this.employeeList = data.data;
+      }
+    });
+  }
+
+  isVehicleLength(f) {
+    if (!f.value.vehicleLicence || f.value.vehicleLicence.length < 6) {
+      return false;
+    }
+    return true;
+  }
+
+  onChangeVL(val) {
+    if (!val.target.value || val.target.value.length < 6) {
+      return false;
+    }
+    this.cApi.customerVehicleVehicleLicenceGet(val.target.value).subscribe(data => {
+      if (data.meta.code === 200) {
+        this.customer = data.data;
+      } else {
+        alert(data.error.message);
+      }
+    })
+  }
+
+  onSubmit(f) {
+    this.loading = 1;
+    let data = f.value;
+    data.shopId = Cookie.load('shopId');
+    if (data.employeeId === 'other') {
+      // payload: models.BusinessDetail
+      this.eApi.employeeSavePost(this.employeeInput).subscribe(res => {
+        this.loading = 0;
+        if (res.meta.code === 200) {
+          data.employeeId = res.data.id;
+          this.save(data);
+        } else {
+          alert(res.error.message);
+        }
+      }, err => {
+        this.loading = 0;
+        console.error(err);
+      });
+    } else {
+      this.save(data);
+    }
 
   }
-  onClose(){
 
+  save(data) {
+    // payload: models.BusinessDetail
+    this.bApi.businessSaveOrUpdatePost(data).subscribe(data => {
+      this.loading = 0;
+      if (data.meta.code === 200) {
+        this.onClose();
+      } else {
+        alert(data.error.message);
+      }
+    }, err => {
+      this.loading = 0;
+      console.error(err);
+    });
+  }
+
+  onOpen() {
+    this.open.next("event");
+    this.businessShow = 1;
+  }
+
+  onClose() {
+    this.close.next("event");
+    this.businessShow = 0;
   }
 }
