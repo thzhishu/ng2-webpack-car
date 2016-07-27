@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, CustomerApi, Customer } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
 	moduleId: module.id,
@@ -31,6 +32,14 @@ export class CustomerFormComponent {
 	active: Boolean = true;
 	submitting: Boolean = false;
 	customerDefault: any;
+	searchTermStream = new Subject<string>();
+	items: Observable<any> = this.searchTermStream
+			.debounceTime(500)
+			.distinctUntilChanged()
+			.switchMap((term: string, i) => {
+				console.log('term: ', term, i);
+				return this.cApi.customerVehicleVehicleLicenceGet(encodeURI(term));
+			});
 	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
 
 		const currentYear = +(new Date()).getFullYear();
@@ -50,11 +59,19 @@ export class CustomerFormComponent {
 			'vehicleMiles': ''
 		}
 
+		
 	}
 
 	ngOnInit() {
 		this.initFb();
-		console.log('cfc', Object.assign({}, this.customer));
+		this.items.subscribe(data => {
+			this.vehiclePlateHas = data && data.data ? true : false;
+		});
+	}
+
+	ngOnDestroy() {
+		console.log('destroy');
+		this.items.unsubscribe();
 	}
 
 	ngOnChanges( changes ) {
@@ -175,5 +192,19 @@ export class CustomerFormComponent {
 		this.vehiclePlateNull = false;
 		this.vehiclePlateLen = false;
 		// this.vehiclePlateHas = false;
+	}
+
+	subjectAjax() {
+		const val = this.customerForm.value.vehicleLicence;
+		this.vehiclePlateLen = false;
+		this.vehiclePlateHas = false;
+		if ( val.length > 6 && val.length < 10 ) {
+			
+			this.searchTermStream.next(val);
+		} else if (val.length >= 10) {
+			this.vehiclePlateHas = false;
+			this.vehiclePlateLen = true;
+			
+		}
 	}
 }

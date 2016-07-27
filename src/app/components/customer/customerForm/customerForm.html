@@ -9,7 +9,7 @@
                   <span class="warning">*</span>车牌号</label>
                 <div class="g-ipt">
                   
-                  <input type="text" id="employee_name" placeholder="必填项" class="g-w343" required ngControl="vehicleLicence" (keyup)="vehiclePlateAjax()" (focus)="onVehiclePlateFocus()" >
+                  <input type="text" id="employee_name" placeholder="必填项" class="g-w343" required ngControl="vehicleLicence" (keyup)="subjectAjax()" (focus)="onVehiclePlateFocus()" >
                   <div class="g-field-tip warning" *ngIf ="vehiclePlateNull || vehiclePlateLen || vehiclePlateHas">
                     <div *ngIf="vehiclePlateNull">
                         <span>*</span>请填写车牌号
@@ -23,6 +23,7 @@
                   </div>
                 </div>
               </div>
+             
               <div class="g-field">
                 <label for="employee_code" class="g-label">手机号</label>
                 <div class="g-ipt">
