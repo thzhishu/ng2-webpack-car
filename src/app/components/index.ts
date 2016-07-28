@@ -5,3 +5,4 @@ export * from './customer';
 export * from './employee';
 export * from './Oauth';
 export * from './report';
+export * from './survey';

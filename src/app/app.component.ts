@@ -6,7 +6,7 @@ import * as moment from 'moment';
 
 // import '../../../node_modules/spinkit/scss/spinners/9-cube-grid.scss';
 
-
+console.log('components', components);
 
 @Component({
   selector: 'car-app',
@@ -37,7 +37,8 @@ import * as moment from 'moment';
   { path: '/report/week/business', component: components.ReportWeekBusinessComponent },
   { path: '/report/week/satisfaction', component: components.ReportWeekSatisfactionComponent },
   { path: '/business-add', component: components.BusinessAddComponent },
-  { path: '/business-list', component: components.BusinessListComponent }
+  { path: '/business-list', component: components.BusinessListComponent },
+  { path: '/survey-pc', component: components.SurveyPcComponent }
 ])
 
 export class AppComponent implements OnInit {
