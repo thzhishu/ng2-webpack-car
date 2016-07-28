@@ -64,7 +64,7 @@ export class CustomerListComponent {
 			if (data.data) {
 				let dd = data.data;
 				if ( dd.customers.length === 1 ) {
-					this.router.navigate(['/customer-detail', { id: dd.customers[0].id }]);
+					this.router.navigate(['/dashbroad/customer-detail', { id: dd.customers[0].id }]);
 				} else {
 					this.customers = dd.customers;
 				}

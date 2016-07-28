@@ -1,89 +1,52 @@
-
-<navbar></navbar>
-<menus></menus>
-<main>
-  <div class="p-gray">
-    <div class="playout">
-
-      <!-- 带搜索+添加的面包屑 -->
-      <div class="searchbar">
-        <!-- 面包屑导航 -->
-        <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a routerLink="/my-account" routerLinkActive="active">我的账户</a> > <a routerLink="/modify-pwd" routerLinkActive="active">修改密码</a>
+<!-- 主内容标题 -->
+<div class="c-header">修改密码</div>
+<!-- 主内容标题 end -->
+<!-- 表单 -->
+<div class="c-form c-modify-pwd">
+  <form [ngFormModel]="mpwdForm" *ngIf="active">
+    <!-- 密码表单字段 -->
+    <div class="pr g-fields">
+      <div class="g-field">
+        <label for="pwd_current" class="g-label">当前密码</label>
+        <div class="g-ipt">
+          <input type="password" id="pwd_current" class="g-wxm" ngControl="oldPassword" required>
+          <div class="g-field-tip" [class.warning]="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid" *ngIf="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid">
+            <span>*</span>请填写当前密码
+          </div>
         </div>
-        <!-- 面包屑导航 end -->
-        <!--搜索-->
-        <search-bar></search-bar>
-        <!--搜索 end-->
-        <!-- 添加新服务 -->
-        <a href="" class="pa g-btn g-btn-green">+  记录新服务</a>
-        <!-- 添加新服务 end-->
       </div>
-      <!-- 带搜索+添加的面包屑 end -->
-      <!-- 主内容标题 -->
-      <div class="c-header">修改密码</div>
-      <!-- 主内容标题 end -->
-      <!-- 表单 -->
-      <div class="c-form c-modify-pwd">
-        <form [ngFormModel]="mpwdForm" *ngIf="active">
-          <!-- 密码表单字段 -->
-          <div class="pr g-fields">
-            <div class="g-field">
-              <label for="pwd_current" class="g-label">当前密码</label>
-              <div class="g-ipt">
-                <input type="password" id="pwd_current" class="g-wxm" ngControl="oldPassword" required >
-                <div class="g-field-tip"
-                  [class.warning] = "mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid"
-                  *ngIf="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid">
-                  <span>*</span>请填写当前密码
-                </div>
-              </div>
-            </div>
 
-            <div class="g-field">
-              <label for="pwd_new" class="g-label">新密码</label>
-              <div class="g-ipt">
-                <input type="password" id="pwd_new" class="g-wxm" ngControl="password" required>
-                <div class="g-field-tip"
-                  [class.warning] = "mpwdForm.controls.password.errors?.required && mpwdForm.controls.password?.touched && !mpwdForm.controls.password?.valid"
-                  *ngIf="mpwdForm.controls.password.errors?.required && mpwdForm.controls.password?.touched && !mpwdForm.controls.password?.valid">
-                  <span>*</span>请填写新密码
-                </div>
-              </div>
-            </div>
-            <div class="g-field">
-              <label for="pwd_renew" class="g-label">确认新密码</label>
-              <div class="g-ipt">
-                <input type="password" id="pwd_renew" class="g-wxm" ngControl="rePassword" required (blur)="onRepasswordBlur()" (focus)="onRepasswordFocus()" >
-                <div class="g-field-tip"
-                  [class.warning] = "mpwdForm.controls.rePassword.errors?.required && mpwdForm.controls.rePassword?.touched && !mpwdForm.controls.rePassword?.valid"
-                  *ngIf="mpwdForm.controls.rePassword.errors?.required && mpwdForm.controls.rePassword?.touched && !mpwdForm.controls.rePassword?.valid">
-                  <span>*</span>请再次填写新密码
-                </div>
-                <div class="g-field-tip"
-                  [class.warning] = "!isEqual"
-                  *ngIf="!isEqual">
-                  <span>*</span>两次填写的新密码不一致
-                </div>
-              </div>
-            </div>
-
-
+      <div class="g-field">
+        <label for="pwd_new" class="g-label">新密码</label>
+        <div class="g-ipt">
+          <input type="password" id="pwd_new" class="g-wxm" ngControl="password" required>
+          <div class="g-field-tip" [class.warning]="mpwdForm.controls.password.errors?.required && mpwdForm.controls.password?.touched && !mpwdForm.controls.password?.valid" *ngIf="mpwdForm.controls.password.errors?.required && mpwdForm.controls.password?.touched && !mpwdForm.controls.password?.valid">
+            <span>*</span>请填写新密码
           </div>
-          <!-- 密码表单字段 end -->
-          <!-- 密码表单按钮  -->
-          <div class="g-btns">
-            <div class="g-btn g-btn-green" (click)="onSave()">保存</div>
-            <div class="g-btn g-btn-gray" (click)="onCancel()">取消</div>
-          </div>
-          <!-- 密码表单按钮 end -->
-        </form>
+        </div>
       </div>
-      <!-- 表单 end -->
-      <!-- 页脚  -->
-      <page-footer></page-footer>
-      <!-- 页脚 end -->
+      <div class="g-field">
+        <label for="pwd_renew" class="g-label">确认新密码</label>
+        <div class="g-ipt">
+          <input type="password" id="pwd_renew" class="g-wxm" ngControl="rePassword" required (blur)="onRepasswordBlur()" (focus)="onRepasswordFocus()">
+          <div class="g-field-tip" [class.warning]="mpwdForm.controls.rePassword.errors?.required && mpwdForm.controls.rePassword?.touched && !mpwdForm.controls.rePassword?.valid" *ngIf="mpwdForm.controls.rePassword.errors?.required && mpwdForm.controls.rePassword?.touched && !mpwdForm.controls.rePassword?.valid">
+            <span>*</span>请再次填写新密码
+          </div>
+          <div class="g-field-tip" [class.warning]="!isEqual" *ngIf="!isEqual">
+            <span>*</span>两次填写的新密码不一致
+          </div>
+        </div>
+      </div>
+
+
     </div>
-  </div>
-
-</main>
+    <!-- 密码表单字段 end -->
+    <!-- 密码表单按钮  -->
+    <div class="g-btns">
+      <div class="g-btn g-btn-green" (click)="onSave()">保存</div>
+      <div class="g-btn g-btn-gray" (click)="onCancel()">取消</div>
+    </div>
+    <!-- 密码表单按钮 end -->
+  </form>
+</div>
+<!-- 表单 end -->

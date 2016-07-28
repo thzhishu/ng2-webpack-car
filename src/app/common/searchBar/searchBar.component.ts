@@ -22,6 +22,6 @@ export class SearchBarComponent {
     onSearch() {
         if(this.searchKey === '') return;
         console.log('searchKey: ', this.searchKey);
-        this.router.navigate(['/customer-list', { s: encodeURI(this.searchKey) }]);
+        this.router.navigate(['/dashbroad/customer-list', { s: encodeURI(this.searchKey) }]);
     }
 }

@@ -3,7 +3,7 @@
   <div class="init-store-block animated rubberBand" ng-class="{zoomOutRight:isForm.submited==1}">
     <div class="p-gray p-modify-store">
       <div class="register-progress-rate"></div>
-      <store-form store="store" success="onSuccess($event)"></store-form>
+      <store-form (success)="onSuccess($event)"></store-form>
     </div>
     <i class="right-arrow"></i>
     <!-- 弹出层 -->

@@ -97,4 +97,6 @@ export interface Shop {
      * 更新时间                  
      */
     updateTime?: string;
+
+    sList:any;
 }

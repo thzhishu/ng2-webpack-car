@@ -9,28 +9,24 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
-import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
+import { BusinessAddComponent } from '../business/businessAdd/businessAdd.component.ts';
 
 @Component({
 	moduleId: module.id,
-	selector: 'modify-store',
-	template: require('./modifyStore.html'),
-	styles: [require('./modifyStore.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, StoreFormComponent],
+	selector: 'dashbroad',
+	template: require('./dashbroad.html'),
+	styles: [require('./dashbroad.scss')],
+	directives: [ ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, BusinessAddComponent ],
 	providers: [ HTTP_PROVIDERS ]
 })
 
-export class ModifyStoreComponent {
+export class DashbroadComponent {
 	constructor(private router: Router, private route: ActivatedRoute) {
 
 	}
 
 	ngOnInit() {
 
-	}
-
-	onSuccess(data){
-		this.router.navigate(['/dashbroad/my-account']);
 	}
 
 }

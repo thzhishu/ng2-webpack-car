@@ -10,6 +10,9 @@ a:-webkit-any-link {
 a:focus, a:hover{
   color:#fff;
 }
+main{
+  background-color: #f6f6f6;
+}
 .app,
 .app > [ui-view] {
   height: 100%;

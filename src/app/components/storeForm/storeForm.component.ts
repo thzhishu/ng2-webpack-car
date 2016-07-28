@@ -2,7 +2,7 @@ import { Component, Input, Output, NgZone, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
-import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
+import { MdCheckbox } from '@angular2-material/checkbox/checkbox';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,40 +12,74 @@ import { CommonApi, ShopApi, RegionApi, RegionItem } from 'client';
 
 const YEARS_20 = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000];
 const STATION_10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const SERVICE_LIST = [{"id":1,"name":"快修快保"},{"id":2,"name":"美容改装"},{"id":3,"name":"轮胎专项"},{"id":4,"name":"综合维修"},{"id":5,"name":"其他"}];
 
 @Component({
   moduleId: module.id,
   selector: 'store-form',
   template: require('./storeForm.html'),
   styles: [require('./storeForm.scss')],
-  directives: [FORM_DIRECTIVES, MdCheckbox],
+  directives: [ROUTER_DIRECTIVES,FORM_DIRECTIVES, MdCheckbox],
   providers: [HTTP_PROVIDERS, CommonApi, ShopApi, RegionApi]
 })
 
 export class StoreFormComponent {
-  shopList: any;
   provinceList: Array<RegionItem>;
   cityList: Array<RegionItem>;
-  countyList: Array<RegionItem>;
+  // countyList: Array<RegionItem>;
   formGroup: any;
   sList: any;
   STATION_10: any;
   YEARS_20: any;
+  SERVICE_LIST: any;
   loading: number = 0;
   errorServiceType: number = 0;
+  sub:any;
+  id:number;
 
+  @Input('store') shopList:any = [{}];
   @Output() success = new EventEmitter();
 
-  constructor(private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
+  constructor(private router: Router, private route: ActivatedRoute,private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
 
   }
 
   // 初始化
   ngOnInit() {
-    this.getServiceType();
+    console.log(this.route);
+    this.shopList = [{ sList: _.cloneDeep(SERVICE_LIST) }];
+    this.sub = this.route.params.subscribe((params) => {
+      this.id = +params['id'];
+      console.log(this.id,'id',params);
+      if(!isNaN(this.id)){
+        this.getStoreList();
+      }
+		});
+    // this.getServiceType();
     this.getProvince();
     this.STATION_10 = STATION_10;
     this.YEARS_20 = YEARS_20;
+    this.SERVICE_LIST = SERVICE_LIST;
+  }
+
+  getStoreList(){
+    this.sApi.shopMyshopGet().subscribe(data => {
+      this.loading = 0;
+      if (data.meta.code === 200) {
+        this.shopList = data.data.filter(data=>{
+          return this.id == data.id;
+        }).map((data)=>{
+          data.sList = _.cloneDeep(SERVICE_LIST);
+          data.sList.map((sub)=>{
+            sub.checked = data.serviceIds.indexOf(sub.id)!=-1;
+          })
+          this.getCity(data.provinceId,data);
+          return data;
+        })
+      } else {
+        alert(data.error.message);
+      }
+    });
   }
 
 
@@ -59,10 +93,10 @@ export class StoreFormComponent {
   }
 
   // 获取市列表
-  getCity(provinceId: string) {
-    this.rApi.regionProvinceIdCityGet(provinceId).subscribe(data => {
+  getCity(provinceId: number,item) {
+    this.rApi.regionProvinceIdCityGet(provinceId+'').subscribe(data => {
       if (data.meta.code === 200) {
-        this.cityList = data.data;
+        item.cityList = data.data;
       }
     })
   }
@@ -94,8 +128,8 @@ export class StoreFormComponent {
     this.shopList.splice(index, 1);
   }
 
-  onChangeProvince(id) {
-    this.getCity(id);
+  onChangeProvince(id,item) {
+    this.getCity(id,item);
   }
 
   AssemblyServiceId(data) {
@@ -128,7 +162,7 @@ export class StoreFormComponent {
     this.sApi.shopBatchSavePost(post).subscribe(data => {
       this.loading = 0;
       if (data.meta.code === 200) {
-        this.success.next(data.data);
+        this.success.emit(data.data);
       } else {
         alert(data.error.message);
       }

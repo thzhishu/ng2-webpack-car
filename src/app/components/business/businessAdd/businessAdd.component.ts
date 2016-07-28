@@ -25,13 +25,11 @@ import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem,Custo
 
 export class BusinessAddComponent implements OnInit {
   @Input() businessShow: number;
-  @Output() open = new EventEmitter();
   @Output() close = new EventEmitter();
 
   loading: number = 0;
   employeeList: Array<EmployeeListItem>;
   customer: Customer;
-  // businessShow: number = 0;
   employeeChecked: boolean = true;
   employeeInput: string = '';
 
@@ -124,11 +122,6 @@ export class BusinessAddComponent implements OnInit {
       this.loading = 0;
       console.error(err);
     });
-  }
-
-  onOpen() {
-    this.open.next("event");
-    this.businessShow = 1;
   }
 
   onClose() {

@@ -13,14 +13,14 @@ import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
 
 @Component({
 	moduleId: module.id,
-	selector: 'modify-store',
-	template: require('./modifyStore.html'),
-	styles: [require('./modifyStore.scss')],
+	selector: 'add-store',
+	template: require('./addStore.html'),
+	styles: [require('./addStore.scss')],
 	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, StoreFormComponent],
 	providers: [ HTTP_PROVIDERS ]
 })
 
-export class ModifyStoreComponent {
+export class AddStoreComponent {
 	constructor(private router: Router, private route: ActivatedRoute) {
 
 	}
@@ -28,7 +28,6 @@ export class ModifyStoreComponent {
 	ngOnInit() {
 
 	}
-
 	onSuccess(data){
 		this.router.navigate(['/dashbroad/my-account']);
 	}
