@@ -37,7 +37,7 @@ export class CustomerDetailComponent {
 
 	constructor(private router: Router, private params: RouteSegment, private cApi: CustomerApi) {
 		this.customerId = +params.getParam('id');
-		if(!this.customerId) {
+		if (!this.customerId) {
 			router.navigate(['/customer-list']);
 		}
 	}
@@ -55,6 +55,8 @@ export class CustomerDetailComponent {
 				this.customer = this.customerDetail.customers && this.customerDetail.customers.length ? this.customerDetail.customers[0] : {} ;
 				this.histories = this.customerDetail.histories || [];
 				this.customer = this.formatCustomer(this.customer);
+				this.customerDetail.historiesTotol = data.meta.total;
+				this.customerDetail.totalAvgScore = this.customerDetail.totalAvgScore.toFixed(2);
 				console.log('customerDetail: ', this.customerDetail);
 				console.log('customer: ', this.customer);
 				console.log('histories: ', this.histories);

@@ -27,7 +27,7 @@
           <div class="cd-tel">{{customer?.name}}<span>{{customer?.mobile}}</span></div>
           <div class="fl cd-plate">{{customer?.vehicleLicence}}</div>
           <div class="fr">
-            满意度平均分<span>8.8</span>分
+            满意度平均分<span>{{customerDetail?.totalAvgScore}}</span>分
             <!--<a [routerLink]="['/customer-edit', {id: customer?.id}]" >修改信息</a>-->
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="cd-record-bar">
           历史服务记录
           <div class="cd-r-btn">
-            合计   <span>30</span>  次
+            合计   <span>{{customerDetail?.historiesTotol}}</span>  次
             <a href="" class="g-btn g-btn-green">+  新服务</a>
           </div>
         </div>
@@ -90,7 +90,7 @@
               <tbody *ngFor="let hs of histories">
                 <tr>
                   <td >{{hs.paidDate || '-'}}</td>
-                  <td>{{hs.supplies[0]?.name || '-'}}</td>
+                  <td>{{hs.name || '-'}}</td>
                   <td>{{hs.employee || '-'}}</td>
                   <td>{{hs.description || '-'}}</td>
                   <td class="cd-r-satisfaction"><a href="javascript:;" (click)="onShowCommentWin(hs)">点击邀请顾客做服务评价</a></td>

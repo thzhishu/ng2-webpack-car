@@ -127,7 +127,7 @@ export class CustomerFormComponent {
 		this.submitting = true;
 
 		let vals = this.customerForm.value;
-		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence, vals.id, vals.mobile, vals.vehicleFrame, vals.name, vals.birthYear, vals.gender, vals.vehicleBrand, vals.vehicleModel, vals.vehicleYear, vals.vehicleMiles).subscribe(data => {
+		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence || '', vals.id || '', vals.mobile || '', vals.vehicleFrame || '', vals.name || '', vals.birthYear || '', vals.gender || '', vals.vehicleBrand  || '', vals.vehicleModel  || '', vals.vehicleYear  || '', vals.vehicleMiles  || '').subscribe(data => {
 			if (data.data) {
 				this.submitting = false;
 				// 需要继续创建

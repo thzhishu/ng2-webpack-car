@@ -1,35 +1,27 @@
 <div class="sv">
     <div class="sv-container">
         <div class="sv-head">
-            <h1 class="tc">天会智数车门店满意度问卷</h1>
+            <h1 class="tc">{{survey?.title}}</h1>
             <p>
                 欢迎选择本店为阁下提供汽车保养修理服务。请您花2-3分钟的时间，对本店的各项服务进行评价。
 您的意见将被聆听，得到改进，最终我们能够更好地为您提供服务。感谢您的参与!
             </p>
         </div>
         <div class="sv-main">
-            <div class="sv-q">
+            <div class="sv-q" *ngFor = "let q of surveyQustions; let i = index;" >
                 <!-- 多项评分题 -->
-                <div class="sv-q-mscore">
-                    <div class="sv-q-t"><span class="sv-q-index">Q1</span>请您对本次服务的各个方面进行评价。 </div>
+                <div class="sv-q-mscore" *ngIf="q.type == 'score_multi'">
+                    
+                    <div class="sv-q-t"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
                     <div class="sv-q-c">
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">服务态度</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
+                        <div class="sv-q-score" *ngFor="let subq of q.children; let j = index;">
+                            <div class="sv-q-t" [class.warning]="subq.hasErr">{{ subq.title }}</div>
+                            <div class="sv-q-score-0" *ngIf="subq.zeroOption" (click)="onMscore(q, subq, j, subq.zeroOption)" [ngClass]="{'active': 0 === subq.tempPoint}" >不知道</div>
+                            <div class="sv-q-c sv-q-ico-engines" >
+                                <span *ngFor="let ans of subq.options; let m = index;" (click)="onMscore(q, subq, j, ans)" [ngClass]="{'active-prev': ans.point < subq.tempPoint, 'active': ans.point === subq.tempPoint}" >{{ans.point}}</span>
                             </div>
                         </div>
-                        <div class="sv-q-score">
+                        <!--<div class="sv-q-score">
                             <div class="sv-q-t">服务时长</div>
                             <div class="sv-q-score-0 active">不知道</div>
                             <div class="sv-q-c sv-q-ico-engines">
@@ -44,480 +36,88 @@
                                 <span>9</span>
                                 <span>10</span>
                             </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">服务收费</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">一次性修复</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">没有过度销售</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">所使用配件质量</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- 多项评分题 end -->
-            </div>
-            <div class="sv-q">
-                <!-- 多项评分题 -->
-                <div class="sv-q-mscore">
-                    <div class="sv-q-t"><span class="sv-q-index">Q2</span>请您对本店的店面环境各个方面进行评价。  </div>
-                    <div class="sv-q-c">
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">总体店面环境</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">休息室的环境</div>
-                            <div class="sv-q-score-0 active">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span class="active-prev">1</span>
-                                <span class="active-prev">2</span>
-                                <span class="active-prev">3</span>
-                                <span class="active-prev">4</span>
-                                <span class="active-prev">5</span>
-                                <span class="active-prev">6</span>
-                                <span class="active">7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">卫生间的清洁程度</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">工作区域的清洁程度</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                <!-- 多项评分题 end -->
-            </div>
-            <div class="sv-q">
-                <!-- 多项评分题 -->
-                <div class="sv-q-mscore">
-                    <div class="sv-q-t"><span class="sv-q-index">Q3</span>请您对本店的店面员工管理各个方面进行评价。  </div>
-                    <div class="sv-q-c">
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">员工综合素质</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">员工的着装</div>
-                            <div class="sv-q-score-0 active">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span class="active-prev">1</span>
-                                <span class="active-prev">2</span>
-                                <span class="active-prev">3</span>
-                                <span class="active-prev">4</span>
-                                <span class="active-prev">5</span>
-                                <span class="active-prev">6</span>
-                                <span class="active">7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">员工的服务态度</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div class="sv-q-score">
-                            <div class="sv-q-t">员工的专业水平</div>
-                            <div class="sv-q-score-0">不知道</div>
-                            <div class="sv-q-c sv-q-ico-engines">
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                                <span>4</span>
-                                <span>5</span>
-                                <span>6</span>
-                                <span>7</span>
-                                <span>8</span>
-                                <span>9</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                <!-- 多项评分题 end -->
-            </div>
-
-            <div class="sv-q">
                 <!-- 单项项评分题 -->
-                <div class="sv-q-score">
-                    <div class="sv-q-t"><span class="sv-q-index">Q4</span>综上所述，您对本店总体的评价如何。</div>
-                    <div class="sv-q-score-0">不知道</div>
+                <div class="sv-q-score" *ngIf="q.type == 'score'">
+                    <div class="sv-q-t" [class.warning]="q.hasErr  && q.answer === ''"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
+                    <div class="sv-q-score-0" *ngIf="q.zeroOption" (click)="onScore(q, q.zeroOption)" [ngClass]="{'active': 0 === q.tempPoint}" >不知道</div>
                     <div class="sv-q-c sv-q-ico-engines">
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                        <span>10</span>
+                        <span *ngFor="let ans of q.options;" (click)="onScore(q, ans)" [ngClass]="{'active-prev': ans.point < q.tempPoint, 'active': ans.point === q.tempPoint}" >{{ans.point}}</span>
                     </div>
                 </div>
                 <!-- 单项项评分题 -->
-            </div>
-
-            <div class="sv-q">
                 <!-- 性别题 -->
-                <div class="sv-q-sex">
-                    <div class="sv-q-t"><span class="sv-q-index">Q5</span>您的性别是?</div>
+                <div class="sv-q-sex" *ngIf="q.type == 'sex'">
+                    <div class="sv-q-t" [class.warning]="q.hasErr  && q.answer === ''"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
                     <div class="sv-q-c ">
-                        <label>
-                            <input type="text" type="radio" name="sex">
+                        <label *ngFor="let ans of q.options; let j = index;" >
+                            <input type="radio" name="sex" (change)="onSex(q, ans)" [checked]="q.answer === ans.id">
                             <span></span>
                         </label>
-                        <label>
+                        <!--<label>
                             <input type="text" type="radio" name="sex">
                             <span></span>
-                        </label>
+                        </label>-->
 
                     </div>
                 </div>
                 <!-- 性别题 end -->
-            </div>
-
-            <div class="sv-q">
                 <!-- 年龄题 -->
-                <div class="sv-q-age">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的出生年份是?</div>
+                <div class="sv-q-age" *ngIf="q.type == 'age'">
+                    <div class="sv-q-t" [class.warning]="q.hasErr  && q.answer === ''"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
                     <div class="sv-q-c ">
-                        <select name="" id="" class="sv-ipt">
+                        <select name="" id="" class="sv-ipt" [(ngModel)] = "q.answer">
                             <option value="">请选择年龄</option>
-                            <option value="2010">2010</option>
-                            <option value="2009">2009</option>
-                            <option value="2008">2008</option>
-                            <option value="2007">2007</option>
-                            <option value="2006">2006</option>
+                            <option *ngFor="let ans of q.options; let j = index;" [value]="ans.id">{{ans.title}}</option>
                         </select>
 
                     </div>
                 </div>
                 <!-- 年龄题 end -->
-            </div>
-
-            <div class="sv-q">
                 <!-- 单行输入题 -->
-                <div class="sv-q-stext">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的手机号是?</div>
+                <div class="sv-q-stext" *ngIf="q.type == 'stext'">
+                    <div class="sv-q-t" [class.warning]="q.hasErr  && q.answer === ''"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
                     <div class="sv-q-c ">
-                        <input type="tel" class="sv-ipt" >
+                        <input type="text" class="sv-ipt" [(ngModel)] = "q.answer" >
                     </div>
                 </div>
                 <!-- 单行输入题 end -->
-            </div>
-
-            <div class="sv-q">
-                <!-- 单行输入题 -->
-                <div class="sv-q-stext">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的手机号是?</div>
-                    <div class="sv-q-c ">
-                        <input type="text" class="sv-ipt">
-                    </div>
-                </div>
-                <!-- 单行输入题 end -->
-            </div>
-
-            <div class="sv-q">
-                <!-- 单行输入题 -->
-                <div class="sv-q-stext">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的车品牌是?</div>
-                    <div class="sv-q-c ">
-                        <input type="text" class="sv-ipt">
-                    </div>
-                </div>
-                <!-- 单行输入题 end -->
-            </div>
-
-            <div class="sv-q">
-                <!-- 单行输入题 -->
-                <div class="sv-q-stext">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的车型号是?</div>
-                    <div class="sv-q-c ">
-                        <input type="text" class="sv-ipt">
-                    </div>
-                </div>
-                <!-- 单行输入题 end -->
-            </div>
-
-            <div class="sv-q">
                 <!-- 单选题 -->
-                <div class="sv-q-radio">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的购车年份是?</div>
+                <div class="sv-q-radio" *ngIf="q.type == 'radio'">
+                    <div class="sv-q-t" [class.warning]="q.hasErr && q.answer === ''"><span class="sv-q-index">Q{{ i + 1 }}</span>{{ q.title }} </div>
                     <div class="sv-q-c sv-ck-wrap">
-                        <div class="sv-ck">
+                        <div class="sv-ck" *ngFor="let ans of q.options">
+                            <input type="radio" [attr.id]="ans.eid"  (change)="q.answer = ans.id" [checked]="q.answer === ans.id">
+                            <label [attr.for]="ans.eid">{{ans.title}}</label>
+                        </div>
+                        <!--<div class="sv-ck">
                             <input type="radio" id="sv-10-0">
                             <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
+                        </div>-->
+                        
                         
 
                     </div>
                 </div>
                 <!-- 单选题 end -->
             </div>
-            <div class="sv-q">
-                <!-- 单选题 -->
-                <div class="sv-q-radio">
-                    <div class="sv-q-t"><span class="sv-q-index">Q6</span>您的购车年份是?</div>
-                    <div class="sv-q-c sv-ck-wrap">
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        <div class="sv-ck">
-                            <input type="radio" id="sv-10-0">
-                            <label for="sv-10-0">2005年及以前</label>
-                        </div>
-                        
+            
+            
 
-                    </div>
-                </div>
-                <!-- 单选题 end -->
-            </div>
+            
+           
 
         </div>
+
+        <div class="sv-foot">
+            <div class="g-btn g-btn-green" (click)="onSave()">提交</div>
+        </div>
     </div>
+    <footer class="tc">
+        由<img src="./assets/images/survey/sv_logo.png" >车门店提供支持<br>
+        2006-2016 All rights reserved 上海皓煦数据技术有限公司 沪ICP备08012157号-5
+    </footer>
 </div>

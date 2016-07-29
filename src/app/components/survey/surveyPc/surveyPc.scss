@@ -12,7 +12,9 @@
     height: 36px;
     border:1px solid #c0c0c0;
     line-height: 34px;
-    padding-left:13px;
+    padding:0 0 0 12px;
+    -webkit-appearance:inherit;
+    -moz-appearance:normal;
 }
 .sv-ck-wrap {
     font-size:0;
@@ -37,6 +39,7 @@
     display:block;
     content: '';
     border-radius:50%;
+    box-sizing:border-box;
 }
 .sv-ck label:before {
     width:18px;
@@ -49,8 +52,8 @@
     opacity:0;
     width:8px; 
     height:8px;
-    top:6px;
-    left:6px;
+    top:5px;
+    left:5px;
     background:#fff;
 }
 .sv-ck input:checked + label:before {
@@ -60,6 +63,13 @@
     opacity:1;
 }
 
+.sv footer {
+    line-height: 28px;
+    padding: 10px 0 14px;
+}
+.sv footer img {
+    margin: 0 6px 0 8px;
+}
 
 .sv-container { 
     width:800px; 
@@ -236,3 +246,13 @@
     }
 }
 
+.sv-foot {
+    text-align:center;
+    padding:28px 0 26px;
+    border-top:1px solid #aeaeae;
+    .g-btn {
+        height:26px;
+        width:84px;
+        line-height: 26px;
+    }
+}
