@@ -3,12 +3,12 @@
 <main>
   <div class="p-gray p-modify-store">
     <div class="playout">
-      
+
       <!-- 带搜索+添加的面包屑 -->
       <div class="searchbar">
         <!-- 面包屑导航 -->
         <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/customer-list']" >我的顾客</a> > <a [routerLink]="['/customer-detail', {id: customerId}]" >沪B2L052</a>
+          <a href="javascript:;">首页</a> > <a routerLink="/customer-list" routerLinkActive="active">我的顾客</a> > <a routerLink="/customer-detail" [routerLinkActiveOptions]="{id: customerId}"  routerLinkActive="active">沪B2L052</a>
         </div>
         <!-- 面包屑导航 end -->
         <!--搜索-->
@@ -19,7 +19,7 @@
         <!-- 添加新服务 end-->
       </div>
       <!-- 带搜索+添加的面包屑 end -->
-      
+
       <!-- 顾客详情 -->
       <div class="cd">
         <!-- 顾客名字 -->
@@ -29,6 +29,7 @@
           <div class="fr">
             满意度平均分<span>{{customerDetail?.totalAvgScore}}</span>分
             <!--<a [routerLink]="['/customer-edit', {id: customer?.id}]" >修改信息</a>-->
+
           </div>
         </div>
         <!-- 顾客名字 end -->
@@ -60,8 +61,8 @@
               <td>{{customer?.vehicleMiles}}</td>
             </tr>
             <tr>
-              <td colspan="4" class="cd-base-op">最后入店时间: {{customer?.lastEnterDate}} <a [routerLink]="['/customer-edit', {id: customerId}]" >编辑客户信息</a></td>
-              
+              <td colspan="4" class="cd-base-op">最后入店时间: {{customer?.lastEnterDate}} <a routerLink="/customer-edit" [routerLinkActiveOptions]="{id: customerId}"  routerLinkActive="active" >编辑客户信息</a></td>
+
             </tr>
           </table>
         </div>
@@ -84,7 +85,7 @@
                   <th>主理技师</th>
                   <th>备注</th>
                   <th>客户满意度</th>
-                  
+
                 </tr>
               </thead>
               <tbody *ngFor="let hs of histories">
@@ -102,48 +103,21 @@
                   <td></td>
                   <td class="cd-r-op"><a href="">修改</a> | <a href="">删除</a></td>
                 </tr>
-                
+
               </tbody>
             </table>
           </div>
-          
-          
-            
+
+
+
         </div>
         <!-- 顾客服务记录end -->
         <!-- 列表分页 -->
-        <div class="bgf-pagination mt20 center paginate-anything mx-paginate ng-isolate-scope" bgf-pagination="" page="vm.project.currentPage"
-          link-group-size="1" num-pages="vm.pageTotal" auto-presets="false" per-page="vm.project.pageSize" num-items="vm.project.pageCount">
-
-          <div  class="mx-paginate-info ng-binding ng-scope">共20条记录， 每页10条</div>
-
-
-          <ul  class="pagination pagination-md links">
-            <li class="txt-page prev-page disabled">
-              <a href="" ng-click="gotoPage(page-1)">上一页</a>
-            </li>
-            
-            <li   class="ng-scope active"><a href=""  class="ng-binding">第1页</a></li>
-            
-            <li   class="ng-scope"><a href="" class="ng-binding">2</a></li>
-            <li  class="page-ellipse disabled ng-scope"><a href="">......</a></li>
-            <li   class="ng-scope"><a href="" class="ng-binding">22</a></li>
-            <li   class="ng-scope"><a href="" class="ng-binding">23</a></li>
-            <li class="txt-page next-page">
-              <a href="" ng-click="gotoPage(page+1)"  class=" ng-scope">下一页</a>
-            
-            </li>
-          </ul>
-          <div  class="mx-paginate-jump ng-scope">
-            转到
-            <input type="text" ng-model="jumpPage" class="ng-pristine ng-untouched ng-valid ng-empty" aria-invalid="false"> 页
-            <button ng-click="jumpToPage(jumpPage-1)">GO</button>
-          </div>
-        </div>
+        <pagination *ngIf="histories?.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
         <!-- 列表分页 end -->
       </div>
       <!-- 顾客详情 end -->
-      
+
       <!-- 页脚  -->
       <page-footer></page-footer>
       <!-- 页脚 end -->
@@ -158,8 +132,8 @@
               <h1>确定删除该员工？</h1>
               <div>
                 该员工及其信息将被删除，其历史服务记录<br>
-                不会被删除 
-                
+                不会被删除
+
               </div>
             </div>
           </div>
@@ -220,6 +194,5 @@
       </div>
       <!-- 评价弹出层 end -->
   </div>
-    
-</main>
 
+</main>

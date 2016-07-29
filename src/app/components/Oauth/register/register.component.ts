@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { HTTP_PROVIDERS, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -25,14 +25,16 @@ export class RegisterComponent {
   zone: any;
   user: any = {};
   seekDisabeld: number = 0;
-  seekBtnTitle: any;
+  seekTime: number = 0;
+  seekBtnTitle: any = '发送验证码';
   openProtocol: number = 0;
   img: any;
+  timeout: any;
   sign: string;
   errorPhoneCode: string;
   loading: number = 0;
 
-  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
+  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); //事务控制器
     //表单验证
     this.rForm = fb.group({
@@ -45,6 +47,10 @@ export class RegisterComponent {
   //初始化
   ngOnInit() {
     this.getCodeImg();
+  }
+
+  ngOnDestroy() {
+    window.clearInterval(this.timeout);
   }
 
   /**
@@ -86,20 +92,28 @@ export class RegisterComponent {
       return;
     }
     this.seekDisabeld = 1;
-    this.seekBtnTitle = 60;
-    this.getPhoneCode(phone, rnd);
-
-    //倒计时
-    let timeout = window.setInterval(() => {
-      this.zone.run(() => {
-        if (this.seekBtnTitle > 0) {
-          this.seekBtnTitle--;
-        } else {
-          this.seekBtnTitle = '重新发送';
-          this.seekDisabeld = 0;
-        }
-      });
-    }, 1000);
+    this.seekTime = 60;
+    this.getPhoneCode(phone, rnd).subscribe(data => {
+      if (data.meta.code !== 200) {
+        this.errorPhoneCode = data.error.message;
+        this.seekBtnTitle = '重新发送';
+        this.seekDisabeld = 0;
+      } else {
+        this.seekBtnTitle = '发送验证码';
+        //倒计时
+        this.timeout = window.setInterval(() => {
+          this.zone.run(() => {
+            if (this.seekTime > 0) {
+              this.seekTime--;
+              this.seekBtnTitle = this.seekTime + 's';
+            } else {
+              this.seekBtnTitle = '重新发送';
+              this.seekDisabeld = 0;
+            }
+          });
+        }, 1000);
+      }
+    });
   }
   /**
    * 请求手机验证码
@@ -110,11 +124,7 @@ export class RegisterComponent {
   getPhoneCode(phone: string = '', rnd: string = '') {
     let salt = 'thzs0708';
     this.sign = Md5.hashStr(phone + rnd + salt).toString();
-    this.uApi.userRegisterSmsPost(phone, rnd, this.sign).subscribe(data => {
-      if (data.meta.code !== 200) {
-        this.errorPhoneCode = data.error.message;
-      }
-    })
+    return this.uApi.userRegisterSmsPost(phone, rnd, this.sign);
   }
 
   //注册

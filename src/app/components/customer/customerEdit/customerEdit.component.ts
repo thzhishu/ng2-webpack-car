@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone, ViewChild } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -23,15 +23,23 @@ import { CustomerFormComponent } from '../customerForm/customerForm.component';
 export class CustomerEditComponent {
 	customerFields: any;
 	customerId:number;
+	sub:any;
+
 	@ViewChild(CustomerFormComponent) cf: CustomerFormComponent;
-	constructor(private router: Router, fb: FormBuilder, private params: RouteSegment,  private cApi: CustomerApi) {
-		console.log(params);
-		this.customerId = +params.getParam('id');
+	constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute,  private cApi: CustomerApi) {
+
 	}
 
 	ngOnInit() {
-		this.getCustomerById(this.customerId);
-	}
+    this.sub = this.route.params.subscribe(params => {
+      this.customerId = +params['id'];
+			this.getCustomerById(this.customerId);
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
 	getCustomerById(id) {
 		this.cApi.customerCustomerIdGet(id).subscribe(data => {

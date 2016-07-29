@@ -3,7 +3,7 @@
   <form (ngSubmit)="onLogin()" [ngFormModel]="loginForm">
     <div class="login-min-block animated rubberBand" [class.jump-animation-target]="loginForm.submited">
       <div class="">
-        <h2 class="login-min-title">登录<a [routerLink]="['/register']" class="login-min-register-link fr">注册新账户</a>
+        <h2 class="login-min-title">登录<a routerLink="/register" routerLinkActive="active" class="login-min-register-link fr">注册新账户</a>
         </h2>
         <div class="login-min-input" [class.error]="!loginForm.controls.phone?.valid && !loginForm.controls.phone?.pristine">
           <input type="text" placeholder="请输入您的手机号码" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" ngControl="phone">
@@ -35,7 +35,7 @@
           </div>
         </div>
         <button type="submit" class="login-min-btn-submit" [disabled]="!loginForm.valid||loading" >下一步</button>
-        <a [routerLink]="['/forget-pwd']" class="login-min-register-link">忘记密码</a>
+        <a routerLink="/forget-pwd" routerLinkActive="active" class="login-min-register-link">忘记密码</a>
       </div>
       <i></i>
     </div>

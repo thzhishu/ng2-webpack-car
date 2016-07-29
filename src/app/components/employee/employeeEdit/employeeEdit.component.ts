@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -12,37 +12,43 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 import { EmployeeFormComponent } from '../employeeForm/employeeForm.component';
 
 @Component({
-	moduleId: module.id,
-	selector: 'employee-edit',
-	template: require('./employeeEdit.html'),
-	styles: [require('./employeeEdit.scss')],
-	directives: [ ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent, SearchBarComponent, PageFooterComponent ],
-	providers: [ HTTP_PROVIDERS, UserApi, CommonApi, Md5, EmployeeApi ]
+  moduleId: module.id,
+  selector: 'employee-edit',
+  template: require('./employeeEdit.html'),
+  styles: [require('./employeeEdit.scss')],
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, EmployeeFormComponent, SearchBarComponent, PageFooterComponent],
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, EmployeeApi]
 })
 
 export class EmployeeEditComponent {
-	employee: any;
-	id: string;
-	constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
-		this.employee = {
-			id: '',
-			name: '',
-			code: '',
-			mobile: ''
-		}
-		this.id = this.params.getParam('id');
-	}
+  employee: any;
+  id: string;
+  sub: any;
+  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
+  }
 
-	ngOnInit() {
+  ngOnInit() {
+    this.employee = {
+      id: '',
+      name: '',
+      code: '',
+      mobile: ''
+    };
 
-		if(this.id) {
-			this.eApi.employeeEmployeeIdGet('', this.id).subscribe(data => {
-				console.log(data);
-				this.employee = data.data;
-			}, err => {
-				console.error(err);
-			});
-		}
-	}
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if (this.id) {
+        this.eApi.employeeEmployeeIdGet('', this.id).subscribe(data => {
+          console.log(data);
+          this.employee = data.data;
+        }, err => {
+          console.error(err);
+        });
+      }
+    });
+  }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

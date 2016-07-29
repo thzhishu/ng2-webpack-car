@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, Routes } from '@angular/router';
+import { ROUTER_DIRECTIVES, provideRouter, Router, Routes } from '@angular/router';
 
 import * as components from 'components';
 import * as moment from 'moment';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   template: `<router-outlet></router-outlet>`,
   styles: [require('assets/css/app.scss')],
   directives: [ROUTER_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS],
+  providers: [provideRouter],
   encapsulation: ViewEncapsulation.Native
 })
 

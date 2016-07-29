@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import 'rxjs/Rx';
@@ -43,7 +43,7 @@ export class BusinessAddComponent implements OnInit {
     .switchMap((term: string) => this.cApi.customerVehicleVehicleLicenceGet(term));
 
 
-  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment, private bApi: BusinessApi, private eApi: EmployeeApi, private cApi: CustomerApi) {
+  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private bApi: BusinessApi, private eApi: EmployeeApi, private cApi: CustomerApi) {
 
   }
   // 初始化

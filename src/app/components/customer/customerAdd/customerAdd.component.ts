@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -23,7 +23,7 @@ import { CustomerFormComponent } from '../customerForm/customerForm.component';
 export class CustomerAddComponent {
 	customerFields: any;
 	
-	constructor(private router: Router, private fb: FormBuilder, params: RouteSegment, private cApi: CustomerApi) {
+	constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private cApi: CustomerApi) {
 		
 	}
 

@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import 'rxjs/Rx';
@@ -32,7 +32,7 @@ export class BusinessListComponent {
   page:any = {current:1,limit:20,total:0};
   dateShow:boolean;
 
-  constructor(private router: Router, private fb: FormBuilder, private params: RouteSegment,private bApi: BusinessApi) {
+  constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute,private bApi: BusinessApi) {
     this.date = moment().format('YYYY-MM-DD');
   }
   // 初始化

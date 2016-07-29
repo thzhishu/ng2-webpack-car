@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -22,7 +22,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 export class MyAccountComponent {
 	zone: any;
 	accountBaseInfo: any;
-	constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi) {
+	constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi) {
 		this.accountBaseInfo = {}
 		
 	}

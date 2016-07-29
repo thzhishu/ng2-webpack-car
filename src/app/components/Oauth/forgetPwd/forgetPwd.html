@@ -2,7 +2,7 @@
   <main-logo></main-logo>
   <form (ngSubmit)="onCheckPhone()" [ngFormModel]="fpForm" *ngIf="next==1" >
     <div class="forgetPwd-block animated rubberBand" [class.flipOutY]="fpForm.submitted">
-      <h2 class="forgetPwd-title">找回密码<a [routerLink]="['/register']" class="forgetPwd-register-link fr">注册新账户</a>
+      <h2 class="forgetPwd-title">找回密码<a routerLink="/register" routerLinkActive="active" class="forgetPwd-register-link fr">注册新账户</a>
       </h2>
       <div class="forgetPwd-input " [class.error]="!fpForm.controls.phone?.valid && !fpForm.controls.phone?.pristine">
         <input type="text"  ngControl="phone" required pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" placeholder="请输入您的手机号码">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <button type="submit" class="forgetPwd-btn-submit" [disabled]="!fpForm.valid" >下一步</button>
-      <a [routerLink]="['/login-min']" class="forgetPwd-register-link">又想起来了</a>
+      <a routerLink="/login-min" routerLinkActive="active" class="forgetPwd-register-link">又想起来了</a>
       <i></i>
     </div>
   </form>

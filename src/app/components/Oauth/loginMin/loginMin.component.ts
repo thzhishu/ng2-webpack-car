@@ -1,5 +1,5 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -28,7 +28,7 @@ export class LoginMinComponent {
   seekBtnTitle: number = 0;
   img: any;
   loading: number = 0;
-  constructor(private router: Router, fb: FormBuilder, params: RouteSegment, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
+  constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); // 事务控制器
     // 表单验证
     this.loginForm = fb.group({
@@ -72,10 +72,12 @@ export class LoginMinComponent {
           Cookie.save('shopId', data.data.User.lastShopId);
           this.sApi.defaultHeaders.set('token', data.data.User.token);
           if (data.data.User.lastShopId === null) {
-            this.router.navigate(['/init-store']);
+            this.router.navigate(['init-store']);
+            console.log('init-store');
           } else {
             this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
             this.router.navigate(['/business-list']);
+            console.log('business-list',this.router);
           }
         } else {
           alert(data.error.message);

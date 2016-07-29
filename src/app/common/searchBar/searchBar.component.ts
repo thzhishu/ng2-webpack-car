@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FORM_DIRECTIVES } from '@angular/common';
-import { ROUTER_DIRECTIVES, Router, RouteSegment } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
