@@ -7,14 +7,14 @@ import * as _ from 'lodash';
 
 @Component({
     moduleId: module.id,
-    selector: 'survey-pc',
-    styles: [require('./surveyPc.scss')],
-    template: require('./surveyPc.html'),
+    selector: 'survey-mobile',
+    styles: [require('./surveyMobile.scss')],
+    template: require('./surveyMobile.html'),
     directives: [ROUTER_DIRECTIVES, COMMON_DIRECTIVES, NgSwitch, NgSwitchDefault],
     providers: [SurveyApi]
 })
 
-export class SurveyPcComponent {
+export class SurveyMobileComponent {
     survey: any;
     surveyQustions: Array<Object> = [];
     surveySubmitObj = {
@@ -24,13 +24,15 @@ export class SurveyPcComponent {
     };
     answersObj = {};
     showSurvey: Boolean = false;
+    currentPage: number = 1;
+    waitingPage: number = 1;
     constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
 
     }
     ngOnInit() {
         console.log(document);
 
-        // this.createMeta();
+        this.createMeta();
         this.getSurveyQuestions();
     }
 
@@ -166,6 +168,13 @@ export class SurveyPcComponent {
         for(let q of this.surveyQustions) {
 
         }
+    }
+
+    goto(page) {
+        this.currentPage = page;
+        setTimeout(() => {
+            this.waitingPage = page;
+        }, 1000);
     }
 
     

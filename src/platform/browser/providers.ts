@@ -32,7 +32,8 @@ export const routes = [
   { path: 'report/week/satisfaction', component: components.ReportWeekSatisfactionComponent },
   { path: 'business-add', component: components.BusinessAddComponent },
   { path: 'business-list', component: components.BusinessListComponent },
-  { path: 'survey-pc', component: components.SurveyPcComponent }
+  { path: 'survey-pc', component: components.SurveyPcComponent },
+  { path: 'survey-mobile', component: components.SurveyMobileComponent }
 ];
 
 

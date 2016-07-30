@@ -1,10 +1,10 @@
 <div class="sv">
-    <div class="sv-container">
+    <div class="sv-container" *ngIf="showSurvey">
         <div class="sv-head">
             <h1 class="tc">{{survey?.title}}</h1>
             <p>
                 欢迎选择本店为阁下提供汽车保养修理服务。请您花2-3分钟的时间，对本店的各项服务进行评价。
-您的意见将被聆听，得到改进，最终我们能够更好地为您提供服务。感谢您的参与!
+                您的意见将被聆听，得到改进，最终我们能够更好地为您提供服务。感谢您的参与!
             </p>
         </div>
         <div class="sv-main">
@@ -116,7 +116,10 @@
             <div class="g-btn g-btn-green" (click)="onSave()">提交</div>
         </div>
     </div>
-    <footer class="tc">
+    <div class="sv-suc" *ngIf="!showSurvey">
+        <div></div>
+    </div>
+    <footer class="tc" [class.sv_foot_bar] = "!showSurvey">
         由<img src="./assets/images/survey/sv_logo.png" >车门店提供支持<br>
         2006-2016 All rights reserved 上海皓煦数据技术有限公司 沪ICP备08012157号-5
     </footer>
