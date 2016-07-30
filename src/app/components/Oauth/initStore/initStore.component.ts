@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FORM_DIRECTIVES } from '@angular/common';
-import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
 
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
@@ -21,11 +20,11 @@ export class InitStoreComponent {
   }
   // 初始化
   ngOnInit() {
-    
+
   }
 
   onSuccess(data){
-    console.log(data);
+    this.router.navigate(['/dashbroad/business-list']);
   }
 
   toHome() {

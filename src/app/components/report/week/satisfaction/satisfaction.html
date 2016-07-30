@@ -1,150 +1,119 @@
-<navbar></navbar>
-<menus></menus>
-<main>
-  <div class="p-gray p-modify-store">
-    <div class="playout">
+<!-- 主内容 -->
+<!-- 切换卡 -->
+<div class="pr c-tab">
+  <a class="c-tab-item" [routerLink]="['report/week/satisfaction']">满意度评价报告</a>
 
-      <!-- 带搜索+添加的面包屑 -->
-      <div class="searchbar">
-        <!-- 面包屑导航 -->
-        <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a [routerLink]="['/report/week/satisfaction']">我的周报</a> > <a [routerLink]="['/report/week/satisfaction']">满意度评价报告</a>
-        </div>
-        <!-- 面包屑导航 end -->
-        <!--搜索-->
-        <search-bar></search-bar>
-        <!--搜索 end-->
-        <!-- 添加新服务 -->
-        <a href="" class="pa g-btn g-btn-green">+  记录新服务</a>
-        <!-- 添加新服务 end-->
+  <div class="pa rp-head-print ico-print">打印本周周报</div>
+</div>
+<!-- 切换卡 end -->
+<!-- 主标题 -->
+<div class="pr tc rp-head">
+  您打败了 <span class="c-pink">{{percent}}%</span> 同行业门店
+  <div class="pa rp-head-time">{{start}} 至 {{end}}</div>
+
+</div>
+<!-- 主标题 end -->
+<!-- 好 & 差 -->
+<div class="pr-block-table">
+  <div class="pr-block-tr">
+    <div class="c-block pr-good">
+      <h2>做的好的请继续保持！</h2>
+      <div *ngFor="let gd of shopGoods">{{gd}}</div>
+      <div class="pr-nodata" *ngIf="!shopGoods.length">
+        暂无数据，您需要邀请车主参与服务评价
       </div>
-      <!-- 带搜索+添加的面包屑 end -->
-      <!-- 主内容 -->
-        <!-- 切换卡 -->
-        <div class="pr c-tab">
-          <a class="c-tab-item" [routerLink]="['/report/week/satisfaction']">满意度评价报告</a>
-
-          <div class="pa rp-head-print ico-print">打印本周周报</div>
-        </div>
-        <!-- 切换卡 end -->
-        <!-- 主标题 -->
-        <div class="pr tc rp-head">
-          您打败了 <span class="c-pink">{{percent}}%</span> 同行业门店
-          <div class="pa rp-head-time">{{start}} 至 {{end}}</div>
-
-        </div>
-        <!-- 主标题 end -->
-        <!-- 好 & 差 -->
-        <div class="pr-block-table">
-          <div class="pr-block-tr">
-            <div class="c-block pr-good">
-              <h2>做的好的请继续保持！</h2>
-              <div *ngFor="let gd of shopGoods">{{gd}}</div>
-              <div class="pr-nodata" *ngIf="!shopGoods.length">
-                暂无数据，您需要邀请车主参与服务评价
-              </div>
-            </div>
-            <div class="c-block pr-bad">
-              <h2>尽快改需要改进的！</h2>
-              <div *ngFor="let gd of shopBads">{{gd}}</div>
-              <div class="pr-nodata" *ngIf="!shopBads.length">
-                暂无数据，您需要邀请车主参与服务评价
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 好 & 差 end -->
-        <!-- 技师 -->
-        <div class="pr-tech">
-          <div class="ds-table pr-tech-label">
-            <div class="ds-cell">提供了优质服务的技师</div>
-            <div class="ds-cell">服务需提升的技师</div>
-          </div>
-          <div class="ds-table pr-tech-list">
-            <div class="ds-cell">
-              <div class="ds-table">
-                <div class="ds-row">
-                  <div class="ds-cell">主理技师</div>
-                  <div class="ds-cell">综合得分</div>
-                </div>
-                <div class="ds-row" *ngFor="let eg of employeeGoods">
-                  <div class="ds-cell">{{eg.name || '-'}}</div>
-                  <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
-                </div>
-
-
-              </div>
-            </div>
-            <div class="ds-cell">
-              <div class="ds-table">
-                <div class="ds-row">
-                  <div class="ds-cell">主理技师</div>
-                  <div class="ds-cell">综合得分</div>
-                </div>
-                <div class="ds-row" *ngFor="let eg of employeeBads">
-                  <div class="ds-cell">{{eg.name || '-'}}</div>
-                  <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 技师 end -->
-        <!-- 技师需改进 -->
-        <div class="pr-improve">
-          <h1>技师服务需要改进的地方</h1>
-
-
-          <div class="c-table" >
-            <table>
-              <thead>
-                <tr>
-                  <th>日期</th>
-                  <th>服务项目</th>
-                  <th>主理技师</th>
-                  <th>客户车型</th>
-                  <th>服务得分</th>
-
-                </tr>
-              </thead>
-              <tbody  *ngIf="improvements.length" >
-                <tr *ngFor="let im of improvements">
-                  <td>{{ im.date }}</td>
-                  <td>{{ im.serviceName }}</td>
-                  <td>{{ im.employeeName }}</td>
-                  <td>{{ im.model }}</td>
-                  <td>{{ im.comments[0]?.score }}分</td>
-                </tr>
-
-
-
-              </tbody>
-            </table>
-            <div class="pr-nodata" *ngIf="!improvements.length">
-              暂无数据，您需要邀请车主参与服务评价
-            </div>
-
-            <!-- 列表分页 -->
-            <pagination *ngIf="improvements.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)" ></pagination>
-            <!-- 列表分页 end -->
-
-          </div>
-
-
-
-        </div>
-        <!-- 技师需改进 end -->
-
-      <!-- 主内容 end -->
-
-
-      <!-- 页脚  -->
-      <page-footer></page-footer>
-      <!-- 页脚 end -->
     </div>
+    <div class="c-block pr-bad">
+      <h2>尽快改需要改进的！</h2>
+      <div *ngFor="let gd of shopBads">{{gd}}</div>
+      <div class="pr-nodata" *ngIf="!shopBads.length">
+        暂无数据，您需要邀请车主参与服务评价
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 好 & 差 end -->
+<!-- 技师 -->
+<div class="pr-tech">
+  <div class="ds-table pr-tech-label">
+    <div class="ds-cell">提供了优质服务的技师</div>
+    <div class="ds-cell">服务需提升的技师</div>
+  </div>
+  <div class="ds-table pr-tech-list">
+    <div class="ds-cell">
+      <div class="ds-table">
+        <div class="ds-row">
+          <div class="ds-cell">主理技师</div>
+          <div class="ds-cell">综合得分</div>
+        </div>
+        <div class="ds-row" *ngFor="let eg of employeeGoods">
+          <div class="ds-cell">{{eg.name || '-'}}</div>
+          <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="ds-cell">
+      <div class="ds-table">
+        <div class="ds-row">
+          <div class="ds-cell">主理技师</div>
+          <div class="ds-cell">综合得分</div>
+        </div>
+        <div class="ds-row" *ngFor="let eg of employeeBads">
+          <div class="ds-cell">{{eg.name || '-'}}</div>
+          <div class="ds-cell">{{ eg.score ? eg.score + '分' : '-' }}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 技师 end -->
+<!-- 技师需改进 -->
+<div class="pr-improve">
+  <h1>技师服务需要改进的地方</h1>
+
+
+  <div class="c-table">
+    <table>
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>服务项目</th>
+          <th>主理技师</th>
+          <th>客户车型</th>
+          <th>服务得分</th>
+
+        </tr>
+      </thead>
+      <tbody *ngIf="improvements.length">
+        <tr *ngFor="let im of improvements">
+          <td>{{ im.date }}</td>
+          <td>{{ im.serviceName }}</td>
+          <td>{{ im.employeeName }}</td>
+          <td>{{ im.model }}</td>
+          <td>{{ im.comments[0]?.score }}分</td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+    <div class="pr-nodata" *ngIf="!improvements.length">
+      暂无数据，您需要邀请车主参与服务评价
+    </div>
+
+    <!-- 列表分页 -->
+    <pagination *ngIf="improvements.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)"></pagination>
+    <!-- 列表分页 end -->
 
   </div>
 
-</main>
+
+
+</div>
+<!-- 技师需改进 end -->
+
+<!-- 主内容 end -->

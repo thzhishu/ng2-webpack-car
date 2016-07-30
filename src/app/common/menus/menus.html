@@ -1,11 +1,11 @@
 <!-- 左侧导航 -->
 <div class="menu">
 	<div class="menus">
-		<a routerLink="/business-list" routerLinkActive="active">
+		<a [routerLink]="['business-list']" routerLinkActive="active">
 			<i class="menu-ico ico-business"></i>
 			<div>我的业务</div>
 		</a>
-		<a routerLink="/report/week/satisfaction" routerLinkActive="active">
+		<a [routerLink]="['report/week/satisfaction']" routerLinkActive="active">
 			<i class="menu-ico ico-week-chart"></i>
 			<div>我的周报</div>
 		</a>

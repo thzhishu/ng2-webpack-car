@@ -68,7 +68,7 @@ export class EmployeeFormComponent {
 		if(result) {
 			result.subscribe(data=>{
 				console.log('创建了一个新的员工');
-				this.router.navigate(['/employee-list']);
+				this.onReset();
 			}, err=>{
 				console.error('创建新的员工失败');
 				console.error(err);
@@ -94,7 +94,7 @@ export class EmployeeFormComponent {
 
 	}
 	onReset() {
-		this.router.navigate(['/employee-list']);
+		this.router.navigate(['/dashbroad/employee-list']);
 	}
 	onHideTip(type) {
 		this.formErr[type] = false;

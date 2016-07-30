@@ -146,7 +146,7 @@ export class RegisterComponent {
           this.sApi.shopMyshopGet(data.data.User.token).subscribe(data => {
             if (data.meta.code === 200) {
               if (data.data.length > 0) {
-                this.router.navigate(['/employee-list']);
+                this.router.navigate(['/dashbroad/employee-list']);
               } else {
                 this.router.navigate(['/init-store']);
               }

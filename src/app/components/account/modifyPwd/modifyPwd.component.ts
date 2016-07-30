@@ -70,7 +70,7 @@ export class ModifyPwdComponent {
     }
 
     onCancel() {
-        this.router.navigate(['/my-account']);
+        this.router.navigate(['/dashbroad/my-account']);
     }
 
     onRepasswordBlur () {

@@ -106,7 +106,7 @@ export class CustomerFormComponent {
     }
 	// 去顾客列表页
 	gotoListPage() {
-		this.router.navigate(['/customer-list']);
+		this.router.navigate(['/dashbroad/customer-list']);
 	}
 
 	onSave( other ) {

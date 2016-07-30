@@ -64,8 +64,12 @@ export class BusinessListComponent {
     this.getList();
   }
 
+  get(ba){
+    console.log('get',ba);
+  }
+
   onOpen(){
-    console.log('open');
+    console.log('onOpen');
   }
 
   onClose(){

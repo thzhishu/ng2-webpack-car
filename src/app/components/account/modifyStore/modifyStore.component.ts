@@ -9,19 +9,19 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
+import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
 
 @Component({
 	moduleId: module.id,
 	selector: 'modify-store',
 	template: require('./modifyStore.html'),
 	styles: [require('./modifyStore.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent],
-	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5 ]
+	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, StoreFormComponent],
+	providers: [ HTTP_PROVIDERS ]
 })
 
 export class ModifyStoreComponent {
-
-	constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi) {
+	constructor(private router: Router, private route: ActivatedRoute) {
 
 	}
 
@@ -29,6 +29,8 @@ export class ModifyStoreComponent {
 
 	}
 
-
+	onSuccess(data){
+		this.router.navigate(['/dashbroad/my-account']);
+	}
 
 }

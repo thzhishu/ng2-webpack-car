@@ -47,7 +47,7 @@ export class CustomerDetailComponent {
       this.customerId = +params['id'];
 			this.getCustomerById(this.customerId);
 			if(!this.customerId) {
-				this.router.navigate(['/customer-list']);
+				this.router.navigate(['/dashbroad/customer-list']);
 			}
     });
   }

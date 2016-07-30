@@ -1,37 +1,4 @@
-<navbar></navbar>
-<menus></menus>
-<main>
-  <div class="p-gray p-modify-store">
-    <div class="playout">
-
-      <!-- 带搜索+添加的面包屑 -->
-      <div class="searchbar">
-        <!-- 面包屑导航 -->
-        <div class="crumbs">
-          <a href="javascript:;">首页</a> > <a routerLink="/customer-list" routerLinkActive="active">我的顾客</a> > <a routerLink="/customer-add" routerLinkActive="active">添加顾客</a>
-        </div>
-        <!-- 面包屑导航 end -->
-        <!--搜索-->
-        <search-bar></search-bar>
-        <!--搜索 end-->
-        <!-- 添加新服务 -->
-        <a href="" class="pa g-btn g-btn-green">+  记录新服务</a>
-        <!-- 添加新服务 end-->
-      </div>
-      <!-- 带搜索+添加的面包屑 end -->
-      <!-- 主内容标题 -->
-      <div class="c-header">我的顾客</div>
-      <!-- 主内容标题 end -->
-
-
-
-      <customer-form [customer]="customerFields"></customer-form>
-
-      <!-- 页脚  -->
-      <page-footer></page-footer>
-      <!-- 页脚 end -->
-    </div>
-
-  </div>
-
-</main>
+<!-- 主内容标题 -->
+<div class="c-header">我的顾客</div>
+<!-- 主内容标题 end -->
+<customer-form [customer]="customerFields"></customer-form>
