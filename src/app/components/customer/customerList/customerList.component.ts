@@ -23,8 +23,8 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 export class CustomerListComponent {
 	customers: Customer[] = [];
 	searchStr: string = '';
-	sub:any;
-	page:any = {};
+	sub: any;
+	page: any = {};
 	constructor(private cApi: CustomerApi, private route: ActivatedRoute, private router: Router) {
 
 	}
@@ -33,7 +33,8 @@ export class CustomerListComponent {
 		this.sub = this.route.params.subscribe(params => {
 			console.log(params);
 			this.searchStr = params['s'];
-			this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
+			console.log(this.searchStr);
+			this.searchStr === undefined || this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
 		});
 	}
 

@@ -70,7 +70,7 @@ export class CustomerDetailComponent {
 				this.histories = this.customerDetail.histories || [];
 				this.customer = this.formatCustomer(this.customer);
 				this.customerDetail.historiesTotol = data.meta.total;
-				this.customerDetail.totalAvgScore = this.customerDetail.totalAvgScore.toFixed(2);
+				this.customerDetail.totalAvgScore = this.customerDetail.totalAvgScore ? this.customerDetail.totalAvgScore.toFixed(2) : 0;
 				console.log('customerDetail: ', this.customerDetail);
 				console.log('customer: ', this.customer);
 				console.log('histories: ', this.histories);

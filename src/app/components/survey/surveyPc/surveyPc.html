@@ -1,5 +1,5 @@
 <div class="sv">
-    <div class="sv-container" *ngIf="showSurvey">
+    <div class="sv-container" *ngIf="showSurvey === 1">
         <div class="sv-head">
             <h1 class="tc">{{survey?.title}}</h1>
             <p>
@@ -116,10 +116,13 @@
             <div class="g-btn g-btn-green" (click)="onSave()">提交</div>
         </div>
     </div>
-    <div class="sv-suc" *ngIf="!showSurvey">
+    <div class="sv-suc" *ngIf="showSurvey === 3">
         <div></div>
     </div>
-    <footer class="tc" [class.sv_foot_bar] = "!showSurvey">
+    <div class="sv-suc sv-suc-complete" *ngIf="showSurvey === 2">
+        <div></div>
+    </div>
+    <footer class="tc" [class.sv_foot_bar] = "showSurvey !== 1">
         由<img src="./assets/images/survey/sv_logo.png" >车门店提供支持<br>
         2006-2016 All rights reserved 上海皓煦数据技术有限公司 沪ICP备08012157号-5
     </footer>

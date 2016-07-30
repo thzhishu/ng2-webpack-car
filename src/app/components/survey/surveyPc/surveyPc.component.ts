@@ -15,7 +15,9 @@ import * as _ from 'lodash';
 })
 
 export class SurveyPcComponent {
-    survey: any;
+    url: string = '';
+    sub: any;
+    survey = {};
     surveyQustions: Array<Object> = [];
     surveySubmitObj = {
         sampleId: null,
@@ -23,15 +25,27 @@ export class SurveyPcComponent {
         answers: []
     };
     answersObj = {};
-    showSurvey: Boolean = false;
+    showSurvey: number = 1;
     constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
-
+        
     }
     ngOnInit() {
-        console.log(document);
+        // 获取 url
+        this.sub = this.route.params.subscribe(params => {
+            console.log(params);
+            this.url = params.url;
+            if (this.url) {
+                // 获取问卷
+                this.getSurveyQuestions();
+            } else {
+                this.showSurvey = 3;
+            }
+        });
+        
+    }
 
-        // this.createMeta();
-        this.getSurveyQuestions();
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     createMeta() {
@@ -40,11 +54,18 @@ export class SurveyPcComponent {
     }
 
     getSurveyQuestions() {
-        this.sApi.surveyLoadUrlGet('0LMUjj').subscribe(data => {
-            if (data && data.data) {
+        this.sApi.surveyLoadUrlGet(this.url).subscribe(data => {
+            console.log(data);
+            if(data.meta.code !== 200) {
+                // 链接已失效
+                this.showSurvey = 3;
+                return;
+            }
+            if (data.meta.code === 200 && data.data ) {
                 this.survey = JSON.parse(data.data);
-                this.surveyQustions = this.survey.pages.length ? this.survey.pages[0].questions : [];
+                this.surveyQustions = this.survey.pages && this.survey.pages.length ? this.survey.pages[0].questions : [];
                 this.surveyQustions = this.formatSurveyQestions(this.surveyQustions);
+                this.showSurvey = 1;
                 console.log(this.surveyQustions);
                 console.log(this.survey);
             }
@@ -123,7 +144,7 @@ export class SurveyPcComponent {
     onSave() {
         console.log(this.surveyQustions);
         this.surveySubmitObj.answers = [];
-        for (const idx = 0, len = this.surveyQustions.length; idx < len; idx++ ) {
+        for (let idx = 0, len = this.surveyQustions.length; idx < len; idx++ ) {
             let q = this.surveyQustions[idx];
             switch (q.type) {
                 case 'score_multi':
@@ -156,8 +177,12 @@ export class SurveyPcComponent {
         }
         console.log(this.surveySubmitObj);
         this.surveySubmitObj.isComplete = true;
-        this.sApi.surveyUrlSubmitPost('0LMUjj', this.surveySubmitObj).subscribe(data => {
+        this.sApi.surveyUrlSubmitPost(this.url, this.surveySubmitObj).subscribe(data => {
             console.log(data);
+            if (data.meta.code === 200 && data.data) {
+                this.showSurvey = 2;
+            }
+
         }, err => console.error(err));
     }
     // 提交前验证

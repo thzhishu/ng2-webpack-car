@@ -109,7 +109,7 @@ export class SurveyApi {
             headers: headerParams,
             search: queryParameters
         };
-        requestOptions.body = JSON.stringify(payload);
+        requestOptions.body = payload;
 
         return this.http.request(path, requestOptions)
             .map((response: Response) => {
