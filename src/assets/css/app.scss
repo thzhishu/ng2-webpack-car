@@ -37,6 +37,9 @@ ul {
 .pr {
   position: relative;
 }
+.mr10{
+  margin-right: 10px;
+}
 .playout {
   position: relative;
   padding: 63px 0 100px 64px;
@@ -147,7 +150,7 @@ html {
   border-bottom: 1px dashed #38b549;
 }
 .g-field {
-  font-size: 0;
+  font-size: 14px;
   margin: 15px 0;
 }
 .g-field .g-ckb,
@@ -163,8 +166,7 @@ html {
   font-size: 14px;
   color: #343434;
 }
-.g-field input,
-.g-field select {
+.g-field input {
   display: inline-block;
   height: 36px;
   font-size: 14px;
@@ -183,10 +185,10 @@ html {
   vertical-align: super;
   font-style: normal;
 }
-.g-field select {
-  margin-right: 10px;
-  padding: 0 0 0 13px;
-}
+// .g-field select {
+//   margin-right: 10px;
+//   padding: 0 0 0 13px;
+// }
 .g-field .g-field-tip {
   display: inline-block;
   font-size: 12px;

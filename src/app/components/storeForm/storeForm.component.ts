@@ -1,4 +1,4 @@
-import { Component, Input, Output, NgZone,EventEmitter } from '@angular/core';
+import { Component, Input, Output, NgZone, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
@@ -34,7 +34,6 @@ export class StoreFormComponent {
   loading: number = 0;
   errorServiceType: number = 0;
 
-  @Input() store;
   @Output() success = new EventEmitter();
 
   constructor(private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
@@ -48,6 +47,7 @@ export class StoreFormComponent {
     this.STATION_10 = STATION_10;
     this.YEARS_20 = YEARS_20;
   }
+
 
   // 获取省列表
   getProvince() {
@@ -102,11 +102,10 @@ export class StoreFormComponent {
     this.errorServiceType = 1;
     let ay = [];
     let list = [];
-    let obj = data;
-    _.forEach(obj, (val, i) => {
-      _.forEach(val.serviceIds, (sub, j) => {
-        if (sub) {
-          list.push(j);
+    _.forEach(data, (val, i) => {
+      _.forEach(this.shopList[i].sList, (sub, j) => {
+        if (sub.checked) {
+          list.push(sub.id);
           this.errorServiceType = 0;
         }
       })
@@ -121,6 +120,8 @@ export class StoreFormComponent {
     let data = f.value;
     let post = this.AssemblyServiceId(data);
     if (this.errorServiceType) {
+      this.errorServiceType = 0;
+      this.loading = 0;
       return false;
     }
     // payload: models.Shop

@@ -1,8 +1,8 @@
 <!-- 门店表单 -->
 <form (ngSubmit)="onResigerShop(f)" #f="ngForm">
-  <div class="" *ngFor="let shop of shopList,let i = index">
-    <div class="c-form c-modify-store" ngControlGroup="{{i}}">
-      <!-- 门店表单字段 -->
+  <div class="" *ngFor="let shop of shopList,let i = index" [ngControlGroup]="i" >
+    <!-- 门店表单字段 -->
+    <div class="c-form c-modify-store" >
       <h5>
         <span class="title-underline">基础信息</span>
       </h5>
@@ -18,7 +18,7 @@
         <label for="store_name" class="g-label">
           <span class="warning">*</span>门店地址</label>
         <div class="g-sel">
-          <select class="g-ws" required ngControl="provinceId" (ngModelChange)="onChangeProvince($event)">
+          <select class="g-ws mr10" required ngControl="provinceId" (ngModelChange)="onChangeProvince($event)">
             <option value="null">请选择省市</option>
             <option [value]="plist.id" *ngFor="let plist of provinceList">{{plist.name}}</option>
           </select>
@@ -35,8 +35,10 @@
       <div class="g-field fs14">
         <label for="store_server" class="g-label">
           <span class="warning">*</span>服务类型</label>
-        <div class="g-ipt g-wml g-checkbox-group" ngControlGroup="serviceIds">
-          <md-checkbox *ngFor="let sl of shop.sList, let j = index" ngControl="{{sl.id}}" [(ngModel)]="sl.checked">{{sl.name}}</md-checkbox>
+        <div class="g-ipt g-wml g-checkbox-group" >
+          <div *ngFor="let sl of shop.sList, let j = index"  >
+            <md-checkbox  [checked]="sl.checked" (change)="sl.checked = $event.checked">{{sl.name}}</md-checkbox>
+          </div>
         </div>
       </div>
       <div class="g-field fs14">
@@ -89,7 +91,7 @@
         </div>
       </div>
       <div class="g-field border-bottom-underline h36">
-        <a href="javascript:void(0);" class="del-store" (click)="onDelhop(i)">删除该门店</a>
+        <a href="javascript:void(0);" class="del-store" *ngIf="shopList.length>1" (click)="onDelhop(i)">删除该门店</a>
       </div>
     </div>
   </div>
