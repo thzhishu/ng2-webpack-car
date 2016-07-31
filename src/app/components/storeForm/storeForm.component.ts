@@ -159,13 +159,27 @@ export class StoreFormComponent {
       return false;
     }
     // payload: models.Shop
-    this.sApi.shopBatchSavePost(post).subscribe(data => {
-      this.loading = 0;
-      if (data.meta.code === 200) {
-        this.success.emit(data.data);
-      } else {
-        alert(data.error.message);
-      }
-    });
+    console.log('post', post);
+    if(this.id) {
+      post[0].id = this.id;
+      this.sApi.shopUpdatePost(post[0]).subscribe(data => {
+        this.loading = 0;
+        if (data.meta.code === 200) {
+          this.success.emit(data.data);
+        } else {
+          alert(data.error.message);
+        }
+      }, err => console.log(err));
+    } else {
+      this.sApi.shopBatchSavePost(post).subscribe(data => {
+        this.loading = 0;
+        if (data.meta.code === 200) {
+          this.success.emit(data.data);
+        } else {
+          alert(data.error.message);
+        }
+      });
+    }
+      
   }
 }

@@ -13,13 +13,14 @@ import { DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { BusinessApi,BusinessList } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent,PaginationComponent } from 'common';
 import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
+import { NgModel } from '@angular/forms';
 
 @Component({
   moduleId: module.id,
   selector: 'business-list',
   template: require('./businessList.html'),
   styles: [require('./businessList.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,DATEPICKER_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,BusinessAddComponent,PaginationComponent],
+  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NgModel, DATEPICKER_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,BusinessAddComponent,PaginationComponent],
   providers: [HTTP_PROVIDERS, BusinessApi],
   host: {
       '(click)': 'closeDatePicker($event)'
@@ -40,9 +41,10 @@ export class BusinessListComponent {
     this.getList();
   }
 
+  // 日历插件还有问题
   onShowDate(event) {
-      event.stopPropagation();
-      this.dateShow = !this.dateShow;
+      //event.stopPropagation();
+      //this.dateShow = !this.dateShow;
   }
 
   public closeDatePicker(event) {

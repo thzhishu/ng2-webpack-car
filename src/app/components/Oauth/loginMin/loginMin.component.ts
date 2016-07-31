@@ -72,7 +72,7 @@ export class LoginMinComponent {
           Cookie.save('shopId', data.data.User.lastShopId);
           this.sApi.defaultHeaders.set('token', data.data.User.token);
           if (data.data.User.lastShopId === null) {
-            this.router.navigate(['/dashbroad/init-store']);
+            this.router.navigate(['/init-store']);
           } else {
             this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
             this.router.navigate(['/dashbroad/business-list']);
