@@ -115,6 +115,9 @@
             color:#8dc63f;
             font-size:28px;
             margin-bottom:4px;
+            &.warning {
+                color:#f32c52;
+            }
         }
         > .sv-q-tip {
             color:#777;

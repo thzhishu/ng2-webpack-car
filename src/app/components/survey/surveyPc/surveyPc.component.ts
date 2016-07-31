@@ -17,8 +17,8 @@ import * as _ from 'lodash';
 export class SurveyPcComponent {
     url: string = '';
     sub: any;
-    survey = {};
-    surveyQustions: Array<Object> = [];
+    survey: any;
+    surveyQustions: Array<any> = [];
     surveySubmitObj = {
         sampleId: null,
         isComplete: false,
@@ -32,8 +32,8 @@ export class SurveyPcComponent {
     ngOnInit() {
         // 获取 url
         this.sub = this.route.params.subscribe(params => {
-            console.log(params);
-            this.url = params.url;
+            const url = 'url';
+            this.url = params[url];
             if (this.url) {
                 // 获取问卷
                 this.getSurveyQuestions();

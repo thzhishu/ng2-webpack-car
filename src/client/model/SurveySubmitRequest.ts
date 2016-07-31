@@ -25,6 +25,20 @@
 'use strict';
 import * as models from './models';
 
-export interface SurveySubmitRequest extends Array<models.SurveyAnswer> {
+export interface SurveySubmitRequest {
 
+    /**
+     * 样本id，如果不存在，则null
+     */
+    sampleId?: number;
+
+    /**
+     * 是否完成， 如果完成true， 前端跳到完成页面
+     */
+    isComplete?: boolean;
+
+    /**
+     * 答案
+     */
+    answers?: Array<models.SurveyAnswer>;
 }

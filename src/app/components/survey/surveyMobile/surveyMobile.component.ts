@@ -2,9 +2,8 @@ import { Component, Input, Output, NgZone } from '@angular/core';
 import { COMMON_DIRECTIVES, NgSwitch, NgSwitchDefault } from '@angular/common';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 
-import { SurveyApi } from 'client';
+import { SurveyApi, SurveySubmitRequest } from 'client';
 import * as _ from 'lodash';
-
 @Component({
     moduleId: module.id,
     selector: 'survey-mobile',
@@ -13,47 +12,31 @@ import * as _ from 'lodash';
     directives: [ROUTER_DIRECTIVES, COMMON_DIRECTIVES, NgSwitch, NgSwitchDefault],
     providers: [SurveyApi]
 })
-
 export class SurveyMobileComponent {
     sub: any;
     url: string = '';
     survey: any;
-    surveyQustions: Array<Object> = [];
+    surveyQustions: Array<any> = [];
     surveySubmitObj = {
-        sampleId: null,
+        sampleId: undefined,
         isComplete: false,
         answers: []
     };
+    // surveySubmitObj: SurveySubmitRequest;
     answersObj = {};
     // 1 为显示问卷， 2 为问卷答完保存成功 3为已经答过了或没有url
-    showSurvey: number = 1;
+    showSurvey: number = 0;
     currentPage: number = 0;
     waitingPage: number = 0;
-    questionAnswers = {
-        q1: '',
-        q2: '',
-        q3: '',
-        q4: '',
-        q5: '',
-        q6: '',
-        q7: '',
-        q8: '',
-        q9: '',
-        q10: '',
-        q11: '',
-        q12: ''
-    };
+    tempPageAnswers = [];
     constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
-
     }
     ngOnInit() {
         this.createMeta();
         // 获取 url
         this.sub = this.route.params.subscribe(params => {
-            console.log(params);
-            this.url = params.url;
+            this.url = params['url'];
             if (this.url) {
-                
                 this.getSurveyQuestions();
             } else {
                 this.showLastCreen(3);
@@ -83,13 +66,15 @@ export class SurveyMobileComponent {
     // 获取问卷
     getSurveyQuestions() {
         this.sApi.surveyLoadUrlGet(this.url).subscribe(data => {
+            if (data.meta.code !== 200) {
+                this.showLastCreen(3);
+                return;
+            }
             if (data && data.data) {
                 this.survey = JSON.parse(data.data);
                 this.surveyQustions = this.survey.pages.length ? this.survey.pages[0].questions : [];
-                this.surveyQustions = this.formatSurveyQestions(this.surveyQustions);
+                this.surveyQustions = this.formatSurveyQestions(_.cloneDeep(this.surveyQustions));
                 this.showFirstCreen();
-                console.log(this.surveyQustions);
-                console.log(this.survey);
             }
         }, err => console.error(err));
     }
@@ -133,7 +118,6 @@ export class SurveyMobileComponent {
     // 处理多项评分题
     onMscore(q, subq, subidx, ans) {
         let id = 'q_' + q.id + '_' + subq.id;
-        console.log(id);
         subq.hasErr = false;
         subq.answer = ans.id;
         subq.tempPoint = ans.point === 99 ? 0 : ans.point;
@@ -163,75 +147,118 @@ export class SurveyMobileComponent {
     }
 
     onSave() {
-        console.log(this.surveyQustions);
-        this.surveySubmitObj.answers = [];
-        for (const idx = 0, len = this.surveyQustions.length; idx < len; idx++ ) {
-            let q = this.surveyQustions[idx];
-            switch (q.type) {
-                case 'score_multi':
-                    for (let i = 0, len = q.answer.length; i < len; i++) {
-                        if ( q.answer[i] === undefined ) {
-                            // 第 i 个子题没选
-                            q.children[i].hasErr = true;
-                            alert(`第${idx + 1}题的"${q.children[i].title}"还未评价`);
-                            return false;
-                        } else {
-                            this.surveySubmitObj.answers.push(q.answer[i]);
-                        }
-                        
-                    }
-                    break;
-                default:
-                    if (q.answer === '') {
-                        q.hasErr = true;
-                        alert(`第${idx + 1}题还未回答`);
-                        return false;
-                    } else {
-                        this.surveySubmitObj.answers.push({
-                            questionId: q.id,
-                            type: q.type,
-                            answers: [q.answer]
-                        });
-                    }
-                        
-            }
-        }
-        console.log(this.surveySubmitObj);
+       
+       
+        
         this.surveySubmitObj.isComplete = true;
-        this.sApi.surveyUrlSubmitPost('0LMUjj', this.surveySubmitObj).subscribe(data => {
-            console.log(data);
+        this.surveySubmitObj.sampleId = this.surveySubmitObj.sampleId || null;
+        this.sApi.surveyUrlSubmitPost(this.url, this.surveySubmitObj).subscribe(data => {
+            if (data.meta.code === 200 && data.data) {
+                this.showLastCreen(2);
+            }
         }, err => console.error(err));
     }
-    // 提交前验证
-    validateSurvey() {
-        let ret = true;
-        for(let q of this.surveyQustions) {
-
-        }
-    }
+    
 
 
     // 去某一屏
     goto(page) {
-        let valid = true;
-        switch (page) {
-            case 1:
+        this.currentPage = page;
+        setTimeout(() => {
+            this.waitingPage = page;
+        }, 800);
+    }
 
-                break;
-            case 2:
-                break;
-            default:
-                console.log(page);
-        }
-        if (valid) {
-            this.currentPage = page;
-            setTimeout(() => {
-                this.waitingPage = page;
-            }, 1000);
+    gotoNext(page) {
+        let valid = true;
+        if (page !== 100) {
+            switch (page) {
+                case 2:
+                case 3:
+                case 4:
+                    // 验证第一题 验证第二题 验证第三题
+                    valid = this.scoreMultiValid(this.surveyQustions[page - 2], page - 2);
+                    break;
+                case 5:
+                    // 验证第四题
+                    valid = this.questionGroupValid([3]);
+                    break;
+                case 6:
+                    // 验证第五题 验证第六题 验证第七题
+                    valid = this.questionGroupValid([4, 5, 6]);
+                    break;
+                case 7:
+                    // 验证第八题 验证第九题 验证第十题
+                    valid = this.questionGroupValid([7, 8, 9]);
+                    break;
+                case 8:
+                    // 验证第十一题
+                    valid = this.questionGroupValid([10]);
+                    break;
+                case 100:
+                    // 验证第十二题
+                    valid = this.questionGroupValid([11]);
+                    break;
+                default:
+                    console.log(page);
+            }
+            if (valid) {
+                this.goto(page);
+            }
+        } else {
+            // 验证第十二题
+            valid = this.questionGroupValid([11]);
+            if (valid) {
+                console.log(this.surveySubmitObj);
+                this.onSave();
+            }
         }
             
     }
 
+    // 多项评分题验证
+    scoreMultiValid(q, idx) {
+        let tempArr = [];
+        for (let i = 0, len = q.answer.length; i < len; i++) {
+            if ( q.answer[i] === undefined ) {
+                // 第 i 个子题没选
+                q.children[i].hasErr = true;
+                alert(`第${idx + 1}题的"${q.children[i].title}"还未评价`);
+                return false;
+            } else {
+                tempArr.push(q.answer[i]);
+            }
+        }
+        this.surveySubmitObj.answers = this.surveySubmitObj.answers.concat(tempArr);
+        return true;
+    }
+    // 常规问题验证
+    questionValid (q, idx) {
+        if (q.answer === '') {
+            q.hasErr = true;
+            alert(`第${idx + 1}题还未回答`);
+            return false;
+        } else {
+            this.tempPageAnswers.push({
+                questionId: q.id,
+                type: q.type,
+                answers: [q.answer]
+            });
+            return true;
+        }
+    }
+
+    // 每页问题组验证
+    questionGroupValid (idxArr) {
+        this.tempPageAnswers = [];
+        for (const idx of idxArr) {
+            if (!this.questionValid(this.surveyQustions[idx], idx)) {
+                return false;
+            }
+        }
+        this.surveySubmitObj.answers = this.surveySubmitObj.answers.concat(this.tempPageAnswers);
+        return true;
+    }
     
 
 }

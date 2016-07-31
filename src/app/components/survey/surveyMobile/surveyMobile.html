@@ -1,5 +1,5 @@
 <div class="sv sv-f">
-    <div class="sv-container sv-f" >
+    <div class="sv-container sv-f" *ngIf="showSurvey">
         <!-- 首屏 -->
         <div class="sv-page  sp-0" [class.current] = "currentPage === 0" [class.old]="waitingPage === 0">
             <div class="box box-v box-v-cc">
@@ -41,7 +41,7 @@
                     </div>
                     <!-- 多项评分题 end --> 
                 </div>
-                <div class="sp-btn" (click)="goto(2)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(2)">下一步</div>
             </div>
             
 
@@ -70,7 +70,7 @@
                     </div>
                     <!-- 多项评分题 end --> 
                 </div>
-                <div class="sp-btn" (click)="goto(3)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(3)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-3" [class.current] = "currentPage===3" [class.old]="waitingPage === 3">
@@ -97,7 +97,7 @@
                     </div>
                     <!-- 多项评分题 end --> 
                 </div>
-                <div class="sp-btn" (click)="goto(4)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(4)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-4" [class.current] = "currentPage===4" [class.old]="waitingPage === 4">
@@ -123,7 +123,7 @@
                     </div>
                     <!-- 多项评分题 end --> 
                 </div>
-                <div class="sp-btn" (click)="goto(5)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(5)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-5" [class.current] = "currentPage===5" [class.old]="waitingPage === 5">
@@ -131,7 +131,7 @@
                 <div class="sv-q">
                     <!-- 性别题 -->
                     <div class="sv-q-sex">
-                        <div class="sv-q-t">Q5. {{surveyQustions[4]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[4]?.hasErr  && surveyQustions[4]?.answer === ''">Q5. {{surveyQustions[4]?.title}}</div>
                         <div class="sv-q-c">
                             <label *ngFor="let ans of surveyQustions[4]?.options; let j = index;" [class.checked]="surveyQustions[4]?.answer === ans.id">
                                 <input type="radio" (change)="onSex(surveyQustions[4], ans)" [checked]="surveyQustions[4]?.answer === ans.id" >
@@ -148,9 +148,9 @@
                 <div class="sv-q">
                     <!-- 年龄题 -->
                     <div class="sv-q-age">
-                        <div class="sv-q-t">Q6. {{surveyQustions[5]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[5]?.hasErr  && surveyQustions[5]?.answer === ''">Q6. {{surveyQustions[5]?.title}}</div>
                         <div class="sv-q-c">
-                            <select name="" id="" class="q-select" [(ngModel)] = "questionAnswers.q6">
+                            <select name="" id="" class="q-select" [ngModel]="surveyQustions[5]?.answer" (ngModelChange)="surveyQustions[5].answer = $event">
                                 <option value="">请选择您的出生年份</option>
                                 <option *ngFor="let ans of surveyQustions[5]?.options; let j = index;" [value]="ans.id">{{ans.title}}</option>
                             </select>
@@ -162,17 +162,17 @@
                 <div class="sv-q">
                     <!-- 单行文本题 -->
                     <div class="sv-q-stext">
-                        <div class="sv-q-t">Q7. {{surveyQustions[6]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[6]?.hasErr  && surveyQustions[6]?.answer === ''">Q7. {{surveyQustions[6]?.title}}</div>
                         <div class="sv-q-c">
                             <label>
-                                <span>车牌号:</span><input type="text" class="sv-ipt" [(ngModel)] = "questionAnswers.q7">
+                                <span>车牌号:</span><input type="text" class="sv-ipt" [ngModel]="surveyQustions[6]?.answer" (ngModelChange)="surveyQustions[6].answer = $event">
                             </label>
 
                         </div>
                     </div>
                     <!-- 单行文本题 end -->
                 </div>
-                <div class="sp-btn" (click)="goto(6)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(6)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-6" [class.current] = "currentPage===6" [class.old]="waitingPage === 6">
@@ -180,10 +180,22 @@
                 <div class="sv-q">
                     <!-- 单行文本题 -->
                     <div class="sv-q-stext">
-                        <div class="sv-q-t">Q8. {{surveyQustions[7]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[7]?.hasErr  && surveyQustions[7]?.answer === ''">Q8. {{surveyQustions[7]?.title}}</div>
                         <div class="sv-q-c">
                             <label>
-                                <span>手机号:</span><input type="tel" class="sv-ipt" [(ngModel)] = "questionAnswers.q8">
+                                <span>手机号:</span><input type="tel" class="sv-ipt" [ngModel]="surveyQustions[7]?.answer" (ngModelChange)="surveyQustions[7].answer = $event">
+                            </label>
+                        </div>
+                    </div>
+                    <!-- 单行文本题 end -->
+                </div>
+                <div class="sv-q">
+                    <!-- 单行文本题 -->
+                    <div class="sv-q-stext">
+                        <div class="sv-q-t" [class.warning]="surveyQustions[8]?.hasErr  && surveyQustions[8]?.answer === ''">Q9. {{surveyQustions[8]?.title}}</div>
+                        <div class="sv-q-c">
+                            <label>
+                                <span>车品牌:</span><input type="text" class="sv-ipt" [ngModel]="surveyQustions[8]?.answer" (ngModelChange)="surveyQustions[8].answer = $event">
                             </label>
 
                         </div>
@@ -193,24 +205,11 @@
                 <div class="sv-q">
                     <!-- 单行文本题 -->
                     <div class="sv-q-stext">
-                        <div class="sv-q-t">Q9. {{surveyQustions[8]?.title}}</div>
-                        <div class="sv-q-c">
-                            <label>
-                                <span>车品牌:</span><input type="text" class="sv-ipt" [(ngModel)] = "questionAnswers.q9">
-                            </label>
-
-                        </div>
-                    </div>
-                    <!-- 单行文本题 end -->
-                </div>
-                <div class="sv-q">
-                    <!-- 单行文本题 -->
-                    <div class="sv-q-stext">
-                        <div class="sv-q-t">Q10. {{surveyQustions[9]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[9]?.hasErr  && surveyQustions[9]?.answer === ''">Q10. {{surveyQustions[9]?.title}}</div>
                         <div class="sv-q-c">
                             <label>
                                 <span>汽车型号:</span>
-                                <input type="text" class="sv-ipt" [(ngModel)] = "questionAnswers.q10">
+                                <input type="text" class="sv-ipt" [ngModel]="surveyQustions[9]?.answer" (ngModelChange)="surveyQustions[9].answer = $event">
                             </label>
 
                         </div>
@@ -218,7 +217,7 @@
                     <!-- 单行文本题 end -->
                 </div>
 
-                <div class="sp-btn" (click)="goto(7)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(7)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-7" [class.current] = "currentPage===7" [class.old]="waitingPage === 7">
@@ -226,7 +225,7 @@
                 <div class="sv-q">
                     <!-- 单选题 -->
                     <div class="sv-q-radio">
-                        <div class="sv-q-t">Q11 {{surveyQustions[10]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[10]?.hasErr  && surveyQustions[10]?.answer === ''">Q11 {{surveyQustions[10]?.title}}</div>
                         <div class="sv-q-c">
                             <label class="checked" *ngFor="let ans of surveyQustions[10]?.options" [class.checked]="surveyQustions[10]?.answer === ans.id">
                                 <input type="radio" (change)="surveyQustions[10].answer = ans.id" [checked]="surveyQustions[10]?.answer === ans.id">
@@ -241,7 +240,7 @@
                 </div>
                 
 
-                <div class="sp-btn" (click)="goto(100)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(8)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-8" [class.current] = "currentPage===8" [class.old]="waitingPage === 8">
@@ -249,7 +248,7 @@
                 <div class="sv-q">
                     <!-- 单选题 -->
                     <div class="sv-q-radio">
-                        <div class="sv-q-t">Q12 {{surveyQustions[11]?.title}}</div>
+                        <div class="sv-q-t" [class.warning]="surveyQustions[11]?.hasErr  && surveyQustions[11]?.answer === ''">Q12 {{surveyQustions[11]?.title}}</div>
                         <div class="sv-q-c">
                             <label *ngFor="let ans of surveyQustions[11]?.options" [class.checked]="surveyQustions[11]?.answer === ans.id">
                                 <input type="radio" (change)="surveyQustions[11].answer = ans.id" [checked]="surveyQustions[11]?.answer === ans.id">
@@ -261,7 +260,7 @@
                 </div>
                 
 
-                <div class="sp-btn" (click)="goto(5)">下一步</div>
+                <div class="sp-btn" (click)="gotoNext(100)">下一步</div>
             </div>
         </div>
         <div class="sv-page sp-100" [class.current] = "currentPage===100" [class.old]="waitingPage === 100">
