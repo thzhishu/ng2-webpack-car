@@ -33,7 +33,7 @@ export interface ShopResponse {
 
     meta?: models.BasicMeta;
 
-    data?: models.ShopEx;
+    data?: models.Shop;
 
     error?: models.Error;
 }

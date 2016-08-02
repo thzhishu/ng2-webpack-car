@@ -280,7 +280,7 @@ export class ShopApi {
      *
      * @param payload 更新的门店对象数组
      */
-    public shopUpdatePost (payload: Array<models.Shop>, extraHttpRequestParams?: any ) : Observable<Array<models.ShopListResponse>> {
+    public shopUpdatePost (payload: Array<models.Shop>, extraHttpRequestParams?: any ) : Observable<models.ShopResponse> {
         const path = this.basePath + '/shop/update';
 
         let queryParameters = new URLSearchParams();
@@ -310,5 +310,7 @@ export class ShopApi {
                 }
             });
     }
+
+    
 
 }

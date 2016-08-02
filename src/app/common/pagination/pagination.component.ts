@@ -9,34 +9,32 @@ import * as _ from 'lodash';
 })
 
 export class PaginationComponent implements OnInit {
-  @Input('current') current:number;
-  @Input('limit') limit:number;
-  @Input('total') total:number;
+  @Input('current') current: number;
+  @Input('limit') limit: number;
+  @Input('total') total: number;
   @Output('changePage') changePage = new EventEmitter();
-  jumpPage:number = null;
-  curPage:number = 1;
-  pageSize:number = null;
-  pages:any = [];
-  maxSize:number;
-  rotate:number;
-  totalPages:number = 0;
-  constructor() {
-
-  }
+  jumpPage: number = null;
+  curPage: number = 1;
+  pageSize: number = null;
+  pages: any = [];
+  maxSize: number;
+  rotate: number;
+  totalPages: number = 0;
+  constructor() {}
 
   ngOnInit() {
     this.maxSize = 7;
     this.rotate = 0;
-    this.totalPages = _.ceil(Math.max(1,this.total/this.limit));
-    this.pages = this.getPages(this.current,this.totalPages);
+    this.totalPages = _.ceil(Math.max(1, this.total / this.limit));
+    this.pages = this.getPages(this.current, this.totalPages);
   }
 
   getPages(currentPage, totalPages) {
-      var pages = [];
+      let pages = [];
       // Default page limits
-      var startPage = 1;
-      var endPage = totalPages;
-      var isMaxSized = typeof this.maxSize !== 'undefined' && this.maxSize < totalPages;
+      let startPage = 1;
+      let endPage = totalPages;
+      let isMaxSized = typeof this.maxSize !== 'undefined' && this.maxSize < totalPages;
       // recompute if maxSize
       if (isMaxSized) {
           if (this.rotate) {
