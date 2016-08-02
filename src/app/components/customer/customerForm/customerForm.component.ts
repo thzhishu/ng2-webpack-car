@@ -28,7 +28,8 @@ export class CustomerFormComponent {
 	vehiclePlateHas: Boolean = false;
 	mobileFormatValid: Boolean = false;
 	birthdayYearArr: number[] = [];
-	vehicleYearArr: number[] = [];
+	vehicleYearArr: any[] = [];
+	miles: string[] = [];
 	active: Boolean = true;
 	submitting: Boolean = false;
 	customerDefault: any;
@@ -43,8 +44,10 @@ export class CustomerFormComponent {
 	constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private cApi: CustomerApi) {
 
 		const currentYear = +(new Date()).getFullYear();
-		this.birthdayYearArr = this.rangeArr(1950, currentYear).reverse();
-		this.vehicleYearArr = this.rangeArr(1990, currentYear).reverse();
+		this.birthdayYearArr = this.rangeArr(currentYear - 60, currentYear - 16).reverse();
+		this.vehicleYearArr = this.rangeArr(2006, currentYear).reverse();
+		this.vehicleYearArr.push('2005年及以前');
+		this.miles = ['5000公里', '10000公里', '15000公里', '20000公里', '25000公里', '30000公里', '35000公里', '40000公里', '45000公里', '50000公里', '55000公里', '60000公里', '65000公里', '70000公里', '75000公里', '80000公里', '85000公里', '90000公里', '95000公里', '100000公里及以上'];
 		this.customerDefault = {
 			'id': '',
 			'vehicleLicence': '',
@@ -114,22 +117,24 @@ export class CustomerFormComponent {
 		const willAddNew = other || false;
 		const isNew = this.customerForm.value.id ? false : true;
 		this.vehiclePlateValid();
-		console.log(this.vehiclePlateNull,this.vehiclePlateLen,  this.vehiclePlateHas)
+		console.log(this.vehiclePlateNull, this.vehiclePlateLen,  this.vehiclePlateHas)
 		if (this.vehiclePlateNull || this.vehiclePlateLen || this.vehiclePlateHas ) {
 			return;
 		}
 		this.onMobileValid();
+		console.log('this.mobileFormatValid', this.mobileFormatValid)
 		if (this.mobileFormatValid) {
 			return;
 		}
 
 		if (this.submitting) return;
 		this.submitting = true;
-
+		console.log(this.customerForm);
 		let vals = this.customerForm.value;
 		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence || '', vals.id || '', vals.mobile || '', vals.vehicleFrame || '', vals.name || '', vals.birthYear || '', vals.gender || '', vals.vehicleBrand  || '', vals.vehicleModel  || '', vals.vehicleYear  || '', vals.vehicleMiles  || '').subscribe(data => {
+			this.submitting = false;
 			if (data.data) {
-				this.submitting = false;
+				
 				// 需要继续创建
 				if (isNew && willAddNew) {
 					this.initFb();
@@ -182,8 +187,10 @@ export class CustomerFormComponent {
 		}
 	}
 	onMobileValid() {
-		// let mobileErr = this.customerForm.controls.mobile.errors;
-		// this.mobileFormatValid = mobileErr && mobileErr.pattern ? true : false;
+		let controls: any = this.customerForm.controls;
+		let mobileErr = controls.mobile.errors;
+		console.log('controls', controls)
+		this.mobileFormatValid = mobileErr && mobileErr.pattern ? true : false;
 	}
 	onMobileFocus() {
 		this.mobileFormatValid = false;

@@ -39,7 +39,7 @@
               <div class="g-field">
                 <label for="employee_tel" class="g-label">车架号</label>
                 <div class="g-ipt">
-                  <input type="text" id="employee_tel" placeholder="" class="g-w343" ngControl="vehicleFrame">
+                  <input type="text" id="employee_tel" placeholder="" class="g-w343" ngControl="vehicleFrame" maxlength="20">
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
               <div class="g-field">
                 <label for="employee_name" class="g-label">姓名</label>
                 <div class="g-ipt">
-                  <input type="text" id="employee_name" placeholder="" class="g-w343" ngControl="name">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343" ngControl="name" maxlength="20">
                   <div class="g-field-tip suctip" >
                     车主信息越完善有助于您更好管理顾客
                     
@@ -80,7 +80,7 @@
               <div class="g-field">
                 <label for="employee_name" class="g-label">车品牌</label>
                 <div class="g-ipt">
-                  <input type="text" id="employee_name" placeholder="" class="g-w343" ngControl="vehicleBrand">
+                  <input type="text" id="employee_name" placeholder="" class="g-w343" ngControl="vehicleBrand" maxlength="50">
                 </div>
               </div>
               <div class="g-field">
@@ -101,7 +101,10 @@
               <div class="g-field">
                 <label for="employee_tel" class="g-label">行驶里程数</label>
                 <div class="g-ipt">
-                  <input type="number" id="employee_tel" placeholder="" class="g-w343" ngControl="vehicleMiles">
+                  <select class="g-w343" name="" ngControl="vehicleMiles">
+                    <option value="">请选择</option>
+                    <option value="{{mile}}" *ngFor="let mile of miles">{{mile}}</option>
+                  </select>
                 </div>
               </div>
             </div>
