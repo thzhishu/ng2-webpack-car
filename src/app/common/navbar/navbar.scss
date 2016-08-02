@@ -20,6 +20,8 @@
     background: #1e2226 url(/assets/images/logo.png) no-repeat center center;
 }
 
+
+
 .topbar h1 {
     display: inline-block;
     margin: 0;
@@ -105,4 +107,10 @@
 
     }
 
+}
+
+@media print {
+    .topbar> a {
+        display: none;
+    }
 }

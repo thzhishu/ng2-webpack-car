@@ -11,3 +11,7 @@
 .menu .menus a:hover .ico-week-chart, .menu .menus a.active .ico-week-chart { background-position: 0 -100px; }
 .menu .exit { position:absolute; width:64px; height:64px; left:0; bottom: 10px; background: url(/assets/images/menus-ico.png) no-repeat 15px -226px; cursor:pointer; }
 .menu .exit:hover { background-position: 15px -176px; }
+
+@media print {
+    .menu { display:none; }
+}

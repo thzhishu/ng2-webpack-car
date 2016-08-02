@@ -60,5 +60,9 @@ export class ReportWeekSatisfactionComponent {
 		}, err => console.error(err) );
 	}
 
+	onPrint() {
+		window.print();
+	}
+
 
 }
