@@ -110,7 +110,7 @@
 }
 
 @media print {
-    .topbar> a {
-        display: none;
-    }
+  a::after {
+    content: none;
+  }
 }
