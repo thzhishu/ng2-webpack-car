@@ -34,6 +34,7 @@ export class CustomerFormComponent {
 	submitting: Boolean = false;
 	customerDefault: any;
 	searchTermStream = new Subject<string>();
+	tempPlate: string = '';
 	items: Observable<any> = this.searchTermStream
 			.debounceTime(500)
 			.distinctUntilChanged()
@@ -68,7 +69,13 @@ export class CustomerFormComponent {
 	ngOnInit() {
 		this.initFb();
 		this.items.subscribe(data => {
-			this.vehiclePlateHas = data && data.data ? true : false;
+			const val = this.customerForm.value.vehicleLicence;
+			if (this.tempPlate === val) {
+				this.vehiclePlateHas = data && data.data ? true : false;
+			} else {
+				this.subjectAjax();
+			}
+			
 		});
 	}
 
@@ -133,7 +140,8 @@ export class CustomerFormComponent {
 		let vals = this.customerForm.value;
 		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence || '', vals.id || '', vals.mobile || '', vals.vehicleFrame || '', vals.name || '', vals.birthYear || '', vals.gender || '', vals.vehicleBrand  || '', vals.vehicleModel  || '', vals.vehicleYear  || '', vals.vehicleMiles  || '').subscribe(data => {
 			this.submitting = false;
-			if (data.data) {
+			this.tempPlate = '';
+			if (data.meta.code === 200 && data.data) {
 				
 				// 需要继续创建
 				if (isNew && willAddNew) {
@@ -148,6 +156,10 @@ export class CustomerFormComponent {
 				// 更新
 				alert('修改成功');
 
+			} else {
+				if (data.error && data.error.message) {
+					alert(data.error.message);
+				}
 			}
 		}, err => {
 			console.error(err)
@@ -205,13 +217,15 @@ export class CustomerFormComponent {
 		const val = this.customerForm.value.vehicleLicence;
 		this.vehiclePlateLen = false;
 		this.vehiclePlateHas = false;
+		
 		if ( val.length > 6 && val.length < 10 ) {
-
+			this.tempPlate = val;
 			this.searchTermStream.next(val);
 		} else if (val.length >= 10) {
 			this.vehiclePlateHas = false;
 			this.vehiclePlateLen = true;
-
 		}
 	}
+
+	
 }
