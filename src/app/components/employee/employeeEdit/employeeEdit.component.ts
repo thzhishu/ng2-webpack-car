@@ -28,6 +28,7 @@ export class EmployeeEditComponent {
   }
 
   ngOnInit() {
+    console.log('employee edit components init');
     this.employee = {
       id: '',
       name: '',

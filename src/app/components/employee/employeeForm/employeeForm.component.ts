@@ -39,15 +39,16 @@ export class EmployeeFormComponent {
 	}
 
 	ngOnInit() {
+		console.log('employee edit form components init');
 		console.log("dd:", this.employee)
 	}
 	save() {
-		if(this.employee.name == '' && this.employee.code == "") {
+		if(this.employee.name === '' && this.employee.code === '') {
 			this.formErr.required = true;
 			return null;
 		}
 
-		if(this.employee.mobile != '' && this.onCheckMobile()) {
+		if(this.employee.mobile !== '' && this.onCheckMobile()) {
 			this.formErr.mobile = true;
 			return null;
 		}
@@ -56,7 +57,7 @@ export class EmployeeFormComponent {
 			mobile: false
 		}
 		console.log(this.employee.name, this.employee.code, this.employee.mobile);
-		if(!this.employee.id) {
+		if (!this.employee.id) {
 			return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
 		}
 		return this.eApi.employeeUpdatePost( this.employee.id, this.employee.name, this.employee.code, this.employee.mobile );

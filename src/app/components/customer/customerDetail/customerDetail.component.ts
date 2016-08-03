@@ -43,14 +43,14 @@ export class CustomerDetailComponent {
 	}
 
 	ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.customerId = +params['id'];
-			this.getCustomerById(this.customerId);
-			if(!this.customerId) {
-				this.router.navigate(['/dashbroad/customer-list']);
-			}
-    });
-  }
+		this.sub = this.route.params.subscribe(params => {
+		this.customerId = +params['id'];
+				this.getCustomerById(this.customerId);
+				if(!this.customerId) {
+					this.router.navigate(['/dashbroad/customer-list']);
+				}
+		});
+	}
 
   ngOnDestroy() {
     this.sub.unsubscribe();

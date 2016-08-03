@@ -96,8 +96,7 @@ export class EmployeeApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
-        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        
 
         // verify required parameter 'token' is not null or undefined
         if (token === null || token === undefined) {
@@ -107,7 +106,8 @@ export class EmployeeApi {
         if (employeeId === null || employeeId === undefined) {
             throw new Error('Required parameter employeeId was null or undefined when calling employeeEmployeeIdGet.');
         }
-            headerParams.set('token', token);
+        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
+        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
 
         let requestOptions: RequestOptionsArgs = {
             method: 'GET',
