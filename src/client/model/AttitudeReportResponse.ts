@@ -30,7 +30,7 @@ export interface AttitudeReportResponse {
 
     meta?: models.Meta;
 
-    data?: Array<models.AttitudeReport>;
+    data?: models.AttitudeReport;
 
     error?: models.Error;
 }

@@ -5,14 +5,15 @@
         <div class="g-field">
             <label for="employee_name" class="g-label">技师姓名</label>
             <div class="g-ipt">
-                <input type="text" id="employee_name" class="g-w343" [ngModel]="employee?.name" (ngModelChange)="employee.name = $event" (focus)="onHideTip('required')">
+                <input type="text" id="employee_name" class="g-w343" [ngModel]="employee?.name" (ngModelChange)="employee.name = $event" (focus)="onHideTip('required');onHideTip('lenerr')">
                 <div class="g-field-tip warning" *ngIf="formErr.required"><span>*</span>技师姓名与技师编号至少填一项</div>
+                <div class="g-field-tip warning" *ngIf="formErr.lenerr"><span>*</span>技师姓名与技师编号任一项不超过20个字</div>
             </div>
         </div>
         <div class="g-field">
             <label for="employee_code" class="g-label">技师编号</label>
             <div class="g-ipt">
-                <input type="text" id="employee_code" class="g-w343" [ngModel]="employee?.code" (ngModelChange)="employee.code = $event" (focus)="onHideTip('required')">
+                <input type="text" id="employee_code" class="g-w343" [ngModel]="employee?.code" (ngModelChange)="employee.code = $event" (focus)="onHideTip('required');onHideTip('lenerr')">
 
             </div>
         </div>

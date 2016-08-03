@@ -45,8 +45,8 @@ export class ReportWeekSatisfactionComponent {
 
 	getWeekReport() {
 		this.rApi.reportAttitudeGet(this.start, this.end).subscribe(data => {
-			if(data.data && data.data.length) {
-				const dd = data.data[0];
+			if(data.data ) {
+				const dd = data.data;
 				this.percent = dd.percent;
 				this.shopGoods = dd.shopGoods;
 				this.shopBads = dd.shopBads;
