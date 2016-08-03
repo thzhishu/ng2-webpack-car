@@ -9,7 +9,7 @@
       <div class="g-field">
         <label for="pwd_current" class="g-label">当前密码</label>
         <div class="g-ipt">
-          <input type="password" id="pwd_current" class="g-wxm" ngControl="oldPassword" required>
+          <input type="password" id="pwd_current" class="g-wxm" ngControl="oldPassword" required minlength="6" maxlength="16">
           <div class="g-field-tip" [class.warning]="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid" *ngIf="mpwdForm.controls.oldPassword.errors?.required && mpwdForm.controls.oldPassword?.touched && !mpwdForm.controls.oldPassword?.valid">
             <span>*</span>请填写当前密码
           </div>
@@ -33,7 +33,7 @@
             <span>*</span>请再次填写新密码
           </div>
           <div class="g-field-tip" [class.warning]="!isEqual" *ngIf="!isEqual">
-            <span>*</span>两次填写的新密码不一致
+            <span>*</span>两次密码不一致，请重新输入
           </div>
         </div>
       </div>

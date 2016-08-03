@@ -76,12 +76,12 @@ export interface Customer {
     /**
      * 购买年份
      */
-    vehicleYear?: number;
+    vehicleYear?: string;
 
     /**
      * 行驶里程
      */
-    vehicleMiles?: number;
+    vehicleMiles?: string;
 
     /**
      * 最后入店时间   

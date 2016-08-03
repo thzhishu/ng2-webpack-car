@@ -44,11 +44,21 @@ export class ModifyPwdComponent {
         console.log(this.mpwdForm);
         if ( this.isEqual && this.mpwdForm.valid ) {
             let params = this.mpwdForm.value;
-            this.uApi.userChangePwdPost(params.oldPassword, params.password, params.rePassword).subscribe(data => {
+            console.log('params', params);
+            let op = Md5.hashStr(params.oldPassword, false).toString();
+            let np = Md5.hashStr(params.password, false).toString();
+            let rnp = Md5.hashStr(params.rePassword, false).toString();
+            console.log(op, np, rnp);
+            this.uApi.userChangePwdPost(op, np, rnp).subscribe(data => {
                 console.dir(data);
-                if (data.data && data.data.User) {
-                    alert('密码修改成功');
+                if(data.meta.code === 200) {
+                    if (data.data && data.data.User) {
+                        alert('密码修改成功');
+                    }
+                } else {
+                    alert(data.error.message);
                 }
+                    
             });
         } else {
             alert('请输入正确的信息');

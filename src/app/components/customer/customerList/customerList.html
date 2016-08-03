@@ -41,12 +41,20 @@
     <pagination *ngIf="customers.length" [current]="page.current" [limit]="page.limit" [total]="page.total" (changePage)="changePage($event)"></pagination>
     <!-- 列表分页 end -->
   </div>
-  <div class="list-empty" *ngIf="!customers.length">
+  <div class="list-empty" *ngIf="!customers.length && !isSearch">
     <div class="le-img"></div>
     <div class="le-txt tc">
       <!-- 检索： 未检索到此顾客相关信息 -->
       当前未添加顾客
-      <a class="g-btn g-btn-green" ui-sref="customer-add">+  添加新顾客</a>
+      <a class="g-btn g-btn-green" [routerLink]="['../customer-add']">+  添加新顾客</a>
+    </div>
+  </div>
+  <div class="list-empty" *ngIf="!customers.length && isSearch">
+    <div class="le-img"></div>
+    <div class="le-txt tc">
+      <!-- 检索： 未检索到此顾客相关信息 -->
+      未检索到此顾客的相关信息
+      <a class="g-btn g-btn-green" >+  添加新服务</a>
     </div>
   </div>
 </div>
