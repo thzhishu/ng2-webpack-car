@@ -43,7 +43,7 @@ export class EmployeeFormComponent {
 		console.log("dd:", this.employee)
 	}
 	save() {
-		if (this.employee.name === '' && this.employee.code === '') {
+		if (this.employee.name.trim() === '' && this.employee.code.trim() === '') {
 			this.formErr.required = true;
 			return null;
 		}
@@ -65,7 +65,7 @@ export class EmployeeFormComponent {
 		if (!this.employee.id) {
 			return this.eApi.employeeSavePost( this.employee.name, this.employee.code, this.employee.mobile );
 		}
-		return this.eApi.employeeUpdatePost( this.employee.id, this.employee.name, this.employee.code, this.employee.mobile );
+		return this.eApi.employeeUpdatePost( this.employee.id, this.employee.name.trim(), this.employee.code.trim(), this.employee.mobile );
 	}
 	onSave() {
 		if (this.submitting)
@@ -121,7 +121,7 @@ export class EmployeeFormComponent {
 		if (this.employee.mobile === '') {
 			this.formErr.mobile = false;
 		} else {
-			this.formErr.mobile = /^(13[0-9]|15[012356789]|17[015678]|18[0-9]|14[579])[0-9]{8}$/.test(this.employee.mobile) ? false : true;
+			this.formErr.mobile = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/.test(this.employee.mobile) ? false : true;
 		}
 		return this.formErr.mobile;
 	}

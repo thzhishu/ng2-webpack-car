@@ -64,6 +64,7 @@ export class LoginMinComponent {
     }
     let params = this.loginForm.value;
     // mobile: string, password: string, code: string,
+    console.log('pwd..',Md5.hashStr(params.pwd, false).toString() )
     this.uApi.userLoginPost(params.phone, Md5.hashStr(params.pwd, false).toString(), params.rnd)
       .subscribe((data) => {
         this.loading = 0;

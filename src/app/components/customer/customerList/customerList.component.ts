@@ -23,6 +23,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 export class CustomerListComponent {
 	customers: Customer[] = [];
 	searchStr: string = '';
+	isSearch: Boolean = false;
 	sub: any;
 	page: any = {};
 	constructor(private cApi: CustomerApi, private route: ActivatedRoute, private router: Router) {
@@ -34,7 +35,9 @@ export class CustomerListComponent {
 			console.log(params);
 			this.searchStr = params['s'];
 			console.log(this.searchStr);
-			this.searchStr === undefined || this.searchStr === '' ? this.getCustomers() : this.getSearchCustomers();
+			this.isSearch = this.searchStr === undefined || this.searchStr === '' || this.searchStr === null ? false : true;
+
+			this.isSearch ?  this.getSearchCustomers() : this.getCustomers();
 		});
 	}
 
@@ -48,6 +51,7 @@ export class CustomerListComponent {
 	}
 
 	getCustomers() {
+		console.log('customer list....');
 		this.cApi.customerListGet().subscribe(data => {
 			this.customers = data.data && data.data.length ? data.data : [];
 			console.log('customers: ', this.customers);
@@ -60,8 +64,10 @@ export class CustomerListComponent {
 		});
 	}
 	getSearchCustomers() {
-		if ( this.searchStr === ''||this.searchStr === null||this.searchStr === undefined ) return;
+		console.log('customer search list....');
+		if ( !this.isSearch ) return;
 		this.cApi.customerSearchPhoneOrVehicleLicenceGet(this.searchStr).subscribe( data => {
+			
 			if (data.data) {
 				let dd = data.data;
 				if ( dd.customers.length === 1 ) {
