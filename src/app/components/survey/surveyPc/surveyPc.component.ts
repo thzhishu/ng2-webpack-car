@@ -56,7 +56,7 @@ export class SurveyPcComponent {
     getSurveyQuestions() {
         this.sApi.surveyLoadUrlGet(this.url).subscribe(data => {
             console.log(data);
-            if(data.meta.code !== 200) {
+            if (data.meta.code !== 200) {
                 // 链接已失效
                 this.showSurvey = 3;
                 return;
@@ -181,17 +181,13 @@ export class SurveyPcComponent {
             console.log(data);
             if (data.meta.code === 200 && data.data) {
                 this.showSurvey = 2;
+            } else {
+                this.showSurvey = 3;
             }
 
         }, err => console.error(err));
     }
-    // 提交前验证
-    validateSurvey() {
-        let ret = true;
-        for(let q of this.surveyQustions) {
-
-        }
-    }
+    
 
     
 

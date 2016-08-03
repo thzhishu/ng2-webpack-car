@@ -155,6 +155,8 @@ export class SurveyMobileComponent {
         this.sApi.surveyUrlSubmitPost(this.url, this.surveySubmitObj).subscribe(data => {
             if (data.meta.code === 200 && data.data) {
                 this.showLastCreen(2);
+            } else {
+                this.showLastCreen(3);
             }
         }, err => console.error(err));
     }
