@@ -172,10 +172,12 @@ export class CustomerFormComponent {
 				// 添加一次
 				if (isNew) {
 					this.gotoListPage();
-					return;
+				} else {
+					// 更新
+					alert('修改成功');
+					this.gotoListPage();
 				}
-				// 更新
-				alert('修改成功');
+				
 
 			} else {
 				if (data.error && data.error.message) {
