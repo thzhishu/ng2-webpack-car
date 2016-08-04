@@ -29,6 +29,7 @@ export class SurveyMobileComponent {
     currentPage: number = 0;
     waitingPage: number = 0;
     tempPageAnswers = [];
+    profile: any;
     constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
     }
     ngOnInit() {
@@ -86,8 +87,6 @@ export class SurveyMobileComponent {
                     this.profileHandle();
                 }
                 this.showFirstCreen();
-
-
             }
         }, err => console.error(err));
     }
