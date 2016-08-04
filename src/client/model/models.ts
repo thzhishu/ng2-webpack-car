@@ -48,6 +48,7 @@ export * from './Supply';
 export * from './Survey';
 export * from './SurveyAnswer';
 export * from './SurveyResponse';
+export * from './SurveyBody';
 export * from './SurveySubmitRequest';
 export * from './SurveySubmitResponse';
 export * from './User';

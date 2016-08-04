@@ -25,12 +25,10 @@
 'use strict';
 import * as models from './models';
 
-export interface SurveyResponse {
+export interface SurveyBody {
     
 
-    meta?: models.Meta;
+    survey?: string;
 
-    data?: any;
-
-    error?: models.Error;
+    profile?: models.Customer;
 }

@@ -57,8 +57,7 @@ export class SurveyApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
-        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        
 
         // verify required parameter 'url' is not null or undefined
         if (url === null || url === undefined) {
@@ -93,8 +92,7 @@ export class SurveyApi {
         let queryParameters = new URLSearchParams();
         let headerParams = this.defaultHeaders;
 
-        headerParams.set('token', Cookie.load('token')); //tobeplus 缓存注入 header
-        headerParams.set('shopId', Cookie.load('shopId')); //tobeplus 缓存注入 header
+        
 
         // verify required parameter 'url' is not null or undefined
         if (url === null || url === undefined) {

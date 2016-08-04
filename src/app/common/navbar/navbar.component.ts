@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 
 import { UserApi, ShopApi, Shop, MyAcountResponse } from 'client';
+import { Cookie } from 'services';
 
 @Component({
   moduleId: module.id,
@@ -18,7 +19,7 @@ import { UserApi, ShopApi, Shop, MyAcountResponse } from 'client';
   template: require('./navbar.html'),
   styles: [require('./navbar.scss')],
   directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
-  providers: [HTTP_PROVIDERS, UserApi, ShopApi]
+  providers: [HTTP_PROVIDERS, UserApi, ShopApi, Cookie]
 })
 
 export class NavbarComponent {
@@ -27,7 +28,7 @@ export class NavbarComponent {
   shopId: number;
   list: Array<Shop>;
 
-  constructor(private uApi: UserApi, private sApi: ShopApi) {
+  constructor(private router: Router, private uApi: UserApi, private sApi: ShopApi) {
 
   }
 
@@ -56,7 +57,9 @@ export class NavbarComponent {
   onChangeStore(item) {
     this.uApi.userShopCurrentPost(item.id).subscribe((data) => {
       this.storeName = item.name;
-    })
+      Cookie.save('shopId', item.id);
+      this.router.navigate(['/dashbroad/business-list']);
+    });
   }
 
 }

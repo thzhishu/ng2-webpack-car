@@ -38,7 +38,7 @@
           <td>{{customer?.vehicleMiles}}</td>
         </tr>
         <tr>
-          <td colspan="4" class="cd-base-op">最后入店时间: {{customer?.lastEnterDate}} <a routerLink="['/customer-edit',{id: customerId}]" routerLinkActive="active">编辑客户信息</a></td>
+          <td colspan="4" class="cd-base-op">最后入店时间: {{customer?.lastEnterDate}} <a [routerLink]="['../customer-edit',{id: customerId}]" routerLinkActive="active">编辑客户信息</a></td>
 
         </tr>
       </table>
@@ -124,7 +124,7 @@
           <div class="ev-methods">
             <div>
               <div>方法一</div>
-              <div><img src="/assets/images/dynamic/qr_record.png" alt=""></div>
+              <div><img [attr.src]="commentUrl.qrCode" ></div>
               <div>邀请顾客手机扫码参加</div>
             </div>
             <div>
@@ -156,7 +156,7 @@
         <div class="fwin-btns g-btns">
           <div class="g-btn" [ngClass]="{'g-btn-green': !hasSend, 'g-btn-gray': hasSend }" (click)="onSend()">{{ hasSend ? '已发送' : '立即发送' }}</div>
           <div class="pa resend" *ngIf="hasSend" (click)="onResend()">重新发送</div>
-          <a class="g-btn g-btn-green">马上评价</a>
+          <a [attr.href]="commentUrl.url" class="g-btn g-btn-green">马上评价</a>
         </div>
       </div>
     </div>

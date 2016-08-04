@@ -7,7 +7,7 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/co
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { CustomerApi, Customer, BusinessDetail,BusinessHistoryDetail } from 'client';
+import { CustomerApi, Customer, BusinessDetail,BusinessHistoryDetail, BusinessApi } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent,PaginationComponent } from 'common';
 
 
@@ -17,7 +17,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 	template: require('./customerDetail.html'),
 	styles: [require('./customerDetail.scss')],
 	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent,PaginationComponent],
-	providers: [HTTP_PROVIDERS, CustomerApi ]
+	providers: [HTTP_PROVIDERS, CustomerApi, BusinessApi ]
 })
 
 export class CustomerDetailComponent {
@@ -36,19 +36,22 @@ export class CustomerDetailComponent {
 	tempMobile: string = '';
 	sub:any;
 	page:any = {};
-
-	constructor(private router: Router, private route: ActivatedRoute, private cApi: CustomerApi) {
+	commentUrl = {
+		qrCode: '',
+		url: ''
+	};
+	constructor(private router: Router, private route: ActivatedRoute, private cApi: CustomerApi, private bApi: BusinessApi) {
 
 
 	}
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe(params => {
-		this.customerId = +params['id'];
-				this.getCustomerById(this.customerId);
-				if(!this.customerId) {
-					this.router.navigate(['/dashbroad/customer-list']);
-				}
+			this.customerId = +params['id'];
+			this.getCustomerById(this.customerId);
+			if (!this.customerId) {
+				this.router.navigate(['/dashbroad/customer-list']);
+			}
 		});
 	}
 
@@ -96,7 +99,13 @@ export class CustomerDetailComponent {
 	onShowCommentWin(record) {
 		this.showCommentWin = true;
 		this.historyRecord = record;
-
+		this.bApi.businessBusinessIdUrlGet(record.id).subscribe(data => {
+			if (data.meta.code === 200) {
+				this.commentUrl.qrCode = data.data.qrCode;
+				this.commentUrl.url = data.data.url;
+			}
+			
+		}, err => console.error(err));
 		console.log('historyRecord', this.historyRecord) ;
 	}
 
