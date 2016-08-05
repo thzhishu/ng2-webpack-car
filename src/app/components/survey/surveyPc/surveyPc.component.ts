@@ -26,6 +26,7 @@ export class SurveyPcComponent {
     };
     answersObj = {};
     showSurvey: number = 1;
+    profile: any;
     constructor( private router: Router, private route: ActivatedRoute, private sApi: SurveyApi ) {
         
     }
@@ -62,12 +63,22 @@ export class SurveyPcComponent {
                 return;
             }
             if (data.meta.code === 200 && data.data ) {
-                this.survey = JSON.parse(data.data);
-                this.surveyQustions = this.survey.pages && this.survey.pages.length ? this.survey.pages[0].questions : [];
-                this.surveyQustions = this.formatSurveyQestions(this.surveyQustions);
-                this.showSurvey = 1;
-                console.log(this.surveyQustions);
+                const dd = data.data;
+                this.profile = dd.profile;
+                // 取得问卷
+                this.survey = JSON.parse(dd.survey);
                 console.log(this.survey);
+                // 取得问卷的问题
+                this.surveyQustions = this.survey.pages && this.survey.pages.length ? this.survey.pages[0].questions : [];
+                // 格式化问卷问题
+                this.surveyQustions = this.formatSurveyQestions(this.surveyQustions);
+                console.log(this.surveyQustions);
+                // 处理问卷基本信息
+                if (this.profile) {
+                    this.profileHandle();
+                }
+                this.showSurvey = 1;
+                
             }
 
         }, err => console.error(err));
@@ -109,6 +120,73 @@ export class SurveyPcComponent {
         }
     }
 
+    // 处理问卷基本信息
+    profileHandle() {
+        console.log('profile.....')
+        const profile = this.profile;
+        let questions = this.surveyQustions;
+        // 性别
+        if ( profile.gender !== null ) {
+            let sex = profile.gender === 0 ? '女' : '男';
+            for (const opt of questions[4].options) {
+                if ( opt.title === sex ) {
+                    questions[4].answer = opt.id;
+                    break;
+                }
+            }
+        }
+        // 出生年份
+        if ( profile.birthYear !== null ) {
+            let year = parseInt(profile.birthYear, 10);
+            year = isNaN(year) ? profile.birthYear : year;
+            for (const opt of questions[5].options) {
+                if ( opt.title.includes(year) ) {
+                    questions[5].answer = opt.id;
+                    break;
+                }
+            }
+        }
+        // 车牌号
+        if ( profile.vehicleLicence !== null) {
+            questions[6].answer = profile.vehicleLicence;
+        }
+        // 手机号 
+        if ( profile.mobile !== null) {
+            questions[7].answer = profile.mobile;
+        }
+        // 车品牌 
+        if ( profile.vehicleBrand !== null) {
+            questions[8].answer = profile.vehicleBrand;
+        }
+        // 车型号 
+        if ( profile.vehicleModel !== null) {
+            questions[9].answer = profile.vehicleModel;
+        }
+        // 购买年份
+        if ( profile.birthYear !== null ) {
+            let year = parseInt(profile.vehicleYear, 10);
+            year = isNaN(year) ? profile.vehicleYear : year;
+            for (const opt of questions[10].options) {
+                if ( opt.title.includes(year) ) {
+                    questions[10].answer = opt.id;
+                    break;
+                }
+            }
+        }
+        // 行驶里程
+        if ( profile.vehicleMiles !== null ) {
+            let mile = profile.vehicleMiles.split('公里');
+            mile = mile[0].trim();
+            for (const opt of questions[11].options) {
+                if ( opt.title.includes(mile) ) {
+                    questions[11].answer = opt.id;
+                    break;
+                }
+            }
+        }
+        console.log(this.surveyQustions);
+    }
+
     // 处理多项评分题
     onMscore(q, subq, subidx, ans) {
         let id = 'q_' + q.id + '_' + subq.id;
@@ -128,7 +206,6 @@ export class SurveyPcComponent {
     }
     // 处理评分题
     onScore(q, ans) {
-        let id = 'q_' + q.id;
         q.answer = ans.id;
         q.tempPoint = ans.point === 99 ? 0 : ans.point;
         q.hasErr = false;
@@ -136,7 +213,6 @@ export class SurveyPcComponent {
     }
     // 处理性别题
     onSex(q, ans) {
-        let id = 'q_' + q.id;
         q.answer = ans.id;
         
     }

@@ -21,7 +21,7 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 
 export class ModifyPwdComponent {
 	pwd: any;
-
+    submitedErrMsg: string = '';
     mpwdForm: ControlGroup;
     active: Boolean;
     isEqual: Boolean = true;
@@ -56,7 +56,8 @@ export class ModifyPwdComponent {
                         alert('密码修改成功');
                     }
                 } else {
-                    alert(data.error.message);
+                    // alert(data.error.message);
+                    this.submitedErrMsg = data.error.message;
                 }
                     
             });
@@ -98,6 +99,11 @@ export class ModifyPwdComponent {
 
     onRepasswordFocus () {
         this.isEqual = true;
+    }
+    onCurrentPwdFocus() {
+        if (this.submitedErrMsg) {
+            this.submitedErrMsg = '';
+        }
     }
 
 
