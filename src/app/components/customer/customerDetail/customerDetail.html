@@ -6,7 +6,7 @@
       <div class="cd-tel">{{customer?.name}}<span>{{customer?.mobile}}</span></div>
       <div class="fl cd-plate">{{customer?.vehicleLicence}}</div>
       <div class="fr">
-        满意度平均分<span>8.8</span>分
+        满意度平均分<span>{{customerDetail?.totalAvgScore}}</span>分
       </div>
     </div>
     <!-- 顾客名字 end -->
@@ -48,7 +48,7 @@
     <div class="cd-record-bar">
       历史服务记录
       <div class="cd-r-btn">
-        合计 <span>30</span> 次
+        合计 <span>{{customerDetail?.historiesTotol}}</span> 次
         <a href="" class="g-btn g-btn-green">+  新服务</a>
       </div>
     </div>
