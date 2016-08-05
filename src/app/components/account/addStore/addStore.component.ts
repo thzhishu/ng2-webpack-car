@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/common';
+import {  ControlGroup, FormBuilder, Control } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -16,7 +16,7 @@ import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
 	selector: 'add-store',
 	template: require('./addStore.html'),
 	styles: [require('./addStore.scss')],
-	directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, StoreFormComponent],
+	directives: [ROUTER_DIRECTIVES,  NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, StoreFormComponent],
 	providers: [ HTTP_PROVIDERS ]
 })
 

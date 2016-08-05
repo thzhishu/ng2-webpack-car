@@ -1,7 +1,7 @@
 import { Component, Input, Output, NgZone, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
+import {  ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import { MdCheckbox } from '@angular2-material/checkbox/checkbox';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,7 @@ const SERVICE_LIST = [{"id":1,"name":"快修快保"},{"id":2,"name":"美容改�
   selector: 'store-form',
   template: require('./storeForm.html'),
   styles: [require('./storeForm.scss')],
-  directives: [ROUTER_DIRECTIVES,FORM_DIRECTIVES, MdCheckbox],
+  directives: [ROUTER_DIRECTIVES, MdCheckbox],
   providers: [HTTP_PROVIDERS, CommonApi, ShopApi, RegionApi]
 })
 

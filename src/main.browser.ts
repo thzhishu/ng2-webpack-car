@@ -14,7 +14,7 @@ import { ENV_PROVIDERS } from './platform/environment';
 */
 import { AppComponent } from './app';
 
-
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 
 /*
@@ -23,6 +23,8 @@ import { AppComponent } from './app';
  */
 export function main(initialHmrState?: any): Promise<any> {
   return bootstrap(AppComponent, [
+    disableDeprecatedForms(),
+    provideForms(),
     ...PROVIDERS,
     ...ENV_PROVIDERS,
     ...DIRECTIVES,

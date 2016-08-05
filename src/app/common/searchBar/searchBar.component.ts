@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FORM_DIRECTIVES } from '@angular/common';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 
 
@@ -8,7 +7,7 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
     selector: 'search-bar',
     template: require('./searchBar.html'),
     styles: [ require('./searchBar.scss') ],
-    directives: [ FORM_DIRECTIVES, ROUTER_DIRECTIVES ]
+    directives: [  ROUTER_DIRECTIVES ]
 })
 
 export class SearchBarComponent {
@@ -26,7 +25,7 @@ export class SearchBarComponent {
             alert("请输入正确的车牌号或手机号");
             return;
         }
-        
+
         console.log('searchKey: ', this.searchKey);
         this.router.navigate(['/dashbroad/customer-list', { s: encodeURI(this.searchKey) }]);
     }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import { FORM_DIRECTIVES } from '@angular/common';
 
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
@@ -10,7 +9,7 @@ import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
   selector: 'init-store',
   template: require('./initStore.html'),
   styles: [require('./initStore.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent,StoreFormComponent]
+  directives: [ROUTER_DIRECTIVES,  MainLogoComponent, PageFooterComponent,StoreFormComponent]
 })
 
 export class InitStoreComponent {

@@ -52,3 +52,4 @@ export * from './SurveySubmitRequest';
 export * from './SurveySubmitResponse';
 export * from './User';
 export * from './UserResponse';
+export * from './LoginReq';

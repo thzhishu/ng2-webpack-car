@@ -1,6 +1,6 @@
 <div class="forgetPwd">
   <main-logo></main-logo>
-  <form (ngSubmit)="onCheckPhone()" #fpForm="ngForm" *ngIf="next===1">
+  <form (ngSubmit)="onCheckPhone()" #fpForm="ngForm"  *ngIf="next === null ? false : next===1">
     <div class="forgetPwd-block animated rubberBand"  [class.flipOutY]="0">
       <h2 class="forgetPwd-title">找回密码<a routerLink="/register" routerLinkActive="active" class="forgetPwd-register-link fr">注册新账户</a>
       </h2>
@@ -35,7 +35,7 @@
       <i></i>
     </div>
   </form>
-  <form (ngSubmit)="onEditPwd()" #newPwdForm="ngForm" *ngIf="next!==1">
+  <form (ngSubmit)="onEditPwd()" #newPwdForm="ngForm" *ngIf="next === null ? false : next===2">
     <div class="forgetPwd-block animated"  [class.zoomOutRight]="0">
       <h2 class="forgetPwd-title">设置新密码</h2>
       <div class="forgetPwd-input" [class.error]="!newPwdForm.controls.pwd?.valid && !newPwdForm.controls.pwd?.pristine">

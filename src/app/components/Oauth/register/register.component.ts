@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { HTTP_PROVIDERS, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
+import {  ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -16,7 +16,7 @@ import { Cookie } from 'services';
   selector: 'register',
   template: require('./register.html'),
   styles: [require('./register.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
+  directives: [ROUTER_DIRECTIVES,  MainLogoComponent, PageFooterComponent],
   providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5],
 })
 

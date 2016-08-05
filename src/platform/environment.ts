@@ -4,8 +4,9 @@ import { enableProdMode } from '@angular/core';
 
 // Environment Providers
 let PROVIDERS = [];
-
+enableProdMode();
 if ('production' === ENV) {
+  
   // Production
   enableProdMode();
 

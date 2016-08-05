@@ -29,3 +29,9 @@
     border-right: 4px dashed transparent;
   }
 }
+table tbody td, table tbody th {
+    text-overflow: ellipsis;
+    max-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+}

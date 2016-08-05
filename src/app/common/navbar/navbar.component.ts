@@ -1,7 +1,7 @@
 import { Component, Input, Output, NgZone } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/common';
+import {  ControlGroup, FormBuilder, Control } from '@angular/common';
 
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ import { UserApi, ShopApi, Shop, MyAcountResponse } from 'client';
   selector: 'navbar',
   template: require('./navbar.html'),
   styles: [require('./navbar.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES],
   providers: [HTTP_PROVIDERS, UserApi, ShopApi]
 })
 

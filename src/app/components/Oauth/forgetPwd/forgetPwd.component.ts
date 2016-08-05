@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
+import {  ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -15,7 +15,7 @@ import { MainLogoComponent, PageFooterComponent } from 'common';
   selector: 'forget-pwd',
   template: require('./forgetPwd.html'),
   styles: [require('./forgetPwd.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
+  directives: [ROUTER_DIRECTIVES,  MainLogoComponent, PageFooterComponent],
   providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5],
 })
 

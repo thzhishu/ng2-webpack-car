@@ -3,11 +3,11 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control } from '@angular/common';
+import {  ControlGroup, FormBuilder, Control } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
-import { UserApi, CommonApi, ShopApi, UserResponse } from 'client';
+import { UserApi, CommonApi, ShopApi, UserResponse,LoginReq } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
 import { Cookie } from 'services';
 
@@ -16,26 +16,23 @@ import { Cookie } from 'services';
   selector: 'login-min',
   template: require('./loginMin.html'),
   styles: [require('./loginMin.scss')],
-  directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, MainLogoComponent, PageFooterComponent],
+  directives: [ROUTER_DIRECTIVES,  MainLogoComponent, PageFooterComponent],
   providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5, Cookie]
 })
 
 export class LoginMinComponent {
   loginForm: ControlGroup;
   zone: any;
-  user: any = {};
+  user: LoginReq = {phone:'',rnd:'',pwd:''};
   seekDisabeld: number = 0;
   seekBtnTitle: number = 0;
   img: any;
   loading: number = 0;
   constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
     this.zone = new NgZone({ enableLongStackTrace: false }); // 事务控制器
-    // 表单验证
-    this.loginForm = fb.group({
-      'phone': [''],
-      'rnd': [''],
-      'pwd': ['']
-    });
+  }
+  info(data){
+    console.log(data);
   }
   // 初始化
   ngOnInit() {
@@ -57,14 +54,8 @@ export class LoginMinComponent {
   // 登录
   onLogin() {
     this.loading = 1;
-    if (!this.loginForm.valid) {
-      alert('你输入的信息有误.不能完成登录');
-      this.loading = 0;
-      return false;
-    }
-    let params = this.loginForm.value;
+    let params = this.user;
     // mobile: string, password: string, code: string,
-    console.log('pwd..',Md5.hashStr(params.pwd, false).toString() )
     this.uApi.userLoginPost(params.phone, Md5.hashStr(params.pwd, false).toString(), params.rnd)
       .subscribe((data) => {
         this.loading = 0;

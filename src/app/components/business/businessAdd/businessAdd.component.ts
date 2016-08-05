@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
+import {  ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -12,10 +12,9 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Cookie } from 'services';
 
-import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem,CustomerSearchResponse } from 'client';
+import { BusinessApi, EmployeeApi, CustomerApi, Customer, EmployeeListItem,CustomerSearchResponse,BusinessDetail } from 'client';
 
 @Component({
-  moduleId: module.id,
   selector: 'business-add',
   template: require('./businessAdd.html'),
   styles: [require('./businessAdd.scss')],
@@ -32,6 +31,7 @@ export class BusinessAddComponent implements OnInit {
   customer: Customer;
   employeeChecked: boolean = true;
   employeeInput: string = '';
+  business:BusinessDetail = {vehicleLicence:'',name:'',employeeId:null,customerId:null,description:''};
 
   private searchVehicleCode = new Subject<CustomerSearchResponse>();
 
@@ -87,11 +87,11 @@ export class BusinessAddComponent implements OnInit {
 
   onSubmit(f) {
     this.loading = 1;
-    let data = f.value;
+    let data = Object.assign({},this.business);
     data.shopId = Cookie.load('shopId');
     if (data.employeeId === 'other') {
       // payload: models.BusinessDetail
-      this.eApi.employeeSavePost(this.employeeInput).subscribe(res => {
+      this.eApi.employeeSavePost(this.business.employeeInput,'','').subscribe(res => {
         this.loading = 0;
         if (res.meta.code === 200) {
           data.employeeId = res.data.id;
@@ -114,7 +114,7 @@ export class BusinessAddComponent implements OnInit {
     this.bApi.businessSaveOrUpdatePost(data).subscribe(data => {
       this.loading = 0;
       if (data.meta.code === 200) {
-        this.onClose();
+        this.onBusinessClose();
       } else {
         alert(data.error.message);
       }
@@ -124,8 +124,9 @@ export class BusinessAddComponent implements OnInit {
     });
   }
 
-  onClose() {
-    this.close.next("event");
+  onBusinessClose() {
+    // this.close.next("event");
     this.businessShow = 0;
+    window.location.reload();
   }
 }

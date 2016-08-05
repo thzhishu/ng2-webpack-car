@@ -1,8 +1,8 @@
-<div class="business-protocol-overlay" *ngIf="businessShow">
+<div class="business-protocol-overlay" *ngIf="businessShow === null ? false : !!businessShow">
   <div class="business-protocol-block">
     <div class="business-protocol-header">
       <h3 class="business-protocol-title">新增服务记录</h3>
-      <a href="javascript:void(0);" class="business-protocol-close" (click)="onClose()">X</a>
+      <a href="javascript:void(0);" class="business-protocol-close" (click)="onBusinessClose()">X</a>
     </div>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="business-protocol-row">
@@ -11,12 +11,12 @@
             <label for="store_name" class="g-label">
               <span class="warning">*</span>车牌号</label>
             <div class="g-ipt">
-              <input type="text" required ngControl="vehicleLicence" (keyup)="onChangeVL($event)" class="g-wml">
+              <input type="text" required name="vehicleLicence" [(ngModel)]="business.vehicleLicence" #vehicleLicence="ngModel" (keyup)="onChangeVL($event)" class="g-wml">
             </div>
             <div class="msg">
-              <span class="text-error" *ngIf="!f.controls.vehicleLicence?.valid && !f.controls.vehicleLicence?.pristine">
-                <span class="warning" *ngIf="f.controls.vehicleLicence?.errors?.required">车牌号不能为空</span>
-                <span class="warning" *ngIf="f.controls.vehicleLicence?.errors?.pattern">请输入正确的车牌号</span>
+              <span class="text-error" *ngIf="!vehicleLicence.valid && !vehicleLicence.pristine">
+                <span class="warning" *ngIf="vehicleLicence.errors?.required">车牌号不能为空</span>
+                <span class="warning" *ngIf="vehicleLicence.errors?.pattern">请输入正确的车牌号</span>
               </span>
             </div>
           </div>
@@ -24,11 +24,12 @@
             <label for="store_name" class="g-label">
               <span class="warning">*</span>服务项目</label>
             <div class="g-ipt">
-              <input type="text" required ngControl="name" class="g-wml">
+              <input type="text" required maxlength="250" name="name" [(ngModel)]="business.name" #name="ngModel" class="g-wml">
             </div>
             <div class="msg">
-              <span class="text-error" *ngIf="!f.controls.name?.valid && !f.controls.name?.pristine">
-                <span class="warning" *ngIf="f.controls.name?.errors?.required">服务项目不能为空</span>
+              <span class="text-error" *ngIf="!name.valid && !name.pristine">
+                <span class="warning" *ngIf="name.errors?.required">服务项目不能为空</span>
+                <span class="warning" *ngIf="name.errors?.maxlength">服务项目不能超过250个字</span>
               </span>
             </div>
           </div>
@@ -36,25 +37,25 @@
             <label for="store_name" class="g-label">
               <span class="warning">*</span>主理技师</label>
             <div class="g-ipt">
-              <select id="store_year" required ngControl="employeeId" class="g-wm">
+              <select id="store_year" required name="employeeId" [(ngModel)]="business.employeeId" #employeeId="ngModel" class="g-wm">
                 <option value="null">请选择主理技师</option>
                 <option [value]="e.id" *ngFor="let e of employeeList">{{e.name}}</option>
                 <option value="other">其他</option>
               </select>
-              <md-checkbox *ngIf="f.value.employeeId=='other'" [(ngModel)]="employeeChecked">我的员工</md-checkbox>
+              <md-checkbox *ngIf="business.employeeId=='other'" name="employeeChecked" [(ngModel)]="business.employeeChecked">我的员工</md-checkbox>
             </div>
           </div>
-          <div class="g-field" *ngIf="f.value.employeeId=='other'">
+          <div class="g-field" *ngIf="business.employeeId=='other'">
             <label for="store_name" class="g-label"></label>
             <div class="g-ipt">
-              <input type="text" placeholder="请输入技师编号或姓名" [(ngModel)]="employeeInput" class="g-wml">
+              <input type="text" placeholder="请输入技师编号或姓名" name="employeeInput" [(ngModel)]="business.employeeInput" #employeeInput="ngModel" class="g-wml">
             </div>
           </div>
           <div class="g-field">
             <label for="store_name" class="g-label">
               备注</label>
             <div class="g-ipt">
-              <textarea ngControl="description" rows="8" cols="40" class="g-wml"></textarea>
+              <textarea [(ngModel)]="business.description" name="description" #description="ngModel" rows="8" cols="40" class="g-wml"></textarea>
             </div>
           </div>
         </div>
@@ -71,7 +72,7 @@
       </div>
       <div class="btn-block">
         <button type="submit" class="submit" [disabled]="!f.valid||loading">提交</button>
-        <button type="button" class="cancel ml25" (click)="onClose()">取消</button>
+        <button type="button" class="cancel ml25" (click)="onBusinessClose()">取消</button>
       </div>
     </form>
   </div>
