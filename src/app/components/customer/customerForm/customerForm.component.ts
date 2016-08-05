@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
 })
 
 export class CustomerFormComponent {
-    @Input() customer;
+  @Input() customer:Customer;
 	customerForm: ControlGroup;
 	vehiclePlateNull: Boolean = false;
 	vehiclePlateLen: Boolean = false;
@@ -90,13 +90,13 @@ export class CustomerFormComponent {
 	ngOnInit() {
 		this.initFb();
 		this.items.subscribe(data => {
-			const val = this.customerForm.value.vehicleLicence;
+			const val = this.customer.vehicleLicence;
 			if (this.tempPlate === val) {
 				this.vehiclePlateHas = data && data.data ? true : false;
 			} else {
 				this.subjectAjax();
 			}
-			
+
 		});
 	}
 
@@ -143,9 +143,8 @@ export class CustomerFormComponent {
 	onSave( other ) {
 
 		const willAddNew = other || false;
-		const isNew = this.customerForm.value.id ? false : true;
+		const isNew = this.customer.id ? false : true;
 		this.vehiclePlateValid();
-		console.log(this.vehiclePlateNull, this.vehiclePlateLen,  this.vehiclePlateHas)
 		if (this.vehiclePlateNull || this.vehiclePlateLen || this.vehiclePlateHas ) {
 			return;
 		}
@@ -157,13 +156,12 @@ export class CustomerFormComponent {
 
 		if (this.submitting) return;
 		this.submitting = true;
-		console.log(this.customerForm);
-		let vals = this.customerForm.value;
+		let vals = this.customer;
 		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence || '', vals.id || '', vals.mobile || '', vals.vehicleFrame || '', vals.name || '', vals.birthYear || '', vals.gender || '', vals.vehicleBrand  || '', vals.vehicleModel  || '', vals.vehicleYear  || '', vals.vehicleMiles  || '').subscribe(data => {
 			this.submitting = false;
 			this.tempPlate = '';
 			if (data.meta.code === 200 && data.data) {
-				
+
 				// 需要继续创建
 				if (isNew && willAddNew) {
 					this.initFb();
@@ -177,7 +175,7 @@ export class CustomerFormComponent {
 					alert('修改成功');
 					this.gotoListPage();
 				}
-				
+
 
 			} else {
 				if (data.error && data.error.message) {
@@ -192,7 +190,7 @@ export class CustomerFormComponent {
 	}
 
 	vehiclePlateValid() {
-		let vehicleLicence = this.customerForm.value.vehicleLicence;
+		let vehicleLicence = this.customer.vehicleLicence;
 		console.log(vehicleLicence)
 		if (vehicleLicence === '') {
 			this.vehiclePlateNull = true;
@@ -207,7 +205,7 @@ export class CustomerFormComponent {
 		return true;
 	}
 	vehiclePlateAjax() {
-		const val = this.customerForm.value.vehicleLicence;
+		const val = this.customer.vehicleLicence;
 		this.vehiclePlateLen = false;
 		if (val.length > 6 && val.length < 10 ) {
 			this.vehiclePlateHas = false;
@@ -237,10 +235,10 @@ export class CustomerFormComponent {
 	}
 
 	subjectAjax() {
-		const val = this.customerForm.value.vehicleLicence;
+		const val = this.customer.vehicleLicence;
 		this.vehiclePlateLen = false;
 		this.vehiclePlateHas = false;
-		
+
 		if ( val.length > 6 && val.length < 10 ) {
 			this.tempPlate = val;
 			this.searchTermStream.next(val);
@@ -250,5 +248,5 @@ export class CustomerFormComponent {
 		}
 	}
 
-	
+
 }
