@@ -10,6 +10,8 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { provideRouter, RouterConfig }  from '@angular/router';
 // components
 import * as components from 'components';
+import { CanDeactivateGuard } from 'services';
+console.log('****', CanDeactivateGuard);
 
 export const routes = [
   // { path: '', redirectTo: '/login-min' },
@@ -29,7 +31,7 @@ export const routes = [
       { path: 'employee-add', component: components.EmployeeAddComponent },
       { path: 'employee-edit', component: components.EmployeeEditComponent },
       { path: 'employee-list', component: components.EmployeeListComponent },
-      { path: 'customer-add', component: components.CustomerAddComponent },
+      { path: 'customer-add', component: components.CustomerAddComponent, canDeactivate: [CanDeactivateGuard] },
       { path: 'customer-edit', component: components.CustomerEditComponent },
       { path: 'customer-detail', component: components.CustomerDetailComponent },
       { path: 'customer-list', component: components.CustomerListComponent },
@@ -56,5 +58,6 @@ export const APP_ROUTE_PROVIDERS = [provideRouter(routes, { enableTracing: false
 
 export const PROVIDERS = [
   ...APP_ROUTE_PROVIDERS,
-  ...APPLICATION_PROVIDERS
+  ...APPLICATION_PROVIDERS,
+  CanDeactivateGuard
 ];
