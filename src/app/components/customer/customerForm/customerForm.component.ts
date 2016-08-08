@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
 })
 
 export class CustomerFormComponent {
-  @Input() customer:Customer;
+  @Input() customer: Customer;
 	customerForm: ControlGroup;
 	vehiclePlateNull: Boolean = false;
 	vehiclePlateLen: Boolean = false;
@@ -33,6 +33,7 @@ export class CustomerFormComponent {
 	active: Boolean = true;
 	submitting: Boolean = false;
 	customerDefault: any;
+	customerCurrent: any;
 	searchTermStream = new Subject<string>();
 	tempPlate: string = '';
 	items: Observable<any> = this.searchTermStream
@@ -90,7 +91,7 @@ export class CustomerFormComponent {
 	ngOnInit() {
 		this.initFb();
 		this.items.subscribe(data => {
-			const val = this.customer.vehicleLicence;
+			const val = this.customerCurrent.vehicleLicence;
 			if (this.tempPlate === val) {
 				this.vehiclePlateHas = data && data.data ? true : false;
 			} else {
@@ -110,23 +111,9 @@ export class CustomerFormComponent {
 	}
 
 	initFb() {
-		console.log(this.customer);
-		const oldVal = _.cloneDeep(this.customer || this.customerDefault);
-		console.log('old-val', oldVal);
-		this.customerForm = this.fb.group({
-			'id': [oldVal.id],
-			'vehicleLicence': [oldVal.vehicleLicence],
-			'mobile': [oldVal.mobile],
-			'vehicleFrame': [oldVal.vehicleFrame],
-			'name': [oldVal.name],
-			'birthYear': [oldVal.birthYear],
-			'gender': [oldVal.gender],
-			'vehicleBrand': [oldVal.vehicleBrand],
-			'vehicleModel': [oldVal.vehicleModel],
-			'vehicleYear': [oldVal.vehicleYear],
-			'vehicleMiles': [oldVal.vehicleMiles]
-
-		});
+		console.log('this_customer: ', this.customer);
+		this.customerCurrent = Object.assign({}, this.customer || this.customerDefault);
+		console.log('customerCurrent', this.customerCurrent);
 
 		this.active = false;
         setTimeout(() => this.active = true, 0);
@@ -141,7 +128,6 @@ export class CustomerFormComponent {
 	}
 
 	onSave( other ) {
-
 		const willAddNew = other || false;
 		const isNew = this.customer.id ? false : true;
 		this.vehiclePlateValid();
@@ -156,12 +142,23 @@ export class CustomerFormComponent {
 
 		if (this.submitting) return;
 		this.submitting = true;
-		let vals = this.customer;
-		this.cApi.customerSaveOrUpdatePost(vals.vehicleLicence || '', vals.id || '', vals.mobile || '', vals.vehicleFrame || '', vals.name || '', vals.birthYear || '', vals.gender || '', vals.vehicleBrand  || '', vals.vehicleModel  || '', vals.vehicleYear  || '', vals.vehicleMiles  || '').subscribe(data => {
+		let vals = this.customerCurrent;
+		this.cApi.customerSaveOrUpdatePost(
+			vals.vehicleLicence || '',
+			vals.id || '',
+			vals.mobile || '',
+			vals.vehicleFrame || '',
+			vals.name || '',
+			vals.birthYear || '',
+			vals.gender || '',
+			vals.vehicleBrand  || '',
+			vals.vehicleModel  || '',
+			vals.vehicleYear  || '',
+			vals.vehicleMiles  || ''
+		).subscribe(data => {
 			this.submitting = false;
 			this.tempPlate = '';
 			if (data.meta.code === 200 && data.data) {
-
 				// 需要继续创建
 				if (isNew && willAddNew) {
 					this.initFb();
@@ -176,7 +173,6 @@ export class CustomerFormComponent {
 					this.gotoListPage();
 				}
 
-
 			} else {
 				if (data.error && data.error.message) {
 					alert(data.error.message);
@@ -190,7 +186,7 @@ export class CustomerFormComponent {
 	}
 
 	vehiclePlateValid() {
-		let vehicleLicence = this.customer.vehicleLicence;
+		let vehicleLicence = this.customerCurrent.vehicleLicence;
 		console.log(vehicleLicence)
 		if (vehicleLicence === '') {
 			this.vehiclePlateNull = true;
@@ -204,26 +200,11 @@ export class CustomerFormComponent {
 		this.vehiclePlateLen = false;
 		return true;
 	}
-	vehiclePlateAjax() {
-		const val = this.customer.vehicleLicence;
-		this.vehiclePlateLen = false;
-		if (val.length > 6 && val.length < 10 ) {
-			this.vehiclePlateHas = false;
-			this.cApi.customerVehicleVehicleLicenceGet(encodeURI(val)).subscribe(data => {
-				if (data.data) {
-					this.vehiclePlateHas = true;
-				}
-			}, err => console.error(err));
-		} else if ( val.length >= 10) {
-			this.vehiclePlateHas = false;
-			this.vehiclePlateLen = true;
-		}
-	}
+	
 	onMobileValid() {
-		let controls: any = this.customerForm.controls;
-		let mobileErr = controls.mobile.errors;
-		console.log('controls', controls)
-		this.mobileFormatValid = mobileErr && mobileErr.pattern ? true : false;
+		if (this.customerCurrent.mobile) {
+			this.mobileFormatValid = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/.test(this.customerCurrent.mobile) ? false : true;
+		}
 	}
 	onMobileFocus() {
 		this.mobileFormatValid = false;
@@ -235,10 +216,14 @@ export class CustomerFormComponent {
 	}
 
 	subjectAjax() {
-		const val = this.customer.vehicleLicence;
+		const val = this.customerCurrent.vehicleLicence;
 		this.vehiclePlateLen = false;
 		this.vehiclePlateHas = false;
-
+		console.log(val);
+		console.log(this.customer.vehicleLicence)
+		if (this.customerCurrent.id && val === this.customer.vehicleLicence) {
+			return;
+		}
 		if ( val.length > 6 && val.length < 10 ) {
 			this.tempPlate = val;
 			this.searchTermStream.next(val);
@@ -247,6 +232,5 @@ export class CustomerFormComponent {
 			this.vehiclePlateLen = true;
 		}
 	}
-
 
 }

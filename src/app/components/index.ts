@@ -8,3 +8,4 @@ export * from './report';
 export * from './survey';
 export * from './storeForm/storeForm.component.ts';
 export * from './dashbroad/dashbroad.component.ts';
+export * from './search';

@@ -27,6 +27,6 @@ export class SearchBarComponent {
         }
 
         console.log('searchKey: ', this.searchKey);
-        this.router.navigate(['/dashbroad/customer-list', { s: encodeURI(this.searchKey) }]);
+        this.router.navigate(['/dashbroad/search-list', { s: encodeURI(this.searchKey) }]);
     }
 }
