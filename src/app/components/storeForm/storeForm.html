@@ -1,6 +1,6 @@
 <!-- 门店表单 -->
-<form (ngSubmit)="onResigerShop(f)" #f="ngForm">
-  <div class="" *ngFor="let shop of shopList,let i = index" [ngControlGroup]="i" >
+<form (ngSubmit)="onResigerShop()" #f="ngForm">
+  <div class="" *ngFor="let shop of shopList,let i = index;" >
     <!-- 门店表单字段 -->
     <div class="c-form c-modify-store" >
       <h5>
@@ -10,28 +10,44 @@
         <label for="store_name" class="g-label">
           <span class="warning">*</span>门店名称</label>
         <div class="g-ipt">
-          <input type="text" required ngControl="name" [(ngModel)]="shop.name" class="g-wl">
+          <input type="text" required name="name" [(ngModel)]="shop.name" #name="ngModel" class="g-wl">
           <!--<a *ngIf="!!id" class="g-addico"><i></i><span>新增门店</span></a>-->
-          <a href="javascript:void(0);" class="add-store" (click)="onAddShop(i)" *ngIf="!id" >新增门店</a>
+          <a href="javascript:void(0);" class="add-store" (click)="onAddShop(i,shop)" *ngIf="!id" >新增门店</a>
+        </div>
+        <div class="msg">
+          <span class="text-error" *ngIf="!name.valid && !name.pristine">
+            <span class="warning" *ngIf="name.errors?.required">门店名称不能为空</span>
+          </span>
         </div>
       </div>
       <div class="g-field">
         <label for="store_name" class="g-label">
           <span class="warning">*</span>门店地址</label>
         <div class="g-sel">
-          <select class="g-ws mr10" required ngControl="provinceId" [ngModel]="shop.provinceId" (ngModelChange)="onChangeProvince($event,shop)">
+          <select class="g-ws mr10" required name="provinceId" #provinceId="ngModel" [ngModel]="shop.provinceId" (ngModelChange)="onChangeProvince($event,shop)">
             <option value="undefined">请选择省市</option>
             <option [value]="plist.id" *ngFor="let plist of provinceList">{{plist.name}}</option>
           </select>
-          <select class="g-ws" required ngControl="cityId" [(ngModel)]="shop.cityId">
+          <select class="g-ws" required name="cityId" #cityId="ngModel" [(ngModel)]="shop.cityId">
             <option value="undefined">请选择城市</option>
             <option [value]="clist.id" *ngFor="let clist of shop.cityList">{{clist.name}}</option>
           </select>
         </div>
       </div>
       <div class="g-field">
-        <label for="store_name" required class="g-label" placeholder="详细地址"></label>
-        <input type="text" ngControl="address" [(ngModel)]="shop.address" class="g-wml">
+        <label for="store_name" required class="g-label"  placeholder="详细地址"></label>
+        <input type="text" name="address" [(ngModel)]="shop.address" #address="ngModel" class="g-wml">
+        <div class="msg">
+          <span class="text-error" *ngIf="!provinceId.valid && !provinceId.pristine">
+            <span class="warning" *ngIf="provinceId.errors?.required">省市不能为空</span>
+          </span>
+          <span class="text-error" *ngIf="!cityId.valid && !cityId.pristine">
+            <span class="warning" *ngIf="cityId.errors?.required">城市不能为空</span>
+          </span>
+          <span class="text-error" *ngIf="!address.valid && !address.pristine">
+            <span class="warning" *ngIf="address.errors?.required">详细地址不能为空</span>
+          </span>
+        </div>
       </div>
       <div class="g-field fs14">
         <label for="store_server" class="g-label">
@@ -53,20 +69,24 @@
       <div class="g-field">
         <label for="store_director" class="g-label">负责人</label>
         <div class="g-ipt">
-          <input type="text" id="store_director" ngControl="ownerName" [(ngModel)]="shop.ownerName" class="g-wm">
+          <input type="text" id="store_director" name="ownerName" [(ngModel)]="shop.ownerName" class="g-wm">
         </div>
       </div>
       <div class="g-field">
         <label for="store_tel" class="g-label">联系方式</label>
         <div class="g-ipt">
-          <input type="text" id="store_tel" [(ngModel)]="shop.phone" pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" ngControl="phone" class="g-wm">
-          <span *ngIf="f.controls.phone?.errors?.pattern">请输入正确的联系方式</span>
+          <input type="text" id="store_tel" #phone="ngModel" name="phone" [(ngModel)]="shop.phone" pattern="^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$" class="g-wm">
+        </div>
+        <div class="msg">
+          <span class="text-error" *ngIf="!phone.valid && !phone.pristine">
+            <span class="warning" *ngIf="phone.errors?.pattern">请输入正确的联系方式</span>
+          </span>
         </div>
       </div>
       <div class="g-field">
         <label for="store_year" class="g-label">开店年份</label>
         <div class="g-sel">
-          <select id="store_year" ngControl="openingDate" [(ngModel)]="shop.openingDate" class="g-wm">
+          <select id="store_year" name="openingDate" [(ngModel)]="shop.openingDate" class="g-wm">
             <option value="undefined">请选择开店年份</option>
             <option [value]="y" *ngFor="let y of YEARS_20">{{y}}</option>
           </select>
@@ -75,7 +95,7 @@
       <div class="g-field">
         <label for="store_area" class="g-label">门店面积</label>
         <div class="g-ipt">
-          <input type="number" id="store_area" ngControl="area" [(ngModel)]="shop.area" class="g-wm">
+          <input type="number" id="store_area" name="area" [(ngModel)]="shop.area" class="g-wm">
           <span class="g-unit">m<i>2</i>
           </span>
         </div>
@@ -83,7 +103,7 @@
       <div class="g-field">
         <label for="store_park" class="g-label">汽修工位</label>
         <div class="g-sel">
-          <select id="store_park" class="g-wm" ngControl="station" [(ngModel)]="shop.station">
+          <select id="store_park" class="g-wm" name="station" [(ngModel)]="shop.station">
             <option value="undefined">请选择汽修工位</option>
             <option [value]="s" *ngFor="let s of STATION_10">{{s}}</option>
           </select>

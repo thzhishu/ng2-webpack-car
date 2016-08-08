@@ -3,6 +3,7 @@ import { ROUTER_DIRECTIVES, provideRouter, Router, RouterConfig } from '@angular
 
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'car-app',
   template: `<router-outlet></router-outlet>`,

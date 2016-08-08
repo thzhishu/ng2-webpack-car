@@ -11,6 +11,7 @@ import { DATEPICKER_DIRECTIVES,PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-b
 
 import { BusinessApi, BusinessList,BusinessListResponse } from 'client';
 import { PaginationComponent } from 'common';
+import { MissionService } from 'services';
 import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
 
 @Component({
@@ -18,7 +19,7 @@ import { BusinessAddComponent } from '../businessAdd/businessAdd.component.ts';
   template: require('./businessList.html'),
   styles: [require('./businessList.scss')],
   directives: [DATEPICKER_DIRECTIVES,ROUTER_DIRECTIVES,PaginationComponent],
-  providers: [HTTP_PROVIDERS, BusinessApi],
+  providers: [HTTP_PROVIDERS, BusinessApi,MissionService],
   // host: {
   //   '(click)': 'closeDatePicker($event)'
   // }
@@ -31,9 +32,15 @@ export class BusinessListComponent {
   dateShow: boolean = false;
   timeout:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private bApi: BusinessApi) {
-
+  constructor(private router: Router, private route: ActivatedRoute, private bApi: BusinessApi,private missionService: MissionService) {
+console.log('BusinessListComponent',missionService.businessAddAnnounced);
+      missionService.businessAddAnnounced.subscribe(
+      astronaut => {
+        console.log('businessAddAnnounced$');
+        this.getList();
+      });
   }
+
   // 初始化
   ngOnInit() {
     this.getList();
@@ -93,5 +100,9 @@ export class BusinessListComponent {
         }
       })
     },500)
+  }
+
+  onOpenBusinessAdd(){
+    this.missionService.confirmBusinessAdd("{selector: \'business-list\'}");
   }
 }

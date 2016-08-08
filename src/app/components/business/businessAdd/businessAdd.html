@@ -1,8 +1,8 @@
-<div class="business-protocol-overlay" *ngIf="businessShow === null ? false : !!businessShow">
+<div class="business-protocol-overlay" *ngIf="businessShow">
   <div class="business-protocol-block">
     <div class="business-protocol-header">
       <h3 class="business-protocol-title">新增服务记录</h3>
-      <a href="javascript:void(0);" class="business-protocol-close" (click)="onBusinessClose()">X</a>
+      <a href="javascript:void(0);" class="business-protocol-close" (click)="onClose()">X</a>
     </div>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="business-protocol-row">
@@ -72,7 +72,7 @@
       </div>
       <div class="btn-block">
         <button type="submit" class="submit" [disabled]="!f.valid||loading">提交</button>
-        <button type="button" class="cancel ml25" (click)="onBusinessClose()">取消</button>
+        <button type="button" class="cancel ml25" (click)="onClose()">取消</button>
       </div>
     </form>
   </div>
