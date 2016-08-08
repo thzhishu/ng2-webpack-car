@@ -9,24 +9,36 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent, SearchBarComponent } from 'common';
+import { MissionService } from 'services';
 import { BusinessAddComponent } from '../business/businessAdd/businessAdd.component.ts';
 
 @Component({
-	moduleId: module.id,
 	selector: 'dashbroad',
 	template: require('./dashbroad.html'),
 	styles: [require('./dashbroad.scss')],
 	directives: [ ROUTER_DIRECTIVES,  NavbarComponent, MenusComponent, SearchBarComponent, PageFooterComponent, BusinessAddComponent ],
-	providers: [ HTTP_PROVIDERS ]
+	providers: [ HTTP_PROVIDERS,MissionService ]
 })
 
 export class DashbroadComponent {
-	constructor(private router: Router, private route: ActivatedRoute) {
-
+	constructor(private router: Router, private route: ActivatedRoute,private missionService: MissionService) {
+		console.log('DashbroadComponent',missionService.businessAddAnnounced);
+		missionService.businessAddAnnounced.subscribe(
+      astronaut => {
+        console.log(`DashbroadComponent`,astronaut);
+      },error=>{
+				console.error(error);
+			},com=>{
+				console.info(com);
+			});
 	}
 
 	ngOnInit() {
 
+	}
+
+	onOpenBusinessAdd(){
+		this.missionService.confirmBusinessAdd({selector: 'dashbroad'});
 	}
 
 }

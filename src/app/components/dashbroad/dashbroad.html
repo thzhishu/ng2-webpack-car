@@ -1,7 +1,6 @@
-
 <navbar></navbar>
 <menus></menus>
-<business-add (close)="onClose()" #ba [businessShow]="0" ></business-add>
+
 <main>
   <div class="p-gray">
     <div class="playout">
@@ -16,9 +15,10 @@
         <search-bar></search-bar>
         <!--搜索 end-->
         <!-- 添加新服务 -->
-        <a href="javascript:void(0);" class="pa g-btn g-btn-green" (click)="ba.businessShow=1">+  记录新服务</a>
+        <a href="javascript:void(0);" class="pa g-btn g-btn-green" (click)="onOpenBusinessAdd()">+  记录新服务</a>
         <!-- 添加新服务 end-->
       </div>
+      <business-add></business-add>
       <!-- 带搜索+添加的面包屑 end -->
       <router-outlet></router-outlet>
       <!-- 页脚  -->

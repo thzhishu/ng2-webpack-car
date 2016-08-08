@@ -20,7 +20,7 @@ export const routes = [
 
   { path: 'survey-pc', component: components.SurveyPcComponent },
   { path: 'survey-mobile', component: components.SurveyMobileComponent },
-  { path: 'dashbroad', component: components.DashbroadComponent,
+  { path: 'dashbroad',component: components.DashbroadComponent,
     children: [
       { path: 'my-account', component: components.MyAccountComponent },
       { path: 'modify-store', component: components.ModifyStoreComponent },
@@ -51,7 +51,7 @@ export const APPLICATION_PROVIDERS = [
   ...HTTP_PROVIDERS,
   { provide: LocationStrategy, useClass: HashLocationStrategy },
 ];
-export const APP_ROUTE_PROVIDERS = [provideRouter(routes, { enableTracing: false })];
+export const APP_ROUTE_PROVIDERS = [provideRouter(routes, { enableTracing: true })];
 
 export const PROVIDERS = [
   ...APP_ROUTE_PROVIDERS,

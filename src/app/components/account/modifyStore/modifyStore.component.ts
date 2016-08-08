@@ -12,7 +12,6 @@ import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent
 import { StoreFormComponent } from '../../storeForm/storeForm.component.ts';
 
 @Component({
-	moduleId: module.id,
 	selector: 'modify-store',
 	template: require('./modifyStore.html'),
 	styles: [require('./modifyStore.scss')],
@@ -30,6 +29,7 @@ export class ModifyStoreComponent {
 	}
 
 	onSuccess(data){
+		console.log(data,'/dashbroad/my-account');
 		this.router.navigate(['/dashbroad/my-account']);
 	}
 
