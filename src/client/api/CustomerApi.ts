@@ -191,8 +191,8 @@ export class CustomerApi {
         formParams.append('mobile',mobile);
         formParams.append('vehicleFrame',vehicleFrame);
         formParams.append('name',name);
-        formParams.append('birthYear',birthYear);
-        formParams.append('gender',gender);
+        formParams.append('birthYear', birthYear.toString());
+        formParams.append('gender',gender.toString());
         formParams.append('vehicleBrand',vehicleBrand);
         formParams.append('vehicleModel',vehicleModel);
         formParams.append('vehicleYear',vehicleYear);

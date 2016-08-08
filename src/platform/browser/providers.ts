@@ -33,6 +33,7 @@ export const routes = [
       { path: 'customer-edit', component: components.CustomerEditComponent },
       { path: 'customer-detail', component: components.CustomerDetailComponent },
       { path: 'customer-list', component: components.CustomerListComponent },
+      { path: 'search-list', component: components.SearchListComponent },
       { path: 'report/week/business', component: components.ReportWeekBusinessComponent },
       { path: 'report/week/satisfaction', component: components.ReportWeekSatisfactionComponent },
       { path: 'business-add', component: components.BusinessAddComponent },
