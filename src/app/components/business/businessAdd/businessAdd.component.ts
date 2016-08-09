@@ -43,10 +43,11 @@ export class BusinessAddComponent implements OnInit {
 
 
   constructor(private router: Router, private route: ActivatedRoute, private bApi: BusinessApi, private eApi: EmployeeApi, private cApi: CustomerApi, private missionService: MissionService) {
-    this.subscription = missionService.businessAddConfirmed.subscribe(
+    this.subscription = this.missionService.businessAddConfirmed$.subscribe(
       ba => {
+        console.log('ba');
         this.onOpen();
-      });
+      },error=>console.error(error),com=>console.info(com));
   }
   // 初始化
   ngOnInit() {
@@ -59,7 +60,7 @@ export class BusinessAddComponent implements OnInit {
       }
     });
   }
-  
+
   ngOnDestroy() {
     // prevent memory leak when component destroyed
     this.subscription.unsubscribe();

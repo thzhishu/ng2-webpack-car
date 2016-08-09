@@ -1,3 +1,6 @@
+import { Injectable }  from '@angular/core';
+
+@Injectable()
 export class Cookie {
 
   public static load(name: string): string {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, NgZone } from '@angular/core';
+import { Component, Input, Output, NgZone,Injectable } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { Http, Response, HTTP_PROVIDERS } from '@angular/http';
 import { ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/common';
@@ -32,9 +32,9 @@ export class BusinessListComponent {
   dateShow: boolean = false;
   timeout:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private bApi: BusinessApi,private missionService: MissionService) {
-console.log('BusinessListComponent',missionService.businessAddAnnounced);
-      missionService.businessAddAnnounced.subscribe(
+  constructor(private router: Router, private route: ActivatedRoute, private bApi: BusinessApi,@Injectable() private missionService: MissionService) {
+console.log('BusinessListComponent',missionService.businessAddAnnounced$);
+      missionService.businessAddAnnounced$.subscribe(
       astronaut => {
         console.log('businessAddAnnounced$');
         this.getList();

@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, ShopApi, UserResponse,LoginReq } from 'client';
 import { MainLogoComponent, PageFooterComponent } from 'common';
-import { Cookie } from 'services';
+import { Cookie,AuthService } from 'services';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,7 @@ import { Cookie } from 'services';
   template: require('./loginMin.html'),
   styles: [require('./loginMin.scss')],
   directives: [ROUTER_DIRECTIVES,  MainLogoComponent, PageFooterComponent],
-  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5, Cookie]
+  providers: [HTTP_PROVIDERS, UserApi, CommonApi, ShopApi, Md5, Cookie,AuthService]
 })
 
 export class LoginMinComponent {
@@ -28,7 +28,7 @@ export class LoginMinComponent {
   seekBtnTitle: number = 0;
   img: any;
   loading: number = 0;
-  constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi) {
+  constructor(private router: Router, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private sApi: ShopApi, private authService: AuthService) {
     this.zone = new NgZone({ enableLongStackTrace: false }); // 事务控制器
   }
   info(data){
@@ -53,26 +53,27 @@ export class LoginMinComponent {
   }
   // 登录
   onLogin() {
-    this.loading = 1;
+    // this.loading = 1;
     let params = this.user;
     // mobile: string, password: string, code: string,
-    this.uApi.userLoginPost(params.phone, Md5.hashStr(params.pwd, false).toString(), params.rnd)
-      .subscribe((data) => {
-        this.loading = 0;
-        if (data.meta.code === 200) {
-          Cookie.save('token', data.data.User.token, 7);
-          Cookie.save('shopId', data.data.User.lastShopId);
-          this.sApi.defaultHeaders.set('token', data.data.User.token);
-          if (data.data.User.lastShopId === null) {
-            this.router.navigate(['/init-store']);
-          } else {
-            this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
-            this.router.navigate(['/dashbroad/business-list']);
-          }
-        } else {
-          alert(data.error.message);
-        }
-      });
+    // this.authService.login(params.phone, params.pwd, params.rnd);
+    // this.uApi.userLoginPost(params.phone, Md5.hashStr(params.pwd, false).toString(), params.rnd)
+    //   .subscribe((data) => {
+    //     this.loading = 0;
+    //     if (data.meta.code === 200) {
+    //       Cookie.save('token', data.data.User.token, 7);
+    //       Cookie.save('shopId', data.data.User.lastShopId);
+    //       this.sApi.defaultHeaders.set('token', data.data.User.token);
+    //       if (data.data.User.lastShopId === null) {
+    //         this.router.navigate(['/init-store']);
+    //       } else {
+    //         this.sApi.defaultHeaders.set('shopId', data.data.User.lastShopId);
+    //         this.router.navigate(['/dashbroad/business-list']);
+    //       }
+    //     } else {
+    //       alert(data.error.message);
+    //     }
+    //   });
   }
 
   toHome() {

@@ -37,7 +37,7 @@ export class StoreFormComponent {
   shopList: Array<Shop>;
 
   // @Input('store') shopList:Array<Shop>;
-  @Output() thSuccess = new EventEmitter();
+  @Output() success = new EventEmitter();
 
   constructor(private router: Router, private route: ActivatedRoute, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
     this.shopList = [{index:1, sList: _.cloneDeep(SERVICE_LIST) }];
@@ -165,8 +165,7 @@ export class StoreFormComponent {
       this.sApi.shopUpdatePost(post[0]).subscribe(data => {
         this.loading = 0;
         if (data.meta.code === 200) {
-          console.log(data.data)
-          this.thSuccess.next(data.data);
+          this.success.emit('success');
         } else {
           alert(data.error.message);
         }
@@ -175,7 +174,7 @@ export class StoreFormComponent {
       this.sApi.shopBatchSavePost(post).subscribe(data => {
         this.loading = 0;
         if (data.meta.code === 200) {
-          this.thSuccess.next(data.data);
+          this.success.emit('success');
         } else {
           alert(data.error.message);
         }

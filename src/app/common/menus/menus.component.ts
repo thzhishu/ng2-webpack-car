@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi } from 'client';
-import { Cookie } from 'services';
+import { Cookie,AuthService } from 'services';
 
 @Component({
 	moduleId: module.id,
@@ -16,17 +16,15 @@ import { Cookie } from 'services';
 	template: require('./menus.html'),
 	styles: [require('./menus.scss')],
 	directives: [ROUTER_DIRECTIVES],
-	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5 ]
+	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5,AuthService ]
 })
 
 export class MenusComponent {
-	constructor(private router: Router,private route: ActivatedRoute) {
+	constructor(private router: Router,private route: ActivatedRoute,private authService:AuthService) {
 
 	}
 
 	onExit(){
-		Cookie.remove('token');
-		Cookie.remove('shopId');
-		this.router.navigate(['/login-min']);
+		this.authService.logout();
 	}
 }

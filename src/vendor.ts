@@ -15,7 +15,6 @@ import '@angular/router-deprecated';
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/share';
 
 if ('production' === ENV) {
   // Production
