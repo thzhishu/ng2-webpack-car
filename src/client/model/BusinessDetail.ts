@@ -77,4 +77,6 @@ export interface BusinessDetail {
     totalAmount?: number;
 
     supplies?: Array<models.Supply>;
+
+    employeeInput?: string;
 }

@@ -17,7 +17,7 @@ export class SearchBarComponent {
         console.log(router);
     }
     ngOnInit() {
-
+        this.searchKey = '';
     }
     onSearch() {
         let skey = this.searchKey.trim();
