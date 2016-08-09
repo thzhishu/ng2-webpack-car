@@ -98,5 +98,6 @@ export interface Shop {
      */
     updateTime?: string;
 
-    sList:any;
+    sList?: any;
+    index?: number;
 }

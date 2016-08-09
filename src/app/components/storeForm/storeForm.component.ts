@@ -5,7 +5,7 @@ import {  ControlGroup, FormBuilder, Control, NgControlGroup } from '@angular/co
 import { MdCheckbox } from '@angular2-material/checkbox/checkbox';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-
+import { Md5 } from 'ts-md5/dist/md5';
 import * as _ from 'lodash';
 
 import { CommonApi, ShopApi, RegionApi, RegionItem, Shop } from 'client';
@@ -19,7 +19,7 @@ const SERVICE_LIST = [{ "id": 1, "name": "快修快保" }, { "id": 2, "name": "�
   template: require('./storeForm.html'),
   styles: [require('./storeForm.scss')],
   directives: [ROUTER_DIRECTIVES, MdCheckbox],
-  providers: [HTTP_PROVIDERS, CommonApi, ShopApi, RegionApi]
+  providers: [HTTP_PROVIDERS, CommonApi, ShopApi, RegionApi, Md5]
 })
 
 export class StoreFormComponent {
@@ -34,10 +34,11 @@ export class StoreFormComponent {
   errorServiceType: number = 0;
   sub: any;
   id: number;
-  shopList: Array<Shop>;
+  shopList: any;
+  oldShopList: string = '';
 
   // @Input('store') shopList:Array<Shop>;
-  @Output() thSuccess = new EventEmitter();
+  @Output() success = new EventEmitter();
 
   constructor(private router: Router, private route: ActivatedRoute, private cApi: CommonApi, private sApi: ShopApi, private rApi: RegionApi) {
     this.shopList = [{index:1, sList: _.cloneDeep(SERVICE_LIST) }];
@@ -45,6 +46,7 @@ export class StoreFormComponent {
 
   // 初始化
   ngOnInit() {
+    this.oldShopList = Md5.hashStr(JSON.stringify(this.shopList), false).toString();
     this.sub = this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = +params['id'];
@@ -70,12 +72,21 @@ export class StoreFormComponent {
             sub.checked = data.serviceIds.indexOf(sub.id) != -1;
           })
           this.getCity(data.provinceId, data);
+          
           return data;
-        })
+        });
+        console.log("old:", this.shopList)
+        
       } else {
         alert(data.error.message);
       }
     });
+  }
+
+  hasChange() {
+    console.log("new:", this.shopList)
+    let current = Md5.hashStr(JSON.stringify(this.shopList), false).toString();
+    return current === this.oldShopList;
   }
 
 
@@ -93,6 +104,10 @@ export class StoreFormComponent {
     this.rApi.regionProvinceIdCityGet(provinceId + '').subscribe(data => {
       if (data.meta.code === 200) {
         item.cityList = data.data;
+        if (this.id) {
+          this.oldShopList = Md5.hashStr(JSON.stringify(this.shopList), false).toString();
+        }
+        
       }
     })
   }
@@ -166,7 +181,7 @@ export class StoreFormComponent {
         this.loading = 0;
         if (data.meta.code === 200) {
           console.log(data.data)
-          this.thSuccess.next(data.data);
+          this.success.next(data.data);
         } else {
           alert(data.error.message);
         }
@@ -175,7 +190,7 @@ export class StoreFormComponent {
       this.sApi.shopBatchSavePost(post).subscribe(data => {
         this.loading = 0;
         if (data.meta.code === 200) {
-          this.thSuccess.next(data.data);
+          this.success.next(data.data);
         } else {
           alert(data.error.message);
         }

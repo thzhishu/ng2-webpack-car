@@ -24,6 +24,7 @@ export class EmployeeFormComponent {
 	@Input() employee;
 	formErr: any;
 	submitting: Boolean = false;
+	hasSave: boolean = false;
 	constructor(private router: Router, fb: FormBuilder, private route: ActivatedRoute, private uApi: UserApi, private cApi: CommonApi, private eApi: EmployeeApi) {
 		// this.employee = {
 		// 	name: '',
@@ -40,7 +41,7 @@ export class EmployeeFormComponent {
 
 	ngOnInit() {
 		console.log('employee edit form components init');
-		console.log("dd:", this.employee)
+		console.log("dd:", this.employee);
 	}
 	save() {
 		if (this.employee.name.trim() === '' && this.employee.code.trim() === '') {
@@ -77,6 +78,7 @@ export class EmployeeFormComponent {
 		if (result) {
 			result.subscribe(data => {
 				console.log('创建了一个新的员工');
+				this.hasSave = true;
 				this.onReset();
 				this.submitting = false;
 			}, err => {
@@ -125,5 +127,7 @@ export class EmployeeFormComponent {
 		}
 		return this.formErr.mobile;
 	}
+
+	
 
 }

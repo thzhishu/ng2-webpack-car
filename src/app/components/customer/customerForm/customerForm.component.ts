@@ -10,7 +10,6 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { UserApi, CommonApi, CustomerApi, Customer } from 'client';
 import { MainLogoComponent, PageFooterComponent, NavbarComponent, MenusComponent } from 'common';
 import { Subject } from 'rxjs/Subject';
-import { DialogService } from 'services';
 
 @Component({
 	moduleId: module.id,
@@ -18,7 +17,7 @@ import { DialogService } from 'services';
 	template: require('./customerForm.html'),
 	styles: [require('./customerForm.scss')],
 	directives: [ROUTER_DIRECTIVES,  NavbarComponent, MenusComponent],
-	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, CustomerApi, DialogService ]
+	providers: [HTTP_PROVIDERS, UserApi, CommonApi, Md5, CustomerApi ]
 })
 
 export class CustomerFormComponent {
@@ -45,7 +44,8 @@ export class CustomerFormComponent {
 				console.log('term: ', term, i);
 				return this.cApi.customerVehicleVehicleLicenceGet(encodeURI(term));
 			});
-	constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private cApi: CustomerApi, private dialogService: DialogService) {
+	hasSave: boolean = false;
+	constructor(private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private cApi: CustomerApi) {
 
 		const currentYear = +(new Date()).getFullYear();
 		this.birthdayYearArr = this.rangeArr(currentYear - 60, currentYear - 16).reverse();
@@ -119,15 +119,20 @@ export class CustomerFormComponent {
 	// 	console.log('', GlobalVar.needFormSave);
 	// }
 
-	canDeactivate(): Observable<boolean> | boolean {
+	// canDeactivate(): Observable<boolean> | boolean {
+	// 	let current = Md5.hashStr(JSON.stringify(this.customerCurrent), false).toString();
+	// 	console.log(this.customerOldString, current );
+	// 	if ( this.customerOldString === current ) {
+	// 		return true;
+	// 	}
+	// 	let p = this.dialogService.confirm('当前页面尚有信息未保存，是否离开？点击确定则显示搜索结果，点击取消还原原页面');
+	// 	let o = Observable.fromPromise(p);
+	// 	return o;
+	// }
+
+	hasChange() {
 		let current = Md5.hashStr(JSON.stringify(this.customerCurrent), false).toString();
-		console.log(this.customerOldString, current );
-		if ( this.customerOldString === current ) {
-			return true;
-		}
-		let p = this.dialogService.confirm('当前页面尚有信息未保存，是否离开？点击确定则显示搜索结果，点击取消还原原页面');
-		let o = Observable.fromPromise(p);
-		return o;
+		return this.hasSave || this.customerOldString === current;
 	}
 
 	initFb() {
@@ -186,6 +191,7 @@ export class CustomerFormComponent {
 					return;
 				}
 				// 添加一次
+				this.hasSave = true;
 				if (isNew) {
 					this.gotoListPage();
 				} else {
