@@ -77,10 +77,15 @@ export class EmployeeFormComponent {
 		let result = this.save();
 		if (result) {
 			result.subscribe(data => {
-				console.log('创建了一个新的员工');
-				this.hasSave = true;
-				this.onReset();
-				this.submitting = false;
+				if(data.meta.code === 200) {
+					console.log('创建了一个新的员工');
+					this.hasSave = true;
+					this.onReset();
+					
+				} else {
+					alert(data.error && data.error.message);
+				}
+				this.submitting = false;	
 			}, err => {
 				console.error('创建新的员工失败');
 				console.error(err);
