@@ -118,7 +118,7 @@ export class CustomerDetailComponent {
 
 	// 通过手机号发送
 	onSend() {
-		const mobile = this.customer.mobile || this.tempMobile;
+		let mobile = this.customer.mobile || this.tempMobile;
 		mobile = mobile.trim();
 		if (mobile === '' || !(/^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/.test(mobile)) ) {
 			this.sendErr.mobile = true;
@@ -129,7 +129,7 @@ export class CustomerDetailComponent {
 		const rnd = Math.floor(Math.random() * 9000 + 1000);
 		const salt = 'thzs0708';
 		let sign = Md5.hashStr(mobile + rnd + salt).toString();
-		this.bApi.businessBusinessIdCommentPost(this.historyRecord.id, mobile, rnd, sign).subscribe( data => {
+		this.bApi.businessBusinessIdCommentPost(this.historyRecord.id, mobile, rnd + '', sign).subscribe( data => {
 			console.log(data);
 			if (data.meta && data.meta.code === 200) {
 				this.hasSend = true;
